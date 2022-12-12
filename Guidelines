@@ -1,0 +1,37 @@
+MANDATORY:
+
+only 6 charachters:
+	- 0 empty
+	- 1 wall
+	- N, S, E, W charachter spawn and orientation
+
+the map must be closed
+
+the name must end in ".cub"
+
+the map must be at the end of the file
+
+any other content than the map must ignore multiple newlines or spaces
+
+spaces are valid part of the map, they can be handled as I want
+
+Extra content:
+	- NO path: path to texture facing north
+	- SO path: path to texture facing south
+	- WE path: path to texture facing west
+	- EA path: path to texture facing east
+	- F r,g,b: floor color in RGB in range 0-255 inclusive
+	- C r,g,b: ceiling color in RGB in range 0-255 inclusive
+
+BONUS:
+
+wall collisions
+minimap
+doors to open and close
+animated sprites
+rotate view with mouse
+
+EXTRA:
+
+Enemies and combat (melee or shooting)
+animated sprites based on entity status
