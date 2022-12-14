@@ -8,7 +8,8 @@
 # include <shared.h>
 
 //	parsing
-bool	parse_map(t_map *map, int argc, char **argv);
+bool	parse_args(t_map *map, int argc, char **argv);
+bool	check_map(t_map *map);
 
 //	execution
 

@@ -4,7 +4,7 @@ int	init_filedesc(t_filedesc *fds, int fd)
 {
 	fds->fd = fd;
 	fds->fbuff = 0;
-	ft_strlcpy(&fds->fbuff, "", 1);
+	gnl_strlcpy(&fds->fbuff, "", 1);
 	fds->rb = 1;
 	fds->res = 1;
 	return (1);
@@ -53,14 +53,30 @@ char	*get_next_line(int fd)
 		if (fds[fd].rb == -1)
 			return (free_all(&fds[fd]));
 		fds[fd].buff[fds[fd].rb] = 0;
-		fds[fd].fbuff = ft_strjoin(fds[fd].fbuff, fds[fd].buff, fds[fd].rb);
+		fds[fd].fbuff = gnl_strjoin(fds[fd].fbuff, fds[fd].buff, fds[fd].rb);
 		if (!fds[fd].fbuff)
 			return (free_all(&fds[fd]));
-		fds[fd].res = ft_strchr(&fds[fd], '\n');
+		fds[fd].res = gnl_strchr(&fds[fd], '\n');
 		if (fds[fd].res || !*fds[fd].fbuff)
 			break ;
 	}
 	if (!fds[fd].res)
 		return (free_all(&fds[fd]));
 	return (ret(&fds[fd]));
+}
+
+int	free_fd_gnl(int fd)
+{
+	char	*buffer;
+
+	while (1)
+	{
+		buffer = get_next_line(fd);
+		if (!buffer)
+			break ;
+		free(buffer);
+	}
+	if (close(fd))
+		return (1);
+	return (0);
 }

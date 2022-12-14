@@ -11,5 +11,7 @@
 # include <shared.h>
 
 char	*get_next_line(int fd);
+int		free_fd_gnl(int fd);
+char	*skip_spaces(char *in);
 
 #endif

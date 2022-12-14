@@ -1,3 +1,7 @@
+TODO:
+	- ft_realloc.c
+	- maybe move free_map from cub3.c to map.c
+
 MANDATORY:
 
 only 6 charachters:

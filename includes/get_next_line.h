@@ -21,8 +21,8 @@ typedef struct s_filedesc
 	int		rb;
 }	t_filedesc;
 
-char	*ft_strjoin(char const *s1, char const *s2, size_t len);
-int		ft_strchr(t_filedesc *fds, int c);
-size_t	ft_strlcpy(char **dst, const char *src, size_t dstsize);
+char	*gnl_strjoin(char *s1, char const *s2, size_t len);
+int		gnl_strchr(t_filedesc *fds, int c);
+size_t	gnl_strlcpy(char **dst, const char *src, size_t dstsize);
 
 #endif

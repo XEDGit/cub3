@@ -40,6 +40,9 @@ re: fclean $(NAME)
 debug: FLAGS = -g -fsanitize=address
 debug: fclean $(NAME)
 
+sym: FLAGS = -g
+sym: fclean $(NAME)
+
 nf: FLAGS = 
 nf: fclean $(NAME)
 
