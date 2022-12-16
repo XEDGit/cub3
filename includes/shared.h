@@ -45,7 +45,7 @@ typedef	struct s_data
 # include <stdbool.h>
 # include <stdlib.h>
 
-bool	error(char *msg, bool perr);
+bool	error(char *msg, void *msg_arg, bool perr);
 
 char	*ft_strdup(const char *s1);
 int		ft_strlen(char *ptr);

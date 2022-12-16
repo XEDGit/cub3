@@ -1,10 +1,21 @@
 #include <cub3.h>
 
-bool	error(char *msg, bool perr)
+bool	error(char *msg, void *msg_arg, bool perr)
 {
+	char	*arg_ptr;
+
 	printf("Error\n");
 	if (perr && msg)
 		perror(msg);
+	arg_ptr = ft_strchr(msg, '%');
+	if (msg && arg_ptr)
+	{
+		if (*(arg_ptr + 1) == 's')
+			printf(msg, (char *)msg_arg);
+		else if (*(arg_ptr + 1) == 'd')
+			printf(msg, *(int *)msg_arg);
+		printf("\n");
+	}
 	else if (msg)
 		printf("%s\n", msg);
 	return (true);

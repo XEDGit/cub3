@@ -22,7 +22,7 @@ int	cell_add_to_back(t_cell **node, int newX, int newY)
 	{
 		*node = malloc(sizeof(t_cell));
 		if (!node)
-			return (error("Malloc fail", false));
+			return (error("Malloc fail", 0, false));
 		(*node)->cellX = newX;
 		(*node)->cellY = newY;
 		(*node)->next = 0;
@@ -31,7 +31,7 @@ int	cell_add_to_back(t_cell **node, int newX, int newY)
 	last = cell_last(*node);
 	last->next = malloc(sizeof(t_cell));
 	if (!last->next)
-		return (error("Malloc fail", false));
+		return (error("Malloc fail", 0, false));
 	last->next->cellX = newX;
 	last->next->cellY = newY;
 	last->next->next = 0;
@@ -49,6 +49,8 @@ void	free_cell(t_cell *node)
 	}
 }
 
+#include <unistd.h>
+#include <stdio.h>
 bool	check_neighbors(t_cell *to_check, t_cell **new, char **map, vec_t borders)
 {
 	static int	nborsY[] = { 1, 1, 1,  0, 0, -1, -1, -1};
@@ -59,21 +61,28 @@ bool	check_neighbors(t_cell *to_check, t_cell **new, char **map, vec_t borders)
 	while (to_check)
 	{
 		if (!to_check->cellX || to_check->cellX == borders[X] ||
-		!to_check->cellY || to_check->cellY == borders[Y])
-			return (error("Map is not surrounded by walls", false));
+		!to_check->cellY || to_check->cellY == borders[Y] || map[to_check->cellY][to_check->cellX] == ' ')
+			return (error("Map is not surrounded by walls", 0, false));
+		if (!is_valid_map(map[to_check->cellY][to_check->cellX]))
+			return (error("Map contains invalid charachter at '%s'", map[target[Y]], false));
 		i = 0;
 		while (i < 8)
 		{
 			target[X] = to_check->cellX - nborsX[i];
 			target[Y] = to_check->cellY - nborsY[i];
-			// TODO	targets value set to minus
-			printf("targets: %d, %d\n", target[X], target[Y]);
-			if (!is_valid_map(map[target[Y]][target[X]]))
-				return (error("Map contains invalid charachter", false));
-			if (map[target[Y]][target[X]] == '0')
+			if (map[target[Y]][target[X]] == '0' || map[target[Y]][target[X]] == ' ')
 			{
-				map[target[Y]][target[X]] = '2';
 				cell_add_to_back(new, target[X], target[Y]);
+				map[target[Y]][target[X]] = '1';
+				// debug
+				map[to_check->cellY][to_check->cellX] = '#';
+				int c = 0;
+				system("clear");
+				printf("Seed floodfill:\n");
+				while (map[c])
+					printf("%s\n", map[c++]);
+				map[to_check->cellY][to_check->cellX] = '1';
+				usleep(25000);
 			}
 			i++;
 		}
@@ -87,18 +96,19 @@ void	check_map_loop(t_cell_list *cells, bool *end)
 	vec_t	borders;
 
 	cells->map_copy = copy_2d(cells->map_list_copy->map);
-	cells->check_copy = cells->to_check;
 	if (!cells->map_copy)
-		*end = error("Malloc error", true);
-	borders[X] = ft_strlen(cells->map_copy[0]);
-	borders[Y] = len_2d(cells->map_copy);
+		*end = error("Malloc error", 0, true);
+	borders[X] = ft_strlen(cells->map_copy[0]) - 1;
+	borders[Y] = len_2d(cells->map_copy) - 1;
 	while (!*end && cells->to_check)
 	{
+		cells->check_copy = cells->to_check;
 		*end = check_neighbors(cells->to_check, &cells->neighbors, cells->map_copy, borders);
-		cells->to_check = cells->to_check->next;
+		free_cell(cells->check_copy);
+		cells->to_check = cells->neighbors;
+		cells->neighbors = 0;
 	}
 	cells->to_check = cells->neighbors;
-	free_cell(cells->check_copy);
 	free_2d(cells->map_copy);
 }
 
