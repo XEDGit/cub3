@@ -15,14 +15,27 @@ typedef struct s_player
 # define Y 1
 # define Z 2
 
+typedef struct s_single_map
+{
+	char				**map;
+	vec_t				spawn;
+	struct s_single_map	*next;
+}	t_single_map;
+
 typedef struct s_map
 {
-	char		*textures[4];
-	long		floor;
-	long		ceiling;
-	char		**map;
-	t_player	player;
+	char			*textures[4];
+	long			floor;
+	long			ceiling;
+	t_single_map	*maps;
+	t_player		player;
 }	t_map;
+
+typedef	struct s_data
+{
+	t_map		map;
+	t_player	player;
+}	t_data;
 
 # define NO 0
 # define SO 1
@@ -38,5 +51,8 @@ char	*ft_strdup(const char *s1);
 int		ft_strlen(char *ptr);
 long	ft_atoi(const char *str);
 char	*ft_strchr(char *s, int c);
+char	**copy_2d(char **old);
+void	free_2d(char **array);
+int		len_2d(char **array);
 
 #endif

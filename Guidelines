@@ -2,6 +2,7 @@ TODO:
 	- ft_realloc.c
 	- maybe move free_map from cub3.c to map.c
 
+
 MANDATORY:
 
 only 6 charachters:
@@ -39,3 +40,4 @@ EXTRA:
 
 Enemies and combat (melee or shooting)
 animated sprites based on entity status
+Multiple maps with (end of levels || teleports between maps)

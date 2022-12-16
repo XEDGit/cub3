@@ -12,39 +12,53 @@ bool	error(char *msg, bool perr)
 
 void	free_map(t_map *map)
 {
-	char	**map_copy;
+	t_single_map	*next;
 	int		c;
 
-	c = 0;
 	free(map->textures[0]);
 	free(map->textures[1]);
 	free(map->textures[2]);
 	free(map->textures[3]);
-	if (!map->map)
+	if (!map->maps)
 		return ;
-	map_copy = map->map;
-	while (map_copy[c])
-		free(map_copy[c++]);
-	free(map->map);
+	while (map->maps)
+	{
+		c = 0;
+		while (map->maps->map[c])
+			free(map->maps->map[c++]);
+		free(map->maps->map);
+		next = map->maps->next;
+		free(map->maps);
+		map->maps = next;
+	}
 }
 
 int main(int argc, char **argv)
 {
-	t_map	map;
+	t_data	data;
 
-	map = (t_map){0};
+	data = (t_data){0};
 	// parse map and content
-	if (parse_args(&map, argc, argv))
-		(void)map;
+	if (parse_args(&data.map, argc, argv))
+		(void)data;
 	// checking map
-	else if (check_map(&map))
-		(void)map;
+	else if (check_map(&data.map))
+		(void)data;
 	// execute
-	printf("tx1: %s\ntx2: %s\ntx3: %s\ntx4: %s\n", map.textures[NO], map.textures[SO], map.textures[WE], map.textures[EA]);
-	int i = 0;
-	while (map.map && map.map[i])
-		printf("%s", map.map[i++]);
+	
+	// DEBUG
+	printf("tx1: %s\ntx2: %s\ntx3: %s\ntx4: %s\nfloor: %ld, ceiling: %ld\n", data.map.textures[NO], data.map.textures[SO], data.map.textures[WE], data.map.textures[EA], data.map.floor, data.map.ceiling);
+	t_single_map *copy = data.map.maps;
+	int	c = 0;
+	while (copy)
+	{
+		printf("map %d:\n", c++);
+		int i =  0;
+		while (copy->map[i])
+			printf("%s\n", copy->map[i++]);
+		copy = copy->next;
+	}
 	// free all
-	free_map(&map);
+	free_map(&data.map);
 	return (0);
 }
