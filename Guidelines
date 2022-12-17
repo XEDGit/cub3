@@ -9,15 +9,15 @@ only 6 charachters:
 	- 1 wall
 	- N, S, E, W charachter spawn and orientation
 
-the map must be closed
+the map must be closed		V
 
-the name must end in ".cub"
+the name must end in ".cub"		X
 
-the map must be at the end of the file
+the map must be at the end of the file		X
 
-any other content than the map must ignore multiple newlines or spaces
+any other content than the map must ignore multiple newlines or spaces		V
 
-spaces are valid part of the map, they can be handled as I want
+spaces are valid part of the map, they can be handled as I want		V
 
 Extra content:
 	- NO path: path to texture facing north

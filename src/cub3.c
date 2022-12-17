@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cub3.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lmuzio <lmuzio@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/12/17 14:54:14 by lmuzio            #+#    #+#             */
+/*   Updated: 2022/12/17 16:24:31 by lmuzio           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <cub3.h>
 
 bool	error(char *msg, void *msg_arg, bool perr)
@@ -24,7 +36,7 @@ bool	error(char *msg, void *msg_arg, bool perr)
 void	free_map(t_map *map)
 {
 	t_single_map	*next;
-	int		c;
+	int				c;
 
 	free(map->textures[0]);
 	free(map->textures[1]);
@@ -44,11 +56,11 @@ void	free_map(t_map *map)
 	}
 }
 
-int main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
 	t_data	data;
 
-	data = (t_data){0};
+	data = (t_data){{{0}, 0, 0, 0, {0}}, {0}};
 	// parse map and content
 	if (parse_args(&data.map, argc, argv))
 		(void)data;
@@ -64,7 +76,7 @@ int main(int argc, char **argv)
 	while (copy)
 	{
 		printf("map %d:\n", c++);
-		int i =  0;
+		int i = 0;
 		while (copy->map[i])
 			printf("%s\n", copy->map[i++]);
 		copy = copy->next;

@@ -1,14 +1,29 @@
-#ifndef MAP_H
-# define MAP_H
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   shared.h                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lmuzio <lmuzio@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/12/17 16:25:27 by lmuzio            #+#    #+#             */
+/*   Updated: 2022/12/17 16:28:14 by lmuzio           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-typedef int	vec_t[3];
+#ifndef SHARED_H
+# define SHARED_H
+
+# include <stdbool.h>
+# include <stdlib.h>
+
+typedef int	t_vec[3];
 
 typedef struct s_player
 {
-	vec_t	position;
+	t_vec	position;
 	int		health;
-	int		rotH;
-	int		rotV;
+	int		h_rot;
+	int		v_rot;
 }	t_player;
 
 # define X 0
@@ -18,7 +33,7 @@ typedef struct s_player
 typedef struct s_single_map
 {
 	char				**map;
-	vec_t				spawn;
+	t_vec				spawn;
 	struct s_single_map	*next;
 }	t_single_map;
 
@@ -31,7 +46,7 @@ typedef struct s_map
 	t_player		player;
 }	t_map;
 
-typedef	struct s_data
+typedef struct s_data
 {
 	t_map		map;
 	t_player	player;
@@ -41,9 +56,6 @@ typedef	struct s_data
 # define SO 1
 # define WE 2
 # define EA 3
-
-# include <stdbool.h>
-# include <stdlib.h>
 
 bool	error(char *msg, void *msg_arg, bool perr);
 

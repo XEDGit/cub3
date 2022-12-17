@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parsing.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lmuzio <lmuzio@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/12/17 14:54:51 by lmuzio            #+#    #+#             */
+/*   Updated: 2022/12/17 16:31:35 by lmuzio           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <parsing.h>
 
 int	parsing_map_loop(char **map, int fd, int *lines_count)
@@ -16,7 +28,7 @@ int	parsing_map_loop(char **map, int fd, int *lines_count)
 	}
 	if (*content != '\n' && *content)
 	{
-		if (line[ft_strlen(line) - 1] == '\n') 
+		if (line[ft_strlen(line) - 1] == '\n')
 			line[ft_strlen(line) - 1] = 0;
 		map[(*lines_count)++] = line;
 	}
@@ -75,13 +87,12 @@ char	**square_map(char **map)
 {
 	int	i;
 	int	oldlen;
-	int len;
+	int	len;
 
 	len = len_longest_line(map);
 	i = 0;
 	while (map[i])
 	{
-
 		oldlen = ft_strlen(map[i]);
 		map[i] = ft_realloc(map[i], oldlen, len + 1);
 		if (!map[i])
@@ -96,46 +107,47 @@ char	**square_map(char **map)
 int	parse_one_map(t_map *maps, int fd)
 {
 	int		lines_count;
-	int		buff_multiplier;
+	int		size;
 	int		end;
 	char	**map;
 
 	lines_count = 0;
-	buff_multiplier = 10;
-	map = malloc(sizeof(char *) * buff_multiplier);
+	size = 10;
+	map = malloc(sizeof(char *) * size);
 	while (map)
 	{
 		end = parsing_map_loop(map, fd, &lines_count);
 		if (end)
 			break ;
-		if (lines_count == buff_multiplier)
+		if (lines_count == size)
 		{
-			map = (char **)ft_realloc(map, sizeof(char *) * buff_multiplier, sizeof(char *) * (buff_multiplier + 10));
-			buff_multiplier += 10;
+			map = ft_realloc(map, 8 * size, 8 * (size + 10));
+			size += 10;
 		}
 	}
 	if (!map)
 		return (error("Map allocation failed", 0, true));
 	map[lines_count] = 0;
-	map = square_map(map);
-	if (!map)
-		return (error("Map allocation failed", 0, true));
 	if (map_add_to_back(&maps->maps, map))
 		return (error("Adding map to list failed", 0, true));
 	return (end);
 }
 
-
 bool	parse_maps(t_map *map, int fd)
 {
-	int	end;
+	int				end;
+	t_single_map	*last_node;
 
 	while (true)
 	{
 		end = parse_one_map(map, fd);
 		if (end == true)
 			return (true);
-		if (find_player(map_last(map->maps)))
+		last_node = map_last(map->maps);
+		last_node->map = square_map(last_node->map);
+		if (!last_node->map)
+			return (error("Map squaring failed", 0, true));
+		if (find_player(last_node))
 			return (error("Player not found in map", 0, false));
 		if (end == -2)
 			break ;
@@ -175,7 +187,7 @@ bool	parse_rgb(t_map *map, char *line)
 bool	parse_textures(t_map *map, char *line)
 {
 	char	*content;
-	
+
 	content = skip_spaces(line + 2);
 	content = ft_strdup(content);
 	if (!content)
@@ -214,7 +226,8 @@ bool	parse_lines(t_map *map, int fd)
 		free(line);
 		if (err)
 			return (error("Error parsing the map", 0, false));
-		if (map->ceiling && map->floor && map->textures[0] && map->textures[1] && map->textures[2] && map->textures[3])
+		if (map->ceiling && map->floor && map->textures[0] && \
+		map->textures[1] && map->textures[2] && map->textures[3])
 			break ;
 	}
 	return (false);
@@ -225,14 +238,14 @@ bool	parse_args(t_map *map, int argc, char **argv)
 	int		fd;
 
 	if (argc < 2)
-		return (error("Not enough arguments\nUsage: ./cub3 path_to_map", 0, false));
+		return (error("Not enough arguments\nUsage: ./cub3 path_to_map", \
+		0, false));
 	fd = open(argv[1], O_RDONLY);
 	if (fd == -1)
 		return (error("File open failed", 0, true));
-	if (parse_lines(map, fd) ||	parse_maps(map, fd))
-		return(free_fd_gnl(fd));
+	if (parse_lines(map, fd) || parse_maps(map, fd))
+		return (free_fd_gnl(fd));
 	if (close(fd))
 		return (error("Failed closing file descriptor", 0, true));
-	
 	return (false);
 }
