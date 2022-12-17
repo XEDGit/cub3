@@ -50,6 +50,7 @@ bool	error(char *msg, void *msg_arg, bool perr);
 char	*ft_strdup(const char *s1);
 int		ft_strlen(char *ptr);
 long	ft_atoi(const char *str);
+void	*ft_realloc(void *ptr, unsigned int old_size, unsigned int size);
 char	*ft_strchr(char *s, int c);
 char	**copy_2d(char **old);
 void	free_2d(char **array);

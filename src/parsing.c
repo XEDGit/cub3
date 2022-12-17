@@ -83,7 +83,7 @@ char	**square_map(char **map)
 	{
 
 		oldlen = ft_strlen(map[i]);
-		map[i] = realloc(map[i], len + 1);
+		map[i] = ft_realloc(map[i], oldlen, len + 1);
 		if (!map[i])
 			return (0);
 		while (oldlen < len)
@@ -101,15 +101,18 @@ int	parse_one_map(t_map *maps, int fd)
 	char	**map;
 
 	lines_count = 0;
-	buff_multiplier = 1;
-	map = malloc(sizeof(char *) * 10);
+	buff_multiplier = 10;
+	map = malloc(sizeof(char *) * buff_multiplier);
 	while (map)
 	{
 		end = parsing_map_loop(map, fd, &lines_count);
 		if (end)
 			break ;
-		if (lines_count == (10 * buff_multiplier))
-			map = (char **)realloc(map, sizeof(char *) * (10 * ++buff_multiplier));
+		if (lines_count == buff_multiplier)
+		{
+			map = (char **)ft_realloc(map, sizeof(char *) * buff_multiplier, sizeof(char *) * (buff_multiplier + 10));
+			buff_multiplier += 10;
+		}
 	}
 	if (!map)
 		return (error("Map allocation failed", 0, true));

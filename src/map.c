@@ -74,15 +74,6 @@ bool	check_neighbors(t_cell *to_check, t_cell **new, char **map, vec_t borders)
 			{
 				cell_add_to_back(new, target[X], target[Y]);
 				map[target[Y]][target[X]] = '1';
-				// debug
-				map[to_check->cellY][to_check->cellX] = '#';
-				int c = 0;
-				system("clear");
-				printf("Seed floodfill:\n");
-				while (map[c])
-					printf("%s\n", map[c++]);
-				map[to_check->cellY][to_check->cellX] = '1';
-				usleep(25000);
 			}
 			i++;
 		}
@@ -108,7 +99,6 @@ void	check_map_loop(t_cell_list *cells, bool *end)
 		cells->to_check = cells->neighbors;
 		cells->neighbors = 0;
 	}
-	cells->to_check = cells->neighbors;
 	free_2d(cells->map_copy);
 }
 
@@ -120,10 +110,11 @@ bool	check_map(t_data *data)
 	cells = (t_cell_list){0};
 	cells.map_list_copy = data->map.maps;
 	end = false;
-	while (cells.map_list_copy)
+	while (!end && cells.map_list_copy)
 	{
-		if (cell_add_to_back(&cells.to_check, cells.map_list_copy->spawn[X], cells.map_list_copy->spawn[Y]))
-			return (true);
+		end = cell_add_to_back(&cells.to_check, cells.map_list_copy->spawn[X], cells.map_list_copy->spawn[Y]);
+		if (end)
+			break ;
 		check_map_loop(&cells, &end);
 		cells.map_list_copy = cells.map_list_copy->next;
 	}
