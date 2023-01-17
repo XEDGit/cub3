@@ -6,7 +6,7 @@
 /*   By: lmuzio <lmuzio@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/17 14:54:44 by lmuzio            #+#    #+#             */
-/*   Updated: 2022/12/17 14:54:46 by lmuzio           ###   ########.fr       */
+/*   Updated: 2023/01/17 18:05:34 by lmuzio           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,6 @@ int	free_fd_gnl(int fd)
 			break ;
 		free(buffer);
 	}
-	if (close(fd))
-		return (1);
-	return (0);
+	close(fd);
+	return (1);
 }

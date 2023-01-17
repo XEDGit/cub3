@@ -6,7 +6,7 @@
 /*   By: lmuzio <lmuzio@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/17 14:54:22 by lmuzio            #+#    #+#             */
-/*   Updated: 2022/12/17 15:10:16 by lmuzio           ###   ########.fr       */
+/*   Updated: 2023/01/17 17:30:59 by lmuzio           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	*ft_realloc(void *ptr, unsigned int old_size, unsigned int size)
 {
-	void			*new;
+	char			*new;
 	unsigned int	i;
 
 	new = malloc(size);
@@ -25,11 +25,11 @@ void	*ft_realloc(void *ptr, unsigned int old_size, unsigned int size)
 	i = 0;
 	while (i < old_size)
 	{
-		((char *)new)[i] = ((char *)ptr)[i];
+		new[i] = ((char *)ptr)[i];
 		i++;
 	}
 	while (i < size)
-		((char *)new)[i++] = 0;
+		new[i++] = 0;
 	free(ptr);
-	return (new);
+	return ((void *)new);
 }

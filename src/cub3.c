@@ -6,7 +6,7 @@
 /*   By: lmuzio <lmuzio@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/17 14:54:14 by lmuzio            #+#    #+#             */
-/*   Updated: 2022/12/17 16:24:31 by lmuzio           ###   ########.fr       */
+/*   Updated: 2023/01/17 17:58:36 by lmuzio           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,17 +70,17 @@ int	main(int argc, char **argv)
 	// execute
 	
 	// DEBUG
-	printf("tx1: %s\ntx2: %s\ntx3: %s\ntx4: %s\nfloor: %ld, ceiling: %ld\n", data.map.textures[NO], data.map.textures[SO], data.map.textures[WE], data.map.textures[EA], data.map.floor, data.map.ceiling);
-	t_single_map *copy = data.map.maps;
-	int	c = 0;
-	while (copy)
-	{
-		printf("map %d:\n", c++);
-		int i = 0;
-		while (copy->map[i])
-			printf("%s\n", copy->map[i++]);
-		copy = copy->next;
-	}
+	// printf("tx1: %s\ntx2: %s\ntx3: %s\ntx4: %s\nfloor: %ld, ceiling: %ld\n", data.map.textures[NO], data.map.textures[SO], data.map.textures[WE], data.map.textures[EA], data.map.floor, data.map.ceiling);
+	// t_single_map *copy = data.map.maps;
+	// int	c = 0;
+	// while (copy)
+	// {
+	// 	printf("map %d:\n", c++);
+	// 	int i = 0;
+	// 	while (copy->map[i])
+	// 		printf("%s\n", copy->map[i++]);
+	// 	copy = copy->next;
+	// }
 	// free all
 	free_map(&data.map);
 	return (0);
