@@ -6,7 +6,7 @@
 /*   By: lmuzio <lmuzio@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/17 16:25:27 by lmuzio            #+#    #+#             */
-/*   Updated: 2022/12/17 16:28:14 by lmuzio           ###   ########.fr       */
+/*   Updated: 2023/01/23 17:31:12 by lmuzio           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@
 # include <stdbool.h>
 # include <stdlib.h>
 
-typedef int	t_vec[3];
+typedef int		t_vec[3];
+typedef float	t_fvec[3];
 
 typedef struct s_player
 {
@@ -49,7 +50,7 @@ typedef struct s_map
 typedef struct s_data
 {
 	t_map		map;
-	t_player	player;
+	int			map_index;
 }	t_data;
 
 # define NO 0

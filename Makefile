@@ -2,11 +2,15 @@ NAME := cub3
 
 SRC_F := src
 
-SRC := $(wildcard $(SRC_F)/*.c)
+SRC := $(wildcard $(SRC_F)/*)
+
+SRCS := $(wildcard src/*/*.c)
 
 OBJ_F := obj
 
-OBJ := $(addprefix $(OBJ_F)/, $(notdir $(SRC:.c=.o)))
+DEBUG := 
+
+OBJ := $(addprefix $(OBJ_F)/, $(notdir $(SRCS:.c=.o)))
 
 FLAGS := -Wall -Werror -Wextra -Wpedantic
 
@@ -14,18 +18,13 @@ INC := -I includes
 
 all: $(NAME)
 
-$(NAME): $(OBJ)
-	$(info Linking objects into $@)
+$(NAME): $(SRCS) | $(OBJ_F)
+	@$(foreach var, $(SRC), $(info Compiling $(var)) $( $(MAKE) $(DEBUG) -C $(var)))
+	@$(info Linking objects into $@)
 	@$(CC) $(FLAGS) $(INC) -o $@ $(OBJ)
-
-$(OBJ): | $(OBJ_F)
 
 $(OBJ_F):
 	@mkdir -p $(OBJ_F)
-
-$(OBJ_F)/%.o: $(SRC_F)/%.c
-	$(info Compiling $<)
-	@$(CC) -c $(FLAGS) $(INC) $< -o $@
 
 clean:
 	$(info Cleaning objects)
@@ -38,6 +37,7 @@ fclean:
 re: fclean $(NAME)
 
 debug: FLAGS = -g -fsanitize=address
+debug: DEBUG = debug
 debug: fclean $(NAME)
 
 sym: FLAGS = -g

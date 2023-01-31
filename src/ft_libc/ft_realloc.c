@@ -1,36 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   ft_realloc.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lmuzio <lmuzio@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/18 17:57:17 by lmuzio            #+#    #+#             */
-/*   Updated: 2022/12/17 14:54:18 by lmuzio           ###   ########.fr       */
+/*   Created: 2022/12/17 14:54:22 by lmuzio            #+#    #+#             */
+/*   Updated: 2023/01/31 17:25:14 by lmuzio           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-long	ft_atoi(const char *str)
-{
-	long		res;
-	int			min;
+#include <shared.h>
 
-	res = 0;
-	min = 0;
-	if (!*str)
-		return (res);
-	while (*str == ' ' || *str == '\t')
-		str++;
-	if (*str == '-')
-		min = 1;
-	if (*str == '-' || *str == '+')
-		str++;
-	while (*str >= '0' && *str <= '9')
+void	*ft_realloc(void *ptr, unsigned int old_size, unsigned int size)
+{
+	char			*new;
+	unsigned int	i;
+
+	new = malloc(size);
+	if (!new)
+		return (0);
+	if (!ptr)
+		return (new);
+	i = 0;
+	while (i < old_size)
 	{
-		res *= 10;
-		res += *str++ - '0';
+		new[i] = ((char *)ptr)[i];
+		i++;
 	}
-	if (min)
-		res *= -min;
-	return (res);
+	while (i < size)
+		new[i++] = 0;
+	free(ptr);
+	return ((void *)new);
 }

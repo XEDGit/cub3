@@ -6,7 +6,7 @@
 /*   By: lmuzio <lmuzio@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/17 14:54:47 by lmuzio            #+#    #+#             */
-/*   Updated: 2023/01/17 18:20:37 by lmuzio           ###   ########.fr       */
+/*   Updated: 2023/01/31 16:54:51 by lmuzio           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,14 +98,14 @@ char **map, t_vec borders)
 				cell_add_to_back(new, target[X], target[Y]);
 				map[target[Y]][target[X]] = '1';
 				// DEBUG
-				map[to_check->celly][to_check->cellx] = '#';
-				int c = 0;
-				system("clear");
-				printf("Seed floodfill:\n");
-				while (map[c])
-				   printf("%s\n", map[c++]);
-				map[to_check->celly][to_check->cellx] = '1';
-				usleep(25000);
+				// map[to_check->celly][to_check->cellx] = '#';
+				// int c = 0;
+				// system("clear");
+				// printf("Seed floodfill:\n");
+				// while (map[c])
+				//    printf("%s\n", map[c++]);
+				// map[to_check->celly][to_check->cellx] = '1';
+				// usleep(35000);
 			}
 			i++;
 		}
