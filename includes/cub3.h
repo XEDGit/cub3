@@ -17,7 +17,7 @@
 # include <stdio.h>
 
 //	internal
-# include <shared.h>
+# include "shared.h"
 
 //	parsing
 bool	parse_args(t_map *map, int argc, char **argv);

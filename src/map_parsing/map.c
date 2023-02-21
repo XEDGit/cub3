@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <checking.h>
+#include "../../includes/checking.h"
 
 t_cell	*cell_last(t_cell *cell)
 {

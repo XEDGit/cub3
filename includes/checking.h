@@ -14,7 +14,7 @@
 # define CHECKING_H
 
 //	internal
-# include <shared.h>
+# include "shared.h"
 
 typedef struct s_cell
 {
