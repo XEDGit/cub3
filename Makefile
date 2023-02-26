@@ -19,9 +19,10 @@ INC := -I includes
 all: $(NAME)
 
 $(NAME): $(SRCS) | $(OBJ_F)
-	@$(foreach var, $(SRC), $(info Compiling $(var)) $( $(MAKE) $(DEBUG) -C $(var)))
-	@$(info Linking objects into $@)
-	@$(CC) $(FLAGS) $(INC) -o $@ $(OBJ)
+	@$(foreach var, $(SRC), echo "Making $(var)"; $(MAKE) $(DEBUG) -C $(var) --quiet;)
+	@echo "Linking objects into $@"
+	@$(CC) $(FLAGS) $(INC) -o $@ $(OBJ) MLX42/build/libmlx42.a -ldl -lglfw -pthread -lm
+	@echo "Done"
 
 $(OBJ_F):
 	@mkdir -p $(OBJ_F)

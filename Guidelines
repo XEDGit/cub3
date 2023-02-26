@@ -1,6 +1,8 @@
 TODO:
 	- maybe move free_map from cub3.c to map.c
 
+	- check multiple players on map at parsing
+
 
 MANDATORY:
 

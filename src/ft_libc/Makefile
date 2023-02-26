@@ -9,6 +9,7 @@ CFLAGS := -I../../includes
 all: $(OBJS)
 
 $(OBJ_DIR)/%.o: %.c
+	$(info Compiling $(notdir $@)) 
 	@$(CC) $< -o $@ -c $(DEBUG) $(CFLAGS)
 
 debug: DEBUG = -g 
