@@ -1,45 +1,48 @@
 NAME := cub3
 
-SRC_F := src
+SRC_DIR := src
 
-SRC := $(wildcard $(SRC_F)/*)
+SRC := $(wildcard $(SRC_DIR)/*)
 
 SRCS := $(wildcard src/*/*.c)
 
-OBJ_F := obj
+OBJ_DIR := obj
 
-DEBUG := 
-
-OBJ := $(addprefix $(OBJ_F)/, $(notdir $(SRCS:.c=.o)))
+OBJ := $(addprefix $(OBJ_DIR)/, $(notdir $(SRCS:.c=.o)))
 
 FLAGS := -Wall -Werror -Wextra -Wpedantic
+
+LIBRARY_FLAGS := -framework Cocoa -framework OpenGL -framework IOKit
 
 INC := -I includes
 
 all: $(NAME)
 
-$(NAME): $(SRCS) | $(OBJ_F)
+$(NAME): $(SRCS) | $(OBJ_DIR)
 	@$(foreach var, $(SRC), echo "Making $(var)"; $(MAKE) $(DEBUG) -C $(var) --quiet;)
 	@echo "Linking objects into $@"
-	@$(CC) $(FLAGS) $(INC) -o $@ $(OBJ) MLX42/build/libmlx42.a -ldl -lglfw -pthread -lm
+	@$(CC) $(FLAGS) $(INC) -o $@ $(OBJ) -lm MLX42/build/libmlx42.a $(LIBRARY_FLAGS)
 	@echo "Done"
 
-$(OBJ_F):
-	@mkdir -p $(OBJ_F)
+$(OBJ_DIR):
+	@mkdir -p $(OBJ_DIR)
 
 clean:
 	$(info Cleaning objects)
-	@rm -rf $(OBJ_F)/
+	@rm -rf $(OBJ_DIR)/
 
 fclean:
 	$(info Cleaning objects and executable)
-	@rm -rf $(OBJ_F)/ $(NAME)
+	@rm -rf $(OBJ_DIR)/ $(NAME)
 
 re: fclean $(NAME)
 
 debug: FLAGS = -g -fsanitize=address
 debug: DEBUG = debug
 debug: fclean $(NAME)
+
+linux: LIBRARY_FLAGS = -ldl -lglfw -pthread
+linux: all
 
 sym: FLAGS = -g
 sym: fclean $(NAME)
