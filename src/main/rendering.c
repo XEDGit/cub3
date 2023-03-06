@@ -8,7 +8,8 @@ static void	setup_step_direction(t_rayvars *ray, t_raycam *rayCam) {
 	if (ray->raydir.x < 0) {
 		ray->stepdirection.x = -1;
 		ray->sidedistances.x = (rayCam->campos.x - ray->int_map_coords.x) * ray->deltadistances.x;
-	} else {
+	}
+	else {
 		ray->stepdirection.x = 1;
 		ray->sidedistances.x = (ray->int_map_coords.x + 1.0 - rayCam->campos.x) * ray->deltadistances.x;
 	}
@@ -46,7 +47,6 @@ static int cast_till_hit(t_rayvars *ray, char **map) {
 static t_vertline generate_line(t_rayvars *ray, char **map, int x, int side) {
 	t_vertline	result;
 	double		perpWallDist;
-	/* Color		color; */
 
 	if (side == 0)
 		perpWallDist = (ray->sidedistances.x - ray->deltadistances.x);
@@ -59,14 +59,9 @@ static t_vertline generate_line(t_rayvars *ray, char **map, int x, int side) {
 	int drawEnd = lineHeight / 2 + WIN_HEIGHT / 2;
 	if (drawEnd >= WIN_HEIGHT)
 		drawEnd = WIN_HEIGHT - 1;
-	/* color = getWallColor(map.getCoord(ray->int_map_coords.x, ray->int_map_coords.y)); */
-	/* if (side == 1) { */
-	/* 	color.r -= 50, color.b -= 10, color.g -= 10; */
-	/* }; */
 	result.xcoord = x;
 	result.startpoint = drawStart;
 	result.endpoint = drawEnd;
-	/* result.color = color; */
 	return (result);
 }
 
@@ -84,12 +79,17 @@ t_vertline castRay(t_raycam *raycam, char **map, int x) {
 	return (generate_line(&ray, map, x, side));
 }
 
-/* void	drawVert(t_vertline line) { */
-/* 	ImageDrawLine(&imageBuffer, line.xCoord, line.startPoint, line.xCoord, line.endPoint, line.color); */
-/* } */
+void	drawVert(t_vertline *line, mlx_image_t *mlx) {
+	int	iter;
 
-void renderFrame() {
-	/* ImageClearBackground(&imageBuffer, BLACK); */
+	iter = line->startpoint;
+	while (iter != line->endpoint)
+	{
+
+	}
+}
+
+void render_frame(void) {
 	for (int x = 0; x <= WIN_WIDTH; x++)
 		;
 		/* drawVert(castRay(rayCam, x)); */

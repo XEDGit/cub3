@@ -11,6 +11,8 @@
 /* ************************************************************************** */
 
 #include "../../includes/cub3.h"
+#include "../../includes/rendering.h"
+#include <string.h>
 
 bool	error(char *msg, void *msg_arg, bool perr)
 {
@@ -58,7 +60,11 @@ void	free_map(t_map *map)
 
 int	main(int argc, char **argv)
 {
-	t_data	data;
+	t_data			data;
+	mlx_texture_t	*tex;
+	mlx_t			*mlx;
+	mlx_image_t		*buf;
+	mlx_image_t		*wall;
 
 	data = (t_data){{{0}, 0, 0, 0, {0}}, 0};
 	// parse map and content
@@ -70,5 +76,15 @@ int	main(int argc, char **argv)
 	// execute
 	// free all
 	free_map(&data.map);
+	mlx = mlx_init(640, 640, "zjop", 0);
+	tex = mlx_load_png("./assets/wall.png");
+	wall = mlx_texture_to_image(mlx, tex);
+	buf = mlx_new_image(mlx, 64, 64);
+	uint32_t pix = get_texture_pixel_data(0, 0, tex);
+	printf("%d\n", pix);
+	mlx_put_pixel(buf, 1, 1, pix);
+	mlx_image_to_window(mlx, buf, 0, 0);
+	mlx_loop(mlx);
+	mlx_terminate(mlx);
 	return (0);
 }

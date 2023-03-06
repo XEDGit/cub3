@@ -12,7 +12,7 @@ OBJ := $(addprefix $(OBJ_DIR)/, $(notdir $(SRCS:.c=.o)))
 
 FLAGS := -Wall -Werror -Wextra -Wpedantic
 
-LIBRARY_FLAGS := -framework Cocoa -framework OpenGL -framework IOKit
+# LIBRARY_FLAGS := -framework Cocoa -framework OpenGL -framework IOKit
 
 INC := -I includes
 
@@ -21,7 +21,7 @@ all: $(NAME)
 $(NAME): $(SRCS) | $(OBJ_DIR)
 	@$(foreach var, $(SRC), echo "Making $(var)"; $(MAKE) $(DEBUG) -C $(var) --quiet;)
 	@echo "Linking objects into $@"
-	@$(CC) $(FLAGS) $(INC) -o $@ $(OBJ) -lm MLX42/build/libmlx42.a $(LIBRARY_FLAGS)
+	@$(CC) $(FLAGS) $(INC) -o $@ $(OBJ) -lm src/MLX42/build/libmlx42.a -lglfw $(LIBRARY_FLAGS)
 	@echo "Done"
 
 $(OBJ_DIR):
