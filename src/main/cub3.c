@@ -64,24 +64,24 @@ int	main(int argc, char **argv)
 	mlx_texture_t	*tex;
 	mlx_t			*mlx;
 	mlx_image_t		*buf;
-	mlx_image_t		*wall;
 
 	data = (t_data){{{0}, 0, 0, 0, {0}}, 0};
-	// parse map and content
+	/* parse map and content */
 	if (parse_args(&data.map, argc, argv))
 		(void)data;
-	// checking map
+	/* checking map */
 	else if (check_map(&data.map))
 		(void)data;
-	// execute
-	// free all
+	/* execute */
+	/* free all */
 	free_map(&data.map);
 	mlx = mlx_init(640, 640, "zjop", 0);
 	tex = mlx_load_png("./assets/wall.png");
-	wall = mlx_texture_to_image(mlx, tex);
-	buf = mlx_new_image(mlx, 64, 64);
-	uint32_t pix = get_texture_pixel_data(0, 0, tex);
-	printf("%d\n", pix);
+	if (!tex)
+		printf("No texture.\n");
+	buf = mlx_new_image(mlx, 640, 640);
+	int pix = get_texture_pixel_data(32, 32, tex);
+	printf("%x\n", pix);
 	mlx_put_pixel(buf, 1, 1, pix);
 	mlx_image_to_window(mlx, buf, 0, 0);
 	mlx_loop(mlx);

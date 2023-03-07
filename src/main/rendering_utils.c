@@ -12,8 +12,5 @@ int	texdata_to_int(uint8_t *texdata)
 int	get_texture_pixel_data(int x, int y, mlx_texture_t *tex)
 {
 	uint8_t	*pixptr = &tex->pixels[(x + tex->width * y) * tex->bytes_per_pixel];
-
-	printf("R: %02X G: %02X B: %02X A: %02X", pixptr[0], pixptr[1], pixptr[2], pixptr[3]);
-
-	return ((uint32_t)*pixptr);
+	return (texdata_to_int(pixptr));
 }
