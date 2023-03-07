@@ -57,5 +57,6 @@ typedef struct s_raycam {
 
 int			get_texture_pixel_data(int x, int y, mlx_texture_t *tex);
 void		render_frame(t_raycam raycam, mlx_image_t *image, t_map *map);
+t_raycam	*init_raycam(int x, int y);
 
 #endif // RENDERING_H

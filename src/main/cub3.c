@@ -74,6 +74,7 @@ int	main(int argc, char **argv)
 		(void)data;
 	/* execute */
 	/* free all */
+	printf("x pos: %d y pos: %d\n", data.map.maps->spawn[0], data.map.maps->spawn[1]);
 	free_map(&data.map);
 	mlx = mlx_init(640, 640, "zjop", 0);
 	tex = mlx_load_png("./assets/wall.png");

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <shared.h>
+#include "../../includes/shared.h"
 
 bool	find_player(t_single_map *map_list)
 {
