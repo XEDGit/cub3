@@ -76,8 +76,8 @@ t_vertline castRay(t_raycam raycam, t_map *map, int x) {
 	ray.int_map_coords = (t_intvec2){ (int)raycam.campos.x, (int)raycam.campos.y };
 	ray.deltadistances = (t_vec2){ abs((int)(1 / ray.raydir.x)), abs((int)(1 / ray.raydir.y)) };
 	setup_step_direction(&ray, &raycam);
-	side = cast_till_hit(&ray, map);
-	return (generate_line(&ray, map, x, side));
+	side = cast_till_hit(&ray, map->maps[0].map); // Replace 0 with current map.
+	return (generate_line(&ray, map->maps[0].map, x, side));
 }
 
 void	drawVert(t_vertline line, mlx_image_t *image) {
