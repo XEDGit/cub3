@@ -79,19 +79,25 @@ t_vertline castRay(t_raycam *raycam, char **map, int x) {
 	return (generate_line(&ray, map, x, side));
 }
 
-void	drawVert(t_vertline *line, mlx_image_t *mlx) {
+void	drawVert(t_vertline *line, mlx_image_t *image) {
 	int	iter;
+	if (line->startpoint >= WIN_HEIGHT || line->endpoint < 0 \
+		|| line->xcoord < 0 || line->xcoord >= WIN_WIDTH)
+		return ;
+	if (line->startpoint < 0)
+		line->startpoint = 0;
+	if (line->endpoint >= WIN_HEIGHT)
+		line->endpoint = WIN_HEIGHT - 1;
 
 	iter = line->startpoint;
-	while (iter != line->endpoint)
+	while (iter <= line->endpoint)
 	{
-
+		mlx_put_pixel(image, line->xcoord, iter, 0xFF0000);
+		iter++;
 	}
 }
 
-void render_frame(void) {
+void render_frame(t_raycam *raycam) {
 	for (int x = 0; x <= WIN_WIDTH; x++)
-		;
-		/* drawVert(castRay(rayCam, x)); */
-	/* return (imageBuffer); */
+		drawVert(castRay(raycam, x));
 }

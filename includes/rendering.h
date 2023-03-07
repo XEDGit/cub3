@@ -55,6 +55,6 @@ typedef struct s_raycam {
 }	t_raycam;
 
 int			get_texture_pixel_data(int x, int y, mlx_texture_t *tex);
-void		render_frame(void);
+void		render_frame(t_raycam *raycam);
 
 #endif // RENDERING_H
