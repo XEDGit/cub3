@@ -48,16 +48,19 @@ static int cast_till_hit(t_rayvars *ray, char **map) {
 static t_vertline generate_line(t_rayvars *ray, char **map, int x, int side) {
 	t_vertline	result;
 	double		perpWallDist;
+	int			lineHeight;
+	int			drawStart;
+	int			drawEnd;
 
 	if (side == 0)
 		perpWallDist = (ray->sidedistances.x - ray->deltadistances.x);
 	else
 		perpWallDist = (ray->sidedistances.y - ray->deltadistances.y);
-	int lineHeight = (int)((WIN_HEIGHT / perpWallDist));
-	int drawStart = -lineHeight / 2 + WIN_HEIGHT / 2;
+	lineHeight = (int)((WIN_HEIGHT / perpWallDist));
+	drawStart = -lineHeight / 2 + WIN_HEIGHT / 2;
 	if (drawStart < 0)
 		drawStart = 0;
-	int drawEnd = lineHeight / 2 + WIN_HEIGHT / 2;
+	drawEnd = lineHeight / 2 + WIN_HEIGHT / 2;
 	if (drawEnd >= WIN_HEIGHT)
 		drawEnd = WIN_HEIGHT - 1;
 	result.xcoord = x;
