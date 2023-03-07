@@ -1,4 +1,5 @@
 #include "../../includes/rendering.h"
+#include "../../includes/shared.h"
 #include <stdlib.h>
 
 #define WIN_HEIGHT 1152
@@ -65,39 +66,39 @@ static t_vertline generate_line(t_rayvars *ray, char **map, int x, int side) {
 	return (result);
 }
 
-t_vertline castRay(t_raycam *raycam, char **map, int x) {
+t_vertline castRay(t_raycam raycam, t_map *map, int x) {
 	t_rayvars	ray;
 	int			side;
 
 	ray.camera_x = 2 * x / (double)WIN_WIDTH - 1;
-	ray.raydir.x = raycam->dv.x + raycam->pv.x * ray.camera_x;
-	ray.raydir.y = raycam->dv.y + raycam->pv.y * ray.camera_x;
-	ray.int_map_coords = (t_intvec2){ (int)raycam->campos.x, (int)raycam->campos.y };
+	ray.raydir.x = raycam.dv.x + raycam.pv.x * ray.camera_x;
+	ray.raydir.y = raycam.dv.y + raycam.pv.y * ray.camera_x;
+	ray.int_map_coords = (t_intvec2){ (int)raycam.campos.x, (int)raycam.campos.y };
 	ray.deltadistances = (t_vec2){ abs((int)(1 / ray.raydir.x)), abs((int)(1 / ray.raydir.y)) };
-	setup_step_direction(&ray, raycam);
+	setup_step_direction(&ray, &raycam);
 	side = cast_till_hit(&ray, map);
 	return (generate_line(&ray, map, x, side));
 }
 
-void	drawVert(t_vertline *line, mlx_image_t *image) {
+void	drawVert(t_vertline line, mlx_image_t *image) {
 	int	iter;
-	if (line->startpoint >= WIN_HEIGHT || line->endpoint < 0 \
-		|| line->xcoord < 0 || line->xcoord >= WIN_WIDTH)
+	if (line.startpoint >= WIN_HEIGHT || line.endpoint < 0 \
+		|| line.xcoord < 0 || line.xcoord >= WIN_WIDTH)
 		return ;
-	if (line->startpoint < 0)
-		line->startpoint = 0;
-	if (line->endpoint >= WIN_HEIGHT)
-		line->endpoint = WIN_HEIGHT - 1;
+	if (line.startpoint < 0)
+		line.startpoint = 0;
+	if (line.endpoint >= WIN_HEIGHT)
+		line.endpoint = WIN_HEIGHT - 1;
 
-	iter = line->startpoint;
-	while (iter <= line->endpoint)
+	iter = line.startpoint;
+	while (iter <= line.endpoint)
 	{
-		mlx_put_pixel(image, line->xcoord, iter, 0xFF0000);
+		mlx_put_pixel(image, line.xcoord, iter, 0xFF0000);
 		iter++;
 	}
 }
 
-void render_frame(t_raycam *raycam) {
+void render_frame(t_raycam raycam, mlx_image_t *image, t_map *map) {
 	for (int x = 0; x <= WIN_WIDTH; x++)
-		drawVert(castRay(raycam, x));
+		drawVert(castRay(raycam, map, x), image);
 }

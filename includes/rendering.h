@@ -13,6 +13,7 @@
 #ifndef RENDERING_H
 # define RENDERING_H
 # include "../MLX42/include/MLX42/MLX42.h"
+# include "shared.h"
 
 typedef struct s_vec2 {
 	float	x;
@@ -55,6 +56,6 @@ typedef struct s_raycam {
 }	t_raycam;
 
 int			get_texture_pixel_data(int x, int y, mlx_texture_t *tex);
-void		render_frame(t_raycam *raycam);
+void		render_frame(t_raycam raycam, mlx_image_t *image, t_map *map);
 
 #endif // RENDERING_H
