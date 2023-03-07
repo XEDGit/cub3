@@ -61,31 +61,25 @@ void	free_map(t_map *map)
 int	main(int argc, char **argv)
 {
 	t_data			data;
-	mlx_texture_t	*tex;
 	mlx_t			*mlx;
 	mlx_image_t		*buf;
+	t_raycam		*raycam;
 
 	data = (t_data){{{0}, 0, 0, 0, {0}}, 0};
-	/* parse map and content */
 	if (parse_args(&data.map, argc, argv))
 		(void)data;
-	/* checking map */
 	else if (check_map(&data.map))
 		(void)data;
-	/* execute */
-	/* free all */
 	printf("x pos: %d y pos: %d\n", data.map.maps->spawn[0], data.map.maps->spawn[1]);
-	free_map(&data.map);
-	mlx = mlx_init(640, 640, "zjop", 0);
-	tex = mlx_load_png("./assets/wall.png");
-	if (!tex)
-		printf("No texture.\n");
-	buf = mlx_new_image(mlx, 640, 640);
-	int pix = get_texture_pixel_data(32, 32, tex);
-	printf("%x\n", pix);
-	mlx_put_pixel(buf, 1, 1, pix);
+	raycam = init_raycam(data.map.maps->spawn[0], data.map.maps->spawn[0]);
+	mlx = mlx_init(1152, 1152, "zjop", 0);
+	buf = mlx_new_image(mlx, 1152, 1152);
 	mlx_image_to_window(mlx, buf, 0, 0);
-	mlx_loop(mlx);
+	while (true) {
+		render_frame(*raycam, buf, &data.map);
+		mlx_loop(mlx);
+	}
 	mlx_terminate(mlx);
+	free_map(&data.map);
 	return (0);
 }

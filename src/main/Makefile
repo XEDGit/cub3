@@ -4,7 +4,7 @@ OBJ_DIR := ../../obj
 
 OBJS := $(addprefix $(OBJ_DIR)/, $(SRCS:.c=.o))
 
-CFLAGS := -I../../includes
+CFLAGS := -I../../includes -g
 
 all: $(OBJS)
 
