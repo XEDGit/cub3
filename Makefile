@@ -12,36 +12,45 @@ OBJ := $(addprefix $(OBJ_DIR)/, $(notdir $(SRCS:.c=.o)))
 
 FLAGS := -Wall -Werror -Wextra -Wpedantic
 
-# LIBRARY_FLAGS := -framework Cocoa -framework OpenGL -framework IOKit
+MLX_NAME := build/libmlx42.a
+
+MLX_FLAGS := -framework Cocoa -framework OpenGL -framework IOKit
 
 INC := -I includes
 
 all: $(NAME)
 
-$(NAME): $(SRCS) | $(OBJ_DIR)
+$(NAME): $(MLX_NAME) $(SRCS) | $(OBJ_DIR)
 	@$(foreach var, $(SRC), echo "Making $(var)"; $(MAKE) $(DEBUG) -C $(var) --quiet;)
 	@echo "Linking objects into $@"
-	@$(CC) $(FLAGS) $(INC) -o $@ $(OBJ) -lm src/MLX42/build/libmlx42.a -lglfw $(LIBRARY_FLAGS)
+	@$(CC) $(FLAGS) $(INC) -o $@ $(OBJ) $(MLX_NAME) $(MLX_FLAGS) -lm
 	@echo "Done"
 
 $(OBJ_DIR):
 	@mkdir -p $(OBJ_DIR)
+
+$(MLX_NAME):
+	@echo "Making MLX42"
+	@cmake -S MLX42 -B build
+	@cmake --build build -j4
 
 clean:
 	$(info Cleaning objects)
 	@rm -rf $(OBJ_DIR)/
 
 fclean:
-	$(info Cleaning objects and executable)
-	@rm -rf $(OBJ_DIR)/ $(NAME)
+	$(info Cleaning objects, library and executable)
+	@rm -rf $(OBJ_DIR)/ $(NAME) build
 
 re: fclean $(NAME)
+
+rel: fclean linux
 
 debug: FLAGS = -g -fsanitize=address
 debug: DEBUG = debug
 debug: fclean $(NAME)
 
-linux: LIBRARY_FLAGS = -ldl -lglfw -pthread
+linux: MLX_FLAGS = -ldl -lglfw -pthread
 linux: all
 
 sym: FLAGS = -g
@@ -50,5 +59,8 @@ sym: fclean $(NAME)
 nf: FLAGS = 
 nf: fclean $(NAME)
 
-r: $(NAME)
+r: all
 	./$(NAME)
+
+rl: linux
+	./$(NAME) $(1)
