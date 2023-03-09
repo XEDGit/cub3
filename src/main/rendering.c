@@ -2,9 +2,6 @@
 #include "../../includes/shared.h"
 #include <stdlib.h>
 
-#define WIN_HEIGHT 1152
-#define WIN_WIDTH 1152
-
 static void	setup_step_direction(t_rayvars *ray, t_raycam *rayCam) {
 	if (ray->raydir.x < 0) {
 		ray->stepdirection.x = -1;
@@ -29,18 +26,20 @@ static int cast_till_hit(t_rayvars *ray, char **map) {
 	int	side;
 
 	while (hit == 0) {
-		if (ray->sidedistances.x < ray->sidedistances.y) {
+		if (ray->sidedistances.x < ray->sidedistances.y)
+		{
 			ray->sidedistances.x += ray->deltadistances.x;
 			ray->int_map_coords.x += ray->stepdirection.x;
 			side = 0;
-		} else {
+		}
+		else
+		{
 			ray->sidedistances.y += ray->deltadistances.y;
 			ray->int_map_coords.y += ray->stepdirection.y;
 			side = 1;
 		}
-		if (map[ray->int_map_coords.y][ray->int_map_coords.x] == 1) {
+		if (map[ray->int_map_coords.y][ray->int_map_coords.x] == '1')
 			hit = 1;
-		}
 	}
 	return (side);
 }
@@ -96,7 +95,7 @@ void	drawVert(t_vertline line, mlx_image_t *image) {
 	iter = line.startpoint;
 	while (iter <= line.endpoint)
 	{
-		mlx_put_pixel(image, line.xcoord, iter, 0xFF0000);
+		mlx_put_pixel(image, line.xcoord, iter, 0xFF00FF);
 		iter++;
 	}
 }

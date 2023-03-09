@@ -71,9 +71,9 @@ int	main(int argc, char **argv)
 	else if (check_map(&data.map))
 		(void)data;
 	printf("x pos: %d y pos: %d\n", data.map.maps->spawn[0], data.map.maps->spawn[1]);
-	raycam = init_raycam(data.map.maps->spawn[0], data.map.maps->spawn[0]);
-	mlx = mlx_init(1152, 1152, "zjop", 0);
-	buf = mlx_new_image(mlx, 1152, 1152);
+	raycam = init_raycam(data.map.maps->spawn[0], data.map.maps->spawn[1]);
+	mlx = mlx_init(WIN_HEIGHT, WIN_WIDTH, "cub3d", 0);
+	buf = mlx_new_image(mlx, WIN_HEIGHT, WIN_WIDTH);
 	mlx_image_to_window(mlx, buf, 0, 0);
 	while (true) {
 		render_frame(*raycam, buf, &data.map);
