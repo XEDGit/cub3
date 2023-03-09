@@ -32,6 +32,10 @@ typedef struct s_vertline {
 	int		xcoord;
 	int		startpoint;
 	int		endpoint;
+	int		wall_xcoord;
+	double	tex_ystep;
+	double	tex_begin_pos;
+	int		tex_y;
 }	t_vertline;
 
 /* cameraX:			Camera angle. */
@@ -59,7 +63,7 @@ typedef struct s_raycam {
 }	t_raycam;
 
 int			get_texture_pixel_data(int x, int y, mlx_texture_t *tex);
-void		render_frame(t_raycam raycam, mlx_image_t *image, t_map *map);
+void		render_frame(t_raycam raycam, mlx_image_t *image, t_map *map, mlx_texture_t *tex);
 t_raycam	*init_raycam(int x, int y);
 
 #endif // RENDERING_H

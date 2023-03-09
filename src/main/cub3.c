@@ -64,6 +64,7 @@ int	main(int argc, char **argv)
 	mlx_t			*mlx;
 	mlx_image_t		*buf;
 	t_raycam		*raycam;
+	mlx_texture_t	*tex;
 
 	data = (t_data){{{0}, 0, 0, 0, {0}}, 0};
 	if (parse_args(&data.map, argc, argv))
@@ -75,8 +76,9 @@ int	main(int argc, char **argv)
 	mlx = mlx_init(WIN_HEIGHT, WIN_WIDTH, "cub3d", 0);
 	buf = mlx_new_image(mlx, WIN_HEIGHT, WIN_WIDTH);
 	mlx_image_to_window(mlx, buf, 0, 0);
+	tex = mlx_load_png("./assets/wall.png");
 	while (true) {
-		render_frame(*raycam, buf, &data.map);
+		render_frame(*raycam, buf, &data.map, tex);
 		mlx_loop(mlx);
 	}
 	mlx_terminate(mlx);
