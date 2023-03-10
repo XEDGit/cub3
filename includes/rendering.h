@@ -42,6 +42,7 @@ typedef struct s_vertline {
 	int		xcoord;
 	int		startpoint;
 	int		endpoint;
+	int		side;
 	int		tex_x;
 	int		tex_y;
 	double	tex_y_step;

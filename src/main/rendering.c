@@ -25,9 +25,10 @@ static void	setup_step_direction(t_rayvars *ray, t_raycam *rayCam) {
 
 // DDA Algorithm.
 static int cast_till_hit(t_rayvars *ray, char **map) {
-	int	hit = 0;
+	int	hit;
 	int	side;
 
+	hit = 0;
 	while (hit == 0) {
 		if (ray->sidedistances.x < ray->sidedistances.y)
 		{
@@ -58,7 +59,7 @@ static t_vertline generate_line(t_rayvars *ray, char **map, int x, int side) {
 		perpWallDist = (ray->sidedistances.x - ray->deltadistances.x);
 	else
 		perpWallDist = (ray->sidedistances.y - ray->deltadistances.y);
-	lineHeight = (int)((WIN_HEIGHT / perpWallDist));
+	lineHeight = ((WIN_HEIGHT / perpWallDist));
 	drawStart = -lineHeight / 2 + WIN_HEIGHT / 2;
 	if (drawStart < 0)
 		drawStart = 0;
@@ -70,12 +71,14 @@ static t_vertline generate_line(t_rayvars *ray, char **map, int x, int side) {
 	result.endpoint = drawEnd;
 
 	double wallX; //where exactly the wall was hit
-	if (side == 0) wallX = ray->int_map_coords.y + perpWallDist * ray->raydir.y;
-	else           wallX = ray->int_map_coords.x + perpWallDist * ray->raydir.x;
-	wallX -= floor((wallX));
+	if (side == 0)
+		wallX = ray->int_map_coords.y + perpWallDist * ray->raydir.y;
+	else
+		wallX = ray->int_map_coords.x + perpWallDist * ray->raydir.x;
+	wallX -= floor(wallX);
 
 	//x coordinate on the texture
-	int texX = (int)wallX * (double)64;
+	int texX = wallX * 64;
 	if(side == 0 && ray->raydir.x > 0) texX = 64 - texX - 1;
 	if(side == 1 && ray->raydir.y < 0) texX = 64 - texX - 1;
 
@@ -85,6 +88,7 @@ static t_vertline generate_line(t_rayvars *ray, char **map, int x, int side) {
 	result.tex_y_step = step;
 
 	result.tex_x = texX;
+	result.side = side;
 	return (result);
 }
 
@@ -98,12 +102,13 @@ t_vertline castRay(t_raycam *raycam, t_map *map, int x) {
 	ray.int_map_coords = (t_intvec2){ (int)raycam->campos.x, (int)raycam->campos.y };
 	ray.deltadistances = (t_vec2){ abs((int)(1 / ray.raydir.x)), abs((int)(1 / ray.raydir.y)) };
 	setup_step_direction(&ray, raycam);
-	side = cast_till_hit(&ray, map->maps[0].map); // Replace 0 with current map.
+	side = cast_till_hit(&ray, map->maps[0].map); // TODO: Replace 0 with current map.
 	return (generate_line(&ray, map->maps[0].map, x, side));
 }
 
 void	drawVert(t_vertline line, mlx_image_t *image, mlx_texture_t *tex) {
 	int	iter;
+	int	colour;
 
 	if (line.startpoint >= WIN_HEIGHT || line.endpoint < 0 \
 		|| line.xcoord < 0 || line.xcoord >= WIN_WIDTH)
@@ -117,7 +122,10 @@ void	drawVert(t_vertline line, mlx_image_t *image, mlx_texture_t *tex) {
 	{
 		line.tex_y = (int)line.tex_y_begin_pos & (64 - 1);
 		line.tex_y_begin_pos += line.tex_y_step;
-		mlx_put_pixel(image, line.xcoord, iter, get_texture_pixel_data(line.tex_x, line.tex_y, tex));
+		colour = get_texture_pixel_data(line.tex_x, line.tex_y, tex);
+		if (line.side == 1)
+			colour = (colour << 2);
+		mlx_put_pixel(image, line.xcoord, iter, colour);
 		iter++;
 	}
 }

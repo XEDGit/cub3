@@ -50,7 +50,7 @@ debug: FLAGS = -g -fsanitize=address
 debug: DEBUG = debug
 debug: fclean $(NAME)
 
-linux: MLX_FLAGS = -ldl -pthread
+linux: MLX_FLAGS = -ldl -pthread -lglfw -pthread -lm
 linux: all
 
 sym: FLAGS = -g
