@@ -79,8 +79,17 @@ typedef struct s_mapcam {
 	char		**map;
 } t_mapcam;
 
+typedef struct s_renderer {
+	t_raycam		*raycam;
+	mlx_image_t		*image;
+	t_map			*map;
+	mlx_texture_t	*tex;
+} t_renderer;
+
 int			get_texture_pixel_data(int x, int y, mlx_texture_t *tex);
-void		render_frame(t_raycam raycam, mlx_image_t *image, t_map *map, mlx_texture_t *tex);
+void		render_hook(void *data);
 t_raycam	*init_raycam(int x, int y);
+void		input_keyhook(mlx_key_data_t keydata, void *data);
+void		clear(void *data);
 
 #endif // RENDERING_H

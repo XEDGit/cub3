@@ -65,6 +65,7 @@ int	main(int argc, char **argv)
 	mlx_image_t		*buf;
 	t_raycam		*raycam;
 	mlx_texture_t	*tex;
+	t_renderer		renderer;
 
 	data = (t_data){{{0}, 0, 0, 0, {0}}, 0};
 	if (parse_args(&data.map, argc, argv))
@@ -77,11 +78,17 @@ int	main(int argc, char **argv)
 	buf = mlx_new_image(mlx, WIN_HEIGHT, WIN_WIDTH);
 	mlx_image_to_window(mlx, buf, 0, 0);
 	tex = mlx_load_png("./assets/wall.png");
-	while (true) {
-		render_frame(*raycam, buf, &data.map, tex);
-		handle_input(raycam);
-		mlx_loop(mlx);
-	}
+
+	renderer.image = buf;
+	renderer.map = &data.map;
+	renderer.raycam = raycam;
+	renderer.tex = tex;
+
+	mlx_loop_hook(mlx, render_hook, &renderer);
+	mlx_key_hook(mlx, input_keyhook, &renderer);
+	mlx_loop_hook(mlx, clear, buf);
+	mlx_loop(mlx);
+
 	mlx_terminate(mlx);
 	free_map(&data.map);
 	return (0);
