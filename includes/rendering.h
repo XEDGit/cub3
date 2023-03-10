@@ -15,8 +15,8 @@
 # include "../MLX42/include/MLX42/MLX42.h"
 # include "shared.h"
 
-# define WIN_HEIGHT 1152
-# define WIN_WIDTH 1152
+# define WIN_HEIGHT 2048
+# define WIN_WIDTH 2048
 
 typedef struct s_vec2 {
 	float	x;

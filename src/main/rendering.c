@@ -75,15 +75,15 @@ static t_vertline generate_line(t_rayvars *ray, char **map, int x, int side) {
 		wallX = ray->int_map_coords.y + perpWallDist * ray->raydir.y;
 	else
 		wallX = ray->int_map_coords.x + perpWallDist * ray->raydir.x;
-	wallX -= floor(wallX);
+	wallX -= floor((wallX));
 
 	//x coordinate on the texture
-	int texX = wallX * 64;
+	int texX = (int)(wallX * (double)64);
 	if(side == 0 && ray->raydir.x > 0) texX = 64 - texX - 1;
 	if(side == 1 && ray->raydir.y < 0) texX = 64 - texX - 1;
 
 	double step = 1.0 * 64 / lineHeight;
-	double texPos = (drawStart - (double)WIN_HEIGHT / 2 + (double)lineHeight / 2) * step;
+	double texPos = (drawStart - (WIN_HEIGHT / 2) + (lineHeight / 2)) * step;
 	result.tex_y_begin_pos = texPos;
 	result.tex_y_step = step;
 
