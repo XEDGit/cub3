@@ -128,21 +128,21 @@ void render_frame(t_raycam *raycam, mlx_image_t *image, t_map *map, mlx_texture_
 }
 
 void handle_input(mlx_key_data_t key, t_raycam *raycam, char **map) {
-	float moveSpeed = 0.5;
-	float rotSpeed = 0.5;
+	float moveSpeed = 0.1;
+	float rotSpeed = 0.1;
 
-	/* if (IsKeyDown(KEY_UP)) { */
-	/* 	if (map.getCoord((int)(raycam->campos.x + raycam->dv.x * moveSpeed), int(raycam->campos.y)) != '#') */
-	/* 		raycam->campos.x += raycam->dv.x * moveSpeed; */
-	/* 	if (map.getCoord(int(raycam->campos.x), (int)(raycam->campos.y + raycam->dv.y * moveSpeed)) != '#') */
-	/* 		raycam->campos.y += raycam->dv.y * moveSpeed; */
-	/* } */
-	/* if (IsKeyDown(KEY_DOWN)) { */
-	/* 	if (map.getCoord((int)(raycam->campos.x - raycam->dv.x * moveSpeed), int(raycam->campos.y)) != '#') */
-	/* 		raycam->campos.x -= raycam->dv.x * moveSpeed; */
-	/* 	if (map.getCoord(int(raycam->campos.x), (int)(raycam->campos.y - raycam->dv.y * moveSpeed)) != '#') */
-	/* 		raycam->campos.y -= raycam->dv.y * moveSpeed; */
-	/* } */
+	if (key.key == MLX_KEY_UP && key.action == MLX_REPEAT) {
+		if (map[(int)raycam->campos.y][(int)(raycam->campos.x + raycam->dv.x * moveSpeed)] != '1')
+			raycam->campos.x += raycam->dv.x * moveSpeed;
+		if (map[(int)(raycam->campos.y + raycam->dv.y * moveSpeed)][(int)raycam->campos.x] != '1')
+			raycam->campos.y += raycam->dv.y * moveSpeed;
+	}
+	if (key.key == MLX_KEY_DOWN && key.action == MLX_REPEAT) {
+		if (map[(int)raycam->campos.y][(int)(raycam->campos.x - raycam->dv.x * moveSpeed)] != '1')
+			raycam->campos.x -= raycam->dv.x * moveSpeed;
+		if (map[(int)(raycam->campos.y - raycam->dv.y * moveSpeed)][(int)raycam->campos.x] != '1')
+			raycam->campos.y -= raycam->dv.y * moveSpeed;
+	}
 	if (key.key == MLX_KEY_RIGHT && key.action == MLX_REPEAT) {
 		double oldDirX = raycam->dv.x;
 		raycam->dv.x = raycam->dv.x * cos(-rotSpeed) - raycam->dv.y * sin(-rotSpeed);
@@ -179,5 +179,5 @@ void	render_hook(void *data) {
 }
 
 void	clear(mlx_image_t *img) {
-	memset(img->pixels, 0, img->height * img->width * 4);
+	memset(img->pixels, 0, img->height * img->width * 4); // TODO: Replace with ft_memset.
 }
