@@ -79,6 +79,7 @@ int	main(int argc, char **argv)
 	tex = mlx_load_png("./assets/wall.png");
 	while (true) {
 		render_frame(*raycam, buf, &data.map, tex);
+		handle_input(raycam);
 		mlx_loop(mlx);
 	}
 	mlx_terminate(mlx);

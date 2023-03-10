@@ -28,14 +28,24 @@ typedef struct s_IntVector2 {
 	int	y;
 }	t_intvec2;
 
+// Contains variables used to render a single vertical line onto the screen
+// based on the distance from the ray to the player.
+//
+// xcoord:			X coordinate of the vertical line on the screen.
+// startpoint:		Y coordinate start point of the vertical line.
+// endpoint:		Y coordinate end point of the vertical line.
+// tex_x:			The X coordinate of the pixel to draw.
+// tex_y:			The Y coordinate of the pixel to draw.
+// tex_y_step:		How many / few pixels to step upwards in the texture per pixel of the line.
+// tex_y_begin_pos:	Which pixel in the Y axis of the texture we should begin from when drawing the line.
 typedef struct s_vertline {
 	int		xcoord;
 	int		startpoint;
 	int		endpoint;
-	int		wall_xcoord;
-	double	tex_ystep;
-	double	tex_begin_pos;
+	int		tex_x;
 	int		tex_y;
+	double	tex_y_step;
+	double	tex_y_begin_pos;
 }	t_vertline;
 
 /* cameraX:			Camera angle. */
@@ -53,14 +63,21 @@ typedef struct s_RayVariables {
 	t_intvec2	stepdirection;
 }	t_rayvars;
 
-// campos:	Camera position.
-// dv:		Direction vector.
-// pv:		Plane vector.
+/* campos:	Camera position. */
+/* dv:		Direction vector. */
+/* pv:		Plane vector. */
 typedef struct s_raycam {
 	t_vec2	campos;
 	t_vec2	dv;
 	t_vec2	pv;
 }	t_raycam;
+
+/* This struct exists to be passed to the keyhook function. */
+/* raycam and the map will be used to handle input. */
+typedef struct s_mapcam {
+	t_raycam	*raycam;
+	char		**map;
+} t_mapcam;
 
 int			get_texture_pixel_data(int x, int y, mlx_texture_t *tex);
 void		render_frame(t_raycam raycam, mlx_image_t *image, t_map *map, mlx_texture_t *tex);

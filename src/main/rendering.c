@@ -79,8 +79,7 @@ static t_vertline generate_line(t_rayvars *ray, char **map, int x, int side) {
 	if(side == 1 && ray->raydir.y < 0) texX = 64 - texX - 1;
 
 	double step = 1.0 * 64 / lineHeight;
-	double texPos = (drawStart - WIN_HEIGHT / 2 + lineHeight / 2) * step;
-	printf("%f\n", step);
+	double texPos = (drawStart - (double)WIN_HEIGHT / 2 + (double)lineHeight / 2) * step;
 	result.tex_begin_pos = texPos;
 	result.tex_ystep = step;
 
@@ -125,4 +124,38 @@ void	drawVert(t_vertline line, mlx_image_t *image, mlx_texture_t *tex) {
 void render_frame(t_raycam raycam, mlx_image_t *image, t_map *map, mlx_texture_t *tex) {
 	for (int x = 0; x <= WIN_WIDTH; x++)
 		drawVert(castRay(raycam, map, x), image, tex);
+}
+
+void handleInput(t_raycam *raycam, char **map) {
+	float moveSpeed = 5.0 * 1;
+	float rotSpeed = 3.0 * 1;
+
+	if (IsKeyDown(KEY_UP)) {
+		if (map.getCoord((int)(raycam->campos.x + raycam->dv.x * moveSpeed), int(raycam->campos.y)) != '#')
+			raycam->campos.x += raycam->dv.x * moveSpeed;
+		if (map.getCoord(int(raycam->campos.x), (int)(raycam->campos.y + raycam->dv.y * moveSpeed)) != '#')
+			raycam->campos.y += raycam->dv.y * moveSpeed;
+	}
+	if (IsKeyDown(KEY_DOWN)) {
+		if (map.getCoord((int)(raycam->campos.x - raycam->dv.x * moveSpeed), int(raycam->campos.y)) != '#')
+			raycam->campos.x -= raycam->dv.x * moveSpeed;
+		if (map.getCoord(int(raycam->campos.x), (int)(raycam->campos.y - raycam->dv.y * moveSpeed)) != '#')
+			raycam->campos.y -= raycam->dv.y * moveSpeed;
+	}
+	if (IsKeyDown(KEY_RIGHT)) {
+		double oldDirX = raycam->dv.x;
+		raycam->dv.x = raycam->dv.x * cos(-rotSpeed) - raycam->dv.y * sin(-rotSpeed);
+		raycam->dv.y = oldDirX * sin(-rotSpeed) + raycam->dv.y * cos(-rotSpeed);
+		double oldPlaneX = raycam->pv.x;
+		raycam->pv.x = raycam->pv.x * cos(-rotSpeed) - raycam->pv.y * sin(-rotSpeed);
+		raycam->pv.y = oldPlaneX * sin(-rotSpeed) + raycam->pv.y * cos(-rotSpeed);
+	}
+	if (IsKeyDown(KEY_LEFT)) {
+		double oldDirX = raycam->dv.x;
+		raycam->dv.x = raycam->dv.x * cos(rotSpeed) - raycam->dv.y * sin(rotSpeed);
+		raycam->dv.y = oldDirX * sin(rotSpeed) + raycam->dv.y * cos(rotSpeed);
+		double oldPlaneX = raycam->pv.x;
+		raycam->pv.x = raycam->pv.x * cos(rotSpeed) - raycam->pv.y * sin(rotSpeed);
+		raycam->pv.y = oldPlaneX * sin(rotSpeed) + raycam->pv.y * cos(rotSpeed);
+	}
 }

@@ -14,7 +14,7 @@ FLAGS := -Wall -Werror -Wextra -Wpedantic
 
 MLX_NAME := build/libmlx42.a
 
-MLX_FLAGS := -framework Cocoa -framework OpenGL -framework IOKit
+MLX_FLAGS := -lglfw -framework Cocoa -framework OpenGL -framework IOKit
 
 INC := -I includes
 
@@ -50,7 +50,7 @@ debug: FLAGS = -g -fsanitize=address
 debug: DEBUG = debug
 debug: fclean $(NAME)
 
-linux: MLX_FLAGS = -ldl -lglfw -pthread
+linux: MLX_FLAGS = -ldl -pthread
 linux: all
 
 sym: FLAGS = -g
