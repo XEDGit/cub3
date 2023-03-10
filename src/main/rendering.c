@@ -127,8 +127,8 @@ void render_frame(t_raycam *raycam, mlx_image_t *image, t_map *map, mlx_texture_
 }
 
 void handle_input(mlx_key_data_t key, t_raycam *raycam, char **map) {
-	float moveSpeed = 5.0;
-	float rotSpeed = 3.0;
+	float moveSpeed = 0.5;
+	float rotSpeed = 0.5;
 
 	/* if (IsKeyDown(KEY_UP)) { */
 	/* 	if (map.getCoord((int)(raycam->campos.x + raycam->dv.x * moveSpeed), int(raycam->campos.y)) != '#') */
@@ -142,7 +142,7 @@ void handle_input(mlx_key_data_t key, t_raycam *raycam, char **map) {
 	/* 	if (map.getCoord(int(raycam->campos.x), (int)(raycam->campos.y - raycam->dv.y * moveSpeed)) != '#') */
 	/* 		raycam->campos.y -= raycam->dv.y * moveSpeed; */
 	/* } */
-	if (key.key == MLX_KEY_RIGHT && key.action == MLX_PRESS) {
+	if (key.key == MLX_KEY_RIGHT && key.action == MLX_REPEAT) {
 		double oldDirX = raycam->dv.x;
 		raycam->dv.x = raycam->dv.x * cos(-rotSpeed) - raycam->dv.y * sin(-rotSpeed);
 		raycam->dv.y = oldDirX * sin(-rotSpeed) + raycam->dv.y * cos(-rotSpeed);
@@ -150,7 +150,7 @@ void handle_input(mlx_key_data_t key, t_raycam *raycam, char **map) {
 		raycam->pv.x = raycam->pv.x * cos(-rotSpeed) - raycam->pv.y * sin(-rotSpeed);
 		raycam->pv.y = oldPlaneX * sin(-rotSpeed) + raycam->pv.y * cos(-rotSpeed);
 	}
-	if (key.key == MLX_KEY_LEFT && key.action == MLX_PRESS) {
+	if (key.key == MLX_KEY_LEFT && key.action == MLX_REPEAT) {
 		double oldDirX = raycam->dv.x;
 		raycam->dv.x = raycam->dv.x * cos(rotSpeed) - raycam->dv.y * sin(rotSpeed);
 		raycam->dv.y = oldDirX * sin(rotSpeed) + raycam->dv.y * cos(rotSpeed);
@@ -173,15 +173,14 @@ void	render_hook(void *data) {
 	t_renderer	*renderer;
 
 	renderer = data;
+	clear(renderer->image);
 	render_frame(renderer->raycam, renderer->image, renderer->map, renderer->tex);
 }
 
-void	clear(void *data) {
+void	clear(mlx_image_t *img) {
 	static int x;
 	int iter;
-	mlx_image_t	*img;
 
-	img = data;
 	iter = 0;
 	if (x == 0) {
 		while (iter < img->width * img->height * 4) {

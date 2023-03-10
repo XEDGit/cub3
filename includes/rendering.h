@@ -90,6 +90,6 @@ int			get_texture_pixel_data(int x, int y, mlx_texture_t *tex);
 void		render_hook(void *data);
 t_raycam	*init_raycam(int x, int y);
 void		input_keyhook(mlx_key_data_t keydata, void *data);
-void		clear(void *data);
+void		clear(mlx_image_t *img);
 
 #endif // RENDERING_H

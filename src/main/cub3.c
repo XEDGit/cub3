@@ -86,7 +86,6 @@ int	main(int argc, char **argv)
 
 	mlx_loop_hook(mlx, render_hook, &renderer);
 	mlx_key_hook(mlx, input_keyhook, &renderer);
-	mlx_loop_hook(mlx, clear, buf);
 	mlx_loop(mlx);
 
 	mlx_terminate(mlx);
