@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <math.h>
 #include <stdio.h>
+#include <string.h>
 
 static void	setup_step_direction(t_rayvars *ray, t_raycam *rayCam) {
 	if (ray->raydir.x < 0) {
@@ -178,17 +179,5 @@ void	render_hook(void *data) {
 }
 
 void	clear(mlx_image_t *img) {
-	static int x;
-	int iter;
-
-	iter = 0;
-	if (x == 0) {
-		while (iter < img->width * img->height * 4) {
-			img->pixels[iter] = 0;
-			iter++;
-		}
-		x = 1;
-	}
-	else
-		x = 0;
+	memset(img->pixels, 0, img->height * img->width * 4);
 }
