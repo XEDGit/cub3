@@ -180,6 +180,7 @@ void	input_keyhook(mlx_key_data_t keydata, void *data) {
 	mapcam = data;
 	if (!mapcam)
 		return ;
+	mapcam->has_moved = 1;
 	handle_input(keydata, mapcam->raycam, mapcam->map->maps->map);
 }
 
@@ -187,8 +188,11 @@ void	render_hook(void *data) {
 	t_renderer	*renderer;
 
 	renderer = data;
-	clear(renderer->image);
-	render_frame(renderer->raycam, renderer->image, renderer->map, renderer->tex);
+	if (renderer->has_moved) {
+		clear(renderer->image);
+		render_frame(renderer->raycam, renderer->image, renderer->map, renderer->tex);
+		renderer->has_moved = 0;
+	}
 }
 
 void	clear(mlx_image_t *img) {

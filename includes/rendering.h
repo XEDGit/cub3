@@ -73,24 +73,19 @@ typedef struct s_raycam {
 	t_vec2	pv;
 }	t_raycam;
 
-/* This struct exists to be passed to the keyhook function. */
-/* raycam and the map will be used to handle input. */
-typedef struct s_mapcam {
-	t_raycam	*raycam;
-	char		**map;
-} t_mapcam;
-
+/* Contains data required for rendering. */
 typedef struct s_renderer {
+	int				has_moved;
 	t_raycam		*raycam;
 	mlx_image_t		*image;
 	t_map			*map;
 	mlx_texture_t	*tex;
 } t_renderer;
 
-int			get_texture_pixel_data(int x, int y, mlx_texture_t *tex);
-void		render_hook(void *data);
 t_raycam	*init_raycam(int x, int y);
 void		input_keyhook(mlx_key_data_t keydata, void *data);
+void		render_hook(void *data);
 void		clear(mlx_image_t *img);
+int			get_texture_pixel_data(int x, int y, mlx_texture_t *tex);
 
 #endif // RENDERING_H

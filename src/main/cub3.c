@@ -83,6 +83,7 @@ int	main(int argc, char **argv)
 	renderer.map = &data.map;
 	renderer.raycam = raycam;
 	renderer.tex = tex;
+	renderer.has_moved = 1;
 
 	mlx_loop_hook(mlx, render_hook, &renderer);
 	mlx_key_hook(mlx, input_keyhook, &renderer);
