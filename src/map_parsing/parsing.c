@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   parsing.c                                          :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: lmuzio <lmuzio@student.42.fr>              +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/17 14:54:51 by lmuzio            #+#    #+#             */
-/*   Updated: 2023/01/17 18:14:28 by lmuzio           ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   parsing.c                                          :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: lmuzio <lmuzio@student.42.fr>                +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/12/17 14:54:51 by lmuzio        #+#    #+#                 */
+/*   Updated: 2023/03/11 19:00:04 by lmuzio        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -241,7 +241,7 @@ bool	parse_args(t_map *map, int argc, char **argv)
 		return (error("Not enough arguments\nUsage: ./cub3 path_to_map", \
 		0, false));
 	fd = open(argv[1], O_RDONLY);
-	if (fd == -1)
+	if (read(fd, 0, 0))
 		return (error("File open failed", 0, true));
 	if (parse_lines(map, fd) || parse_maps(map, fd))
 		return (free_fd_gnl(fd));
