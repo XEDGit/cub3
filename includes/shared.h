@@ -62,6 +62,7 @@ bool	error(char *msg, void *msg_arg, bool perr);
 
 char	*ft_strdup(const char *s1);
 int		ft_strlen(char *ptr);
+int		ft_strcmp(const char *s1, const char *s2);
 long	ft_atoi(const char *str);
 void	*ft_realloc(void *ptr, unsigned int old_size, unsigned int size);
 char	*ft_strchr(char *s, int c);

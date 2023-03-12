@@ -215,7 +215,7 @@ bool	parse_lines(t_map *map, int fd)
 	{
 		line = get_next_line(fd);
 		if (!line)
-			return (false);
+			return (error("Failed to parse textures or colors", 0, false));
 		cur = skip_spaces(line);
 		if (!*cur)
 			err = true;
@@ -240,6 +240,8 @@ bool	parse_args(t_map *map, int argc, char **argv)
 	if (argc < 2)
 		return (error("Not enough arguments\nUsage: ./cub3 path_to_map", \
 		0, false));
+	if (ft_strcmp(&argv[1][ft_strlen(argv[1]) - 3], "cub"))
+		return (error("Map '%s' extension is not '.cub'", argv[1], false));
 	fd = open(argv[1], O_RDONLY);
 	if (read(fd, 0, 0))
 		return (error("File open failed", 0, true));

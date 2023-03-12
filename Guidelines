@@ -13,7 +13,7 @@ only 6 charachters:
 
 the map must be closed		V
 
-the name must end in ".cub"		X
+the name must end in ".cub"		V
 
 the map must be at the end of the file		X
 
