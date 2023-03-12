@@ -71,7 +71,7 @@ int	main(int argc, char **argv)
 	if (parse_args(&data.map, argc, argv))
 		(void)data;
 	else if (check_map(&data.map))
-		free_map(&data.map);
+		(void)data;
 	else if (1)
 	{
 		printf("x pos: %d y pos: %d\n", data.map.maps->spawn[0], data.map.maps->spawn[1]);
@@ -93,5 +93,6 @@ int	main(int argc, char **argv)
 
 		mlx_terminate(mlx);
 	}
+	free_map(&data.map);
 	return (0);
 }

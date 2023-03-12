@@ -104,7 +104,7 @@ char	**square_map(char **map)
 	return (map);
 }
 
-int	parse_one_map(t_map *maps, int fd)
+int	parse_one_map(t_map *maps, int fd, int num)
 {
 	int		lines_count;
 	int		size;
@@ -126,29 +126,32 @@ int	parse_one_map(t_map *maps, int fd)
 		}
 	}
 	if (!map)
-		return (error("Map allocation failed", 0, true));
+		return (error("Map allocation failed in map number %d", &num, true));
 	map[lines_count] = 0;
 	if (map_add_to_back(&maps->maps, map))
-		return (error("Adding map to list failed", 0, true));
+		return (error("Adding map number %d to list failed", &num, true));
 	return (end);
 }
 
 bool	parse_maps(t_map *map, int fd)
 {
 	int				end;
-	t_single_map	*last_node;
+	int				i;
+	t_single_map	*last_map_parsed;
 
+	i = 0;
 	while (true)
 	{
-		end = parse_one_map(map, fd);
+		i++;
+		end = parse_one_map(map, fd, i);
 		if (end == true)
 			return (true);
-		last_node = map_last(map->maps);
-		last_node->map = square_map(last_node->map);
-		if (!last_node->map)
-			return (error("Map squaring failed", 0, true));
-		if (find_player(last_node))
-			return (error("Player not found in map", 0, false));
+		last_map_parsed = map_last(map->maps);
+		last_map_parsed->map = square_map(last_map_parsed->map);
+		if (!last_map_parsed->map)
+			return (error("Map number %d squaring failed", &i, true));
+		if (find_player(last_map_parsed))
+			return (error("Player not found in map number %d", &i, false));
 		if (end == -2)
 			break ;
 	}
