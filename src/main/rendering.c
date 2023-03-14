@@ -84,12 +84,12 @@ static t_vertline	generate_line(t_rayvars *ray, char **map, int x, int side)
 	else
 		wall_x = ray->int_map_coords.x + perpwalldist * ray->raydir.x;
 	wall_x -= floor((wall_x));
-	r.tex_x = (int)(wall_x * (double)64);
+	r.tex_x = (int)(wall_x * (double)TW);
 	if (side == 0 && ray->raydir.x > 0)
-		r.tex_x = 64 - r.tex_x - 1;
+		r.tex_x = TW - r.tex_x - 1;
 	if (side == 1 && ray->raydir.y < 0)
-		r.tex_x = 64 - r.tex_x - 1;
-	r.step = 1.0 * 64 / lineheight;
+		r.tex_x = TW - r.tex_x - 1;
+	r.step = 1.0 * TH / lineheight;
 	r.tex_y_begin_pos = (r.startpoint - (H / 2) + (lineheight / 2)) * r.step;
 	r.side = side;
 	return (r);
@@ -125,7 +125,7 @@ void	draw_vert(t_vertline line, mlx_image_t *image, mlx_texture_t *tex)
 	iter = line.startpoint;
 	while (iter <= line.endpoint)
 	{
-		line.tex_y = (int)line.tex_y_begin_pos & (64 - 1);
+		line.tex_y = (int)line.tex_y_begin_pos & (TH - 1);
 		line.tex_y_begin_pos += line.step;
 		colour = get_texture_pixel_data(line.tex_x, line.tex_y, tex);
 		mlx_put_pixel(image, line.xcoord, iter, colour);

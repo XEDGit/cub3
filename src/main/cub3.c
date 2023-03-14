@@ -62,7 +62,7 @@ void	init_renderer(mlx_t *mlx, t_renderer *renderer, t_data *data)
 {
 	renderer->raycam = init_raycam(data->map.maps->spawn[0], \
 									data->map.maps->spawn[1]);
-	renderer->image = mlx_new_image(mlx, WIN_HEIGHT, WIN_WIDTH);
+	renderer->image = mlx_new_image(mlx, W, H);
 	mlx_image_to_window(mlx, renderer->image, 0, 0);
 	renderer->tex = mlx_load_png("./assets/wall.png");
 	renderer->map = &data->map;
@@ -84,7 +84,7 @@ int	main(int argc, char **argv)
 		(void)data;
 	else if (1)
 	{
-		mlx = mlx_init(WIN_HEIGHT, WIN_WIDTH, "cub3d", 0);
+		mlx = mlx_init(W, H, "cub3d", 0);
 		init_renderer(mlx, &renderer, &data);
 		mlx_loop(mlx);
 		mlx_terminate(mlx);

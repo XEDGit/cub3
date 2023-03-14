@@ -15,6 +15,11 @@
 # include "../MLX42/include/MLX42/MLX42.h"
 # include "shared.h"
 
+/* Texture width & texture height. */
+# define TW 64
+# define TH 64
+
+/* Window width and window height */
 # define W 2048
 # define H 2048
 
