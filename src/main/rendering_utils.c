@@ -51,7 +51,7 @@ void	render_frame(t_raycam *rc, mlx_image_t *i, t_map *m, mlx_texture_t *t)
 
 	iter = 0;
 	memset(i->pixels, 0, i->height * i->width * 4); // TODO: Replace with ft_memset.
-	while (iter <= WIN_WIDTH)
+	while (iter <= W)
 	{
 		draw_vert(cast_ray(rc, m, iter), i, t);
 		iter++;
