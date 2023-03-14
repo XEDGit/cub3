@@ -58,6 +58,19 @@ void	free_map(t_map *map)
 	}
 }
 
+void	init_renderer(mlx_t *mlx, t_renderer *renderer, t_data *data)
+{
+	renderer->raycam = init_raycam(data->map.maps->spawn[0], \
+									data->map.maps->spawn[1]);
+	renderer->image = mlx_new_image(mlx, WIN_HEIGHT, WIN_WIDTH);
+	mlx_image_to_window(mlx, renderer->image, 0, 0);
+	renderer->tex = mlx_load_png("./assets/wall.png");
+	renderer->map = &data->map;
+	renderer->has_moved = 1;
+	mlx_loop_hook(mlx, render_hook, &renderer);
+	mlx_key_hook(mlx, input_keyhook, &renderer);
+}
+
 int	main(int argc, char **argv)
 {
 	mlx_t			*mlx;
@@ -71,16 +84,8 @@ int	main(int argc, char **argv)
 		(void)data;
 	else if (1)
 	{
-		renderer.raycam = init_raycam(data.map.maps->spawn[0], \
-										data.map.maps->spawn[1]);
 		mlx = mlx_init(WIN_HEIGHT, WIN_WIDTH, "cub3d", 0);
-		renderer.image = mlx_new_image(mlx, WIN_HEIGHT, WIN_WIDTH);
-		mlx_image_to_window(mlx, renderer.image, 0, 0);
-		renderer.tex = mlx_load_png("./assets/wall.png");
-		renderer.map = &data.map;
-		renderer.has_moved = 1;
-		mlx_loop_hook(mlx, render_hook, &renderer);
-		mlx_key_hook(mlx, input_keyhook, &renderer);
+		init_renderer(mlx, &renderer, &data);
 		mlx_loop(mlx);
 		mlx_terminate(mlx);
 	}
