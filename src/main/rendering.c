@@ -67,6 +67,7 @@ static t_vertline	generate_line(t_rayvars *ray, char **map, int x, int side)
 	int			lineheight;
 	int			drawstart;
 	int			drawend;
+	double		wall_x;
 
 	if (side == 0)
 		perpwalldist = (ray->sidedistances.x - ray->deltads.x);
@@ -82,26 +83,22 @@ static t_vertline	generate_line(t_rayvars *ray, char **map, int x, int side)
 	result.xcoord = x;
 	result.startpoint = drawstart;
 	result.endpoint = drawend;
-	double wallX; //where exactly the wall was hit
 	if (side == 0)
-		wallX = ray->int_map_coords.y + perpwalldist * ray->raydir.y;
+		wall_x = ray->int_map_coords.y + perpwalldist * ray->raydir.y;
 	else
-		wallX = ray->int_map_coords.x + perpwalldist * ray->raydir.x;
-	wallX -= floor((wallX));
+		wall_x = ray->int_map_coords.x + perpwalldist * ray->raydir.x;
+	wall_x -= floor((wall_x));
 	//x coordinate on the texture
-	int texX = (int)(wallX * (double)64);
-	if(side == 0 && ray->raydir.x > 0) texX = 64 - texX - 1;
-	if(side == 1 && ray->raydir.y < 0) texX = 64 - texX - 1;
-	double step = 1.0 * 64 / lineheight;
-	double texPos = (drawstart - (WIN_HEIGHT / 2) + (lineheight / 2)) * step;
-	result.tex_y_begin_pos = texPos;
-	result.tex_y_step = step;
-	result.tex_x = texX;
+	result.tex_x = (int)(wall_x * (double)64);
+	if(side == 0 && ray->raydir.x > 0) result.tex_x = 64 - result.tex_x - 1;
+	if(side == 1 && ray->raydir.y < 0) result.tex_x = 64 - result.tex_x - 1;
+	result.tex_y_step = 1.0 * 64 / lineheight;
+	result.tex_y_begin_pos = (drawstart - (WIN_HEIGHT / 2) + (lineheight / 2)) * result.tex_y_step;
 	result.side = side;
 	return (result);
 }
 
-t_vertline	castRay(t_raycam *raycam, t_map *map, int x)
+t_vertline	cast_ray(t_raycam *raycam, t_map *map, int x)
 {
 	t_rayvars	ray;
 	int			side;
@@ -116,7 +113,7 @@ t_vertline	castRay(t_raycam *raycam, t_map *map, int x)
 	return (generate_line(&ray, map->maps[0].map, x, side));
 }
 
-void	drawVert(t_vertline line, mlx_image_t *image, mlx_texture_t *tex)
+void	draw_vert(t_vertline line, mlx_image_t *image, mlx_texture_t *tex)
 {
 	static int shiftamount;
 	int	iter;
@@ -149,41 +146,43 @@ void	drawVert(t_vertline line, mlx_image_t *image, mlx_texture_t *tex)
 void	render_frame(t_raycam *raycam, mlx_image_t *image, t_map *map, mlx_texture_t *tex)
 {
 	for (int x = 0; x <= WIN_WIDTH; x++)
-		drawVert(castRay(raycam, map, x), image, tex);
+		draw_vert(cast_ray(raycam, map, x), image, tex);
 }
 
 void	handle_input(mlx_key_data_t key, t_raycam *raycam, char **map)
 {
-	float moveSpeed = 0.05;
-	float rotSpeed = 0.05;
+	float move_speed = 0.05;
+	float rot_speed = 0.05;
+	double	old_dir_x;
+	double	old_plane_x;
 
 	if (key.key == MLX_KEY_UP && (key.action == MLX_REPEAT || key.action == MLX_PRESS)) {
-		if (map[(int)raycam->campos.y][(int)(raycam->campos.x + raycam->dv.x * moveSpeed)] != '1')
-			raycam->campos.x += raycam->dv.x * moveSpeed;
-		if (map[(int)(raycam->campos.y + raycam->dv.y * moveSpeed)][(int)raycam->campos.x] != '1')
-			raycam->campos.y += raycam->dv.y * moveSpeed;
+		if (map[(int)raycam->campos.y][(int)(raycam->campos.x + raycam->dv.x * move_speed)] != '1')
+			raycam->campos.x += raycam->dv.x * move_speed;
+		if (map[(int)(raycam->campos.y + raycam->dv.y * move_speed)][(int)raycam->campos.x] != '1')
+			raycam->campos.y += raycam->dv.y * move_speed;
 	}
 	if (key.key == MLX_KEY_DOWN && (key.action == MLX_REPEAT || key.action == MLX_PRESS)) {
-		if (map[(int)raycam->campos.y][(int)(raycam->campos.x - raycam->dv.x * moveSpeed)] != '1')
-			raycam->campos.x -= raycam->dv.x * moveSpeed;
-		if (map[(int)(raycam->campos.y - raycam->dv.y * moveSpeed)][(int)raycam->campos.x] != '1')
-			raycam->campos.y -= raycam->dv.y * moveSpeed;
+		if (map[(int)raycam->campos.y][(int)(raycam->campos.x - raycam->dv.x * move_speed)] != '1')
+			raycam->campos.x -= raycam->dv.x * move_speed;
+		if (map[(int)(raycam->campos.y - raycam->dv.y * move_speed)][(int)raycam->campos.x] != '1')
+			raycam->campos.y -= raycam->dv.y * move_speed;
 	}
 	if (key.key == MLX_KEY_RIGHT && (key.action == MLX_REPEAT || key.action == MLX_PRESS)) {
-		double oldDirX = raycam->dv.x;
-		raycam->dv.x = raycam->dv.x * cos(-rotSpeed) - raycam->dv.y * sin(-rotSpeed);
-		raycam->dv.y = oldDirX * sin(-rotSpeed) + raycam->dv.y * cos(-rotSpeed);
-		double oldPlaneX = raycam->pv.x;
-		raycam->pv.x = raycam->pv.x * cos(-rotSpeed) - raycam->pv.y * sin(-rotSpeed);
-		raycam->pv.y = oldPlaneX * sin(-rotSpeed) + raycam->pv.y * cos(-rotSpeed);
+		old_dir_x = raycam->dv.x;
+		raycam->dv.x = raycam->dv.x * cos(-rot_speed) - raycam->dv.y * sin(-rot_speed);
+		raycam->dv.y = old_dir_x * sin(-rot_speed) + raycam->dv.y * cos(-rot_speed);
+		old_plane_x = raycam->pv.x;
+		raycam->pv.x = raycam->pv.x * cos(-rot_speed) - raycam->pv.y * sin(-rot_speed);
+		raycam->pv.y = old_plane_x * sin(-rot_speed) + raycam->pv.y * cos(-rot_speed);
 	}
 	if (key.key == MLX_KEY_LEFT && (key.action == MLX_REPEAT || key.action == MLX_PRESS)) {
-		double oldDirX = raycam->dv.x;
-		raycam->dv.x = raycam->dv.x * cos(rotSpeed) - raycam->dv.y * sin(rotSpeed);
-		raycam->dv.y = oldDirX * sin(rotSpeed) + raycam->dv.y * cos(rotSpeed);
-		double oldPlaneX = raycam->pv.x;
-		raycam->pv.x = raycam->pv.x * cos(rotSpeed) - raycam->pv.y * sin(rotSpeed);
-		raycam->pv.y = oldPlaneX * sin(rotSpeed) + raycam->pv.y * cos(rotSpeed);
+		old_dir_x = raycam->dv.x;
+		raycam->dv.x = raycam->dv.x * cos(rot_speed) - raycam->dv.y * sin(rot_speed);
+		raycam->dv.y = old_dir_x * sin(rot_speed) + raycam->dv.y * cos(rot_speed);
+		old_plane_x = raycam->pv.x;
+		raycam->pv.x = raycam->pv.x * cos(rot_speed) - raycam->pv.y * sin(rot_speed);
+		raycam->pv.y = old_plane_x * sin(rot_speed) + raycam->pv.y * cos(rot_speed);
 	}
 }
 
