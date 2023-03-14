@@ -89,8 +89,8 @@ static t_vertline	generate_line(t_rayvars *ray, char **map, int x, int side)
 		r.tex_x = 64 - r.tex_x - 1;
 	if (side == 1 && ray->raydir.y < 0)
 		r.tex_x = 64 - r.tex_x - 1;
-	r.tex_y_step = 1.0 * 64 / lineheight;
-	r.tex_y_begin_pos = (r.startpoint - (H / 2) + (lineheight / 2)) * r.tex_y_step;
+	r.step = 1.0 * 64 / lineheight;
+	r.tex_y_begin_pos = (r.startpoint - (H / 2) + (lineheight / 2)) * r.step;
 	r.side = side;
 	return (r);
 }
@@ -126,7 +126,7 @@ void	draw_vert(t_vertline line, mlx_image_t *image, mlx_texture_t *tex)
 	while (iter <= line.endpoint)
 	{
 		line.tex_y = (int)line.tex_y_begin_pos & (64 - 1);
-		line.tex_y_begin_pos += line.tex_y_step;
+		line.tex_y_begin_pos += line.step;
 		colour = get_texture_pixel_data(line.tex_x, line.tex_y, tex);
 		mlx_put_pixel(image, line.xcoord, iter, colour);
 		iter++;

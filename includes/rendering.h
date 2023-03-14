@@ -36,7 +36,7 @@ typedef struct s_IntVector2 {
 // endpoint:		Y coordinate end point of the vertical line.
 // tex_x:			The X coordinate of the pixel to draw.
 // tex_y:			The Y coordinate of the pixel to draw.
-// tex_y_step:		How many / few pixels to step upwards in the texture per pixel of the line.
+// step:			How many / few pixels to step upwards in the texture per pixel of the line.
 // tex_y_begin_pos:	Which pixel in the Y axis of the texture we should begin from when drawing the line.
 typedef struct s_vertline {
 	int		xcoord;
@@ -45,7 +45,7 @@ typedef struct s_vertline {
 	int		side;
 	int		tex_x;
 	int		tex_y;
-	double	tex_y_step;
+	double	step;
 	double	tex_y_begin_pos;
 }	t_vertline;
 
