@@ -184,6 +184,12 @@ void	handle_input(mlx_key_data_t key, t_raycam *raycam, char **map)
 
 void	render_frame(t_raycam *raycam, mlx_image_t *image, t_map *map, mlx_texture_t *tex)
 {
-	for (int x = 0; x <= WIN_WIDTH; x++)
-		draw_vert(cast_ray(raycam, map, x), image, tex);
+	int	iter;
+
+	iter = 0;
+	while (iter <= WIN_WIDTH)
+	{
+		draw_vert(cast_ray(raycam, map, iter), image, tex);
+		iter++;
+	}
 }
