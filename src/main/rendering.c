@@ -90,8 +90,10 @@ static t_vertline	generate_line(t_rayvars *ray, char **map, int x, int side)
 	wall_x -= floor((wall_x));
 	//x coordinate on the texture
 	result.tex_x = (int)(wall_x * (double)64);
-	if(side == 0 && ray->raydir.x > 0) result.tex_x = 64 - result.tex_x - 1;
-	if(side == 1 && ray->raydir.y < 0) result.tex_x = 64 - result.tex_x - 1;
+	if (side == 0 && ray->raydir.x > 0)
+		result.tex_x = 64 - result.tex_x - 1;
+	if (side == 1 && ray->raydir.y < 0)
+		result.tex_x = 64 - result.tex_x - 1;
 	result.tex_y_step = 1.0 * 64 / lineheight;
 	result.tex_y_begin_pos = (drawstart - (WIN_HEIGHT / 2) + (lineheight / 2)) * result.tex_y_step;
 	result.side = side;
@@ -143,12 +145,6 @@ void	draw_vert(t_vertline line, mlx_image_t *image, mlx_texture_t *tex)
 	}
 }
 
-void	render_frame(t_raycam *raycam, mlx_image_t *image, t_map *map, mlx_texture_t *tex)
-{
-	for (int x = 0; x <= WIN_WIDTH; x++)
-		draw_vert(cast_ray(raycam, map, x), image, tex);
-}
-
 void	handle_input(mlx_key_data_t key, t_raycam *raycam, char **map)
 {
 	float move_speed = 0.05;
@@ -184,4 +180,10 @@ void	handle_input(mlx_key_data_t key, t_raycam *raycam, char **map)
 		raycam->pv.x = raycam->pv.x * cos(rot_speed) - raycam->pv.y * sin(rot_speed);
 		raycam->pv.y = old_plane_x * sin(rot_speed) + raycam->pv.y * cos(rot_speed);
 	}
+}
+
+void	render_frame(t_raycam *raycam, mlx_image_t *image, t_map *map, mlx_texture_t *tex)
+{
+	for (int x = 0; x <= WIN_WIDTH; x++)
+		draw_vert(cast_ray(raycam, map, x), image, tex);
 }
