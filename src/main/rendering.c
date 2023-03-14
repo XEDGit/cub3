@@ -112,7 +112,6 @@ t_vertline	cast_ray(t_raycam *raycam, t_map *map, int x)
 
 void	draw_vert(t_vertline line, mlx_image_t *image, mlx_texture_t *tex)
 {
-	static int	shiftamount;
 	int			iter;
 	int			colour;
 
@@ -129,25 +128,7 @@ void	draw_vert(t_vertline line, mlx_image_t *image, mlx_texture_t *tex)
 		line.tex_y = (int)line.tex_y_begin_pos & (64 - 1);
 		line.tex_y_begin_pos += line.tex_y_step;
 		colour = get_texture_pixel_data(line.tex_x, line.tex_y, tex);
-		if (shiftamount == 2)
-			shiftamount = 0;
-		else
-			shiftamount++;
-		if (line.side == 1)
-			colour = (colour << shiftamount);
 		mlx_put_pixel(image, line.xcoord, iter, colour);
-		iter++;
-	}
-}
-
-void	render_frame(t_raycam *raycam, mlx_image_t *image, t_map *map, mlx_texture_t *tex)
-{
-	int	iter;
-
-	iter = 0;
-	while (iter <= WIN_WIDTH)
-	{
-		draw_vert(cast_ray(raycam, map, iter), image, tex);
 		iter++;
 	}
 }

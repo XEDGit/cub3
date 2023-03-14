@@ -39,15 +39,22 @@ void	render_hook(void *data)
 	renderer = data;
 	if (renderer->has_moved)
 	{
-		clear(renderer->image);
 		render_frame(renderer->raycam, \
 							renderer->image, renderer->map, renderer->tex);
 		renderer->has_moved = 0;
 	}
 }
 
-void	clear(mlx_image_t *img)
+void	render_frame(t_raycam *raycam, mlx_image_t *image, t_map *map, mlx_texture_t *tex)
 {
-	memset(img->pixels, \
-			0, img->height * img->width * 4); // TODO: Replace with ft_memset.
+	int	iter;
+
+	iter = 0;
+	memset(image->pixels, \
+			0, image->height * image->width * 4); // TODO: Replace with ft_memset.
+	while (iter <= WIN_WIDTH)
+	{
+		draw_vert(cast_ray(raycam, map, iter), image, tex);
+		iter++;
+	}
 }
