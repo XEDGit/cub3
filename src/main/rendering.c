@@ -10,21 +10,26 @@ static void	setup_step_direction(t_rayvars *ray, t_raycam *rayCam)
 	if (ray->raydir.x < 0)
 	{
 		ray->stepdirection.x = -1;
-		ray->sidedistances.x = (rayCam->campos.x - ray->int_map_coords.x) * ray->deltadistances.x;
+		ray->sidedistances.x = \
+			(rayCam->campos.x - ray->int_map_coords.x) * ray->deltads.x;
 	}
 	else
 	{
 		ray->stepdirection.x = 1;
-		ray->sidedistances.x = (ray->int_map_coords.x + 1.0 - rayCam->campos.x) * ray->deltadistances.x;
+		ray->sidedistances.x = \
+			(ray->int_map_coords.x + 1.0 - rayCam->campos.x) * ray->deltads.x;
 	}
 	if (ray->raydir.y < 0)
 	{
 		ray->stepdirection.y = -1;
-		ray->sidedistances.y = (rayCam->campos.y - ray->int_map_coords.y) * ray->deltadistances.y;
-	} else
+		ray->sidedistances.y = \
+			(rayCam->campos.y - ray->int_map_coords.y) * ray->deltads.y;
+	}
+	else
 	{
 		ray->stepdirection.y = 1;
-		ray->sidedistances.y = (ray->int_map_coords.y + 1.0 - rayCam->campos.y) * ray->deltadistances.y;
+		ray->sidedistances.y = \
+			(ray->int_map_coords.y + 1.0 - rayCam->campos.y) * ray->deltads.y;
 	}
 }
 
@@ -35,16 +40,17 @@ static int	cast_till_hit(t_rayvars *ray, char **map)
 	int	side;
 
 	hit = 0;
-	while (hit == 0) {
+	while (hit == 0)
+	{
 		if (ray->sidedistances.x < ray->sidedistances.y)
 		{
-			ray->sidedistances.x += ray->deltadistances.x;
+			ray->sidedistances.x += ray->deltads.x;
 			ray->int_map_coords.x += ray->stepdirection.x;
 			side = 0;
 		}
 		else
 		{
-			ray->sidedistances.y += ray->deltadistances.y;
+			ray->sidedistances.y += ray->deltads.y;
 			ray->int_map_coords.y += ray->stepdirection.y;
 			side = 1;
 		}
@@ -57,43 +63,39 @@ static int	cast_till_hit(t_rayvars *ray, char **map)
 static t_vertline	generate_line(t_rayvars *ray, char **map, int x, int side)
 {
 	t_vertline	result;
-	double		perpWallDist;
-	int			lineHeight;
-	int			drawStart;
-	int			drawEnd;
+	double		perpwalldist;
+	int			lineheight;
+	int			drawstart;
+	int			drawend;
 
 	if (side == 0)
-		perpWallDist = (ray->sidedistances.x - ray->deltadistances.x);
+		perpwalldist = (ray->sidedistances.x - ray->deltads.x);
 	else
-		perpWallDist = (ray->sidedistances.y - ray->deltadistances.y);
-	lineHeight = ((WIN_HEIGHT / perpWallDist));
-	drawStart = -lineHeight / 2 + WIN_HEIGHT / 2;
-	if (drawStart < 0)
-		drawStart = 0;
-	drawEnd = lineHeight / 2 + WIN_HEIGHT / 2;
-	if (drawEnd >= WIN_HEIGHT)
-		drawEnd = WIN_HEIGHT - 1;
+		perpwalldist = (ray->sidedistances.y - ray->deltads.y);
+	lineheight = ((WIN_HEIGHT / perpwalldist));
+	drawstart = -lineheight / 2 + WIN_HEIGHT / 2;
+	if (drawstart < 0)
+		drawstart = 0;
+	drawend = lineheight / 2 + WIN_HEIGHT / 2;
+	if (drawend >= WIN_HEIGHT)
+		drawend = WIN_HEIGHT - 1;
 	result.xcoord = x;
-	result.startpoint = drawStart;
-	result.endpoint = drawEnd;
-
+	result.startpoint = drawstart;
+	result.endpoint = drawend;
 	double wallX; //where exactly the wall was hit
 	if (side == 0)
-		wallX = ray->int_map_coords.y + perpWallDist * ray->raydir.y;
+		wallX = ray->int_map_coords.y + perpwalldist * ray->raydir.y;
 	else
-		wallX = ray->int_map_coords.x + perpWallDist * ray->raydir.x;
+		wallX = ray->int_map_coords.x + perpwalldist * ray->raydir.x;
 	wallX -= floor((wallX));
-
 	//x coordinate on the texture
 	int texX = (int)(wallX * (double)64);
 	if(side == 0 && ray->raydir.x > 0) texX = 64 - texX - 1;
 	if(side == 1 && ray->raydir.y < 0) texX = 64 - texX - 1;
-
-	double step = 1.0 * 64 / lineHeight;
-	double texPos = (drawStart - (WIN_HEIGHT / 2) + (lineHeight / 2)) * step;
+	double step = 1.0 * 64 / lineheight;
+	double texPos = (drawstart - (WIN_HEIGHT / 2) + (lineheight / 2)) * step;
 	result.tex_y_begin_pos = texPos;
 	result.tex_y_step = step;
-
 	result.tex_x = texX;
 	result.side = side;
 	return (result);
@@ -108,7 +110,7 @@ t_vertline	castRay(t_raycam *raycam, t_map *map, int x)
 	ray.raydir.x = raycam->dv.x + raycam->pv.x * ray.camera_x;
 	ray.raydir.y = raycam->dv.y + raycam->pv.y * ray.camera_x;
 	ray.int_map_coords = (t_intvec2){ (int)raycam->campos.x, (int)raycam->campos.y };
-	ray.deltadistances = (t_vec2){ fabs(1 / ray.raydir.x), fabs(1 / ray.raydir.y) };
+	ray.deltads = (t_vec2){ fabs(1 / ray.raydir.x), fabs(1 / ray.raydir.y) };
 	setup_step_direction(&ray, raycam);
 	side = cast_till_hit(&ray, map->maps[0].map); // TODO: Replace 0 with current map.
 	return (generate_line(&ray, map->maps[0].map, x, side));

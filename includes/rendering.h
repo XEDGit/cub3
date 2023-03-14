@@ -60,7 +60,7 @@ typedef struct s_RayVariables {
 	t_vec2		raydir;
 	t_intvec2	int_map_coords;
 	t_vec2		sidedistances;
-	t_vec2		deltadistances;
+	t_vec2		deltads;
 	t_intvec2	stepdirection;
 }	t_rayvars;
 
