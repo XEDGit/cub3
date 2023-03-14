@@ -1,49 +1,54 @@
 #include <math.h>
 #include "../../includes/rendering.h"
 
-#define MOVE_SPEED 0.05
-#define ROT_SPEED 0.05
+/* Movement speed & rotation speed. */
+#define MOVS 0.05
+#define ROTS 0.05
 
-void	forward_backward(mlx_key_data_t key, t_raycam *raycam, char **map)
+void	forward_backward(mlx_key_data_t k, t_raycam *rc, char **m)
 {
-	if (key.key == MLX_KEY_UP && (key.action == MLX_REPEAT || key.action == MLX_PRESS))
+	if (k.key == MLX_KEY_UP
+		&& (k.action == MLX_REPEAT || k.action == MLX_PRESS))
 	{
-		if (map[(int)raycam->campos.y][(int)(raycam->campos.x + raycam->dv.x * MOVE_SPEED)] != '1')
-			raycam->campos.x += raycam->dv.x * MOVE_SPEED;
-		if (map[(int)(raycam->campos.y + raycam->dv.y * MOVE_SPEED)][(int)raycam->campos.x] != '1')
-			raycam->campos.y += raycam->dv.y * MOVE_SPEED;
+		if (m[(int)rc->campos.y][(int)(rc->campos.x + rc->dv.x * MOVS)] != '1')
+			rc->campos.x += rc->dv.x * MOVS;
+		if (m[(int)(rc->campos.y + rc->dv.y * MOVS)][(int)rc->campos.x] != '1')
+			rc->campos.y += rc->dv.y * MOVS;
 	}
-	if (key.key == MLX_KEY_DOWN && (key.action == MLX_REPEAT || key.action == MLX_PRESS))
+	if (k.key == MLX_KEY_DOWN
+		&& (k.action == MLX_REPEAT || k.action == MLX_PRESS))
 	{
-		if (map[(int)raycam->campos.y][(int)(raycam->campos.x - raycam->dv.x * MOVE_SPEED)] != '1')
-			raycam->campos.x -= raycam->dv.x * MOVE_SPEED;
-		if (map[(int)(raycam->campos.y - raycam->dv.y * MOVE_SPEED)][(int)raycam->campos.x] != '1')
-			raycam->campos.y -= raycam->dv.y * MOVE_SPEED;
+		if (m[(int)rc->campos.y][(int)(rc->campos.x - rc->dv.x * MOVS)] != '1')
+			rc->campos.x -= rc->dv.x * MOVS;
+		if (m[(int)(rc->campos.y - rc->dv.y * MOVS)][(int)rc->campos.x] != '1')
+			rc->campos.y -= rc->dv.y * MOVS;
 	}
 }
 
-void	left_right(mlx_key_data_t key, t_raycam *raycam, char **map)
+void	left_right(mlx_key_data_t k, t_raycam *rc, char **m)
 {
 	double	old_dir_x;
 	double	old_plane_x;
 
-	if (key.key == MLX_KEY_RIGHT && (key.action == MLX_REPEAT || key.action == MLX_PRESS))
+	if (k.key == MLX_KEY_RIGHT
+		&& (k.action == MLX_REPEAT || k.action == MLX_PRESS))
 	{
-		old_dir_x = raycam->dv.x;
-		raycam->dv.x = raycam->dv.x * cos(-ROT_SPEED) - raycam->dv.y * sin(-ROT_SPEED);
-		raycam->dv.y = old_dir_x * sin(-ROT_SPEED) + raycam->dv.y * cos(-ROT_SPEED);
-		old_plane_x = raycam->pv.x;
-		raycam->pv.x = raycam->pv.x * cos(-ROT_SPEED) - raycam->pv.y * sin(-ROT_SPEED);
-		raycam->pv.y = old_plane_x * sin(-ROT_SPEED) + raycam->pv.y * cos(-ROT_SPEED);
+		old_dir_x = rc->dv.x;
+		rc->dv.x = rc->dv.x * cos(-ROTS) - rc->dv.y * sin(-ROTS);
+		rc->dv.y = old_dir_x * sin(-ROTS) + rc->dv.y * cos(-ROTS);
+		old_plane_x = rc->pv.x;
+		rc->pv.x = rc->pv.x * cos(-ROTS) - rc->pv.y * sin(-ROTS);
+		rc->pv.y = old_plane_x * sin(-ROTS) + rc->pv.y * cos(-ROTS);
 	}
-	if (key.key == MLX_KEY_LEFT && (key.action == MLX_REPEAT || key.action == MLX_PRESS))
+	if (k.key == MLX_KEY_LEFT
+		&& (k.action == MLX_REPEAT || k.action == MLX_PRESS))
 	{
-		old_dir_x = raycam->dv.x;
-		raycam->dv.x = raycam->dv.x * cos(ROT_SPEED) - raycam->dv.y * sin(ROT_SPEED);
-		raycam->dv.y = old_dir_x * sin(ROT_SPEED) + raycam->dv.y * cos(ROT_SPEED);
-		old_plane_x = raycam->pv.x;
-		raycam->pv.x = raycam->pv.x * cos(ROT_SPEED) - raycam->pv.y * sin(ROT_SPEED);
-		raycam->pv.y = old_plane_x * sin(ROT_SPEED) + raycam->pv.y * cos(ROT_SPEED);
+		old_dir_x = rc->dv.x;
+		rc->dv.x = rc->dv.x * cos(ROTS) - rc->dv.y * sin(ROTS);
+		rc->dv.y = old_dir_x * sin(ROTS) + rc->dv.y * cos(ROTS);
+		old_plane_x = rc->pv.x;
+		rc->pv.x = rc->pv.x * cos(ROTS) - rc->pv.y * sin(ROTS);
+		rc->pv.y = old_plane_x * sin(ROTS) + rc->pv.y * cos(ROTS);
 	}
 }
 
