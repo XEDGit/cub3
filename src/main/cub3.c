@@ -60,11 +60,8 @@ void	free_map(t_map *map)
 
 int	main(int argc, char **argv)
 {
-	t_data			data;
 	mlx_t			*mlx;
-	mlx_image_t		*buf;
-	t_raycam		*raycam;
-	mlx_texture_t	*tex;
+	t_data			data;
 	t_renderer		renderer;
 
 	data = (t_data){{{0}, 0, 0, 0, {0}}, 0};
@@ -74,23 +71,17 @@ int	main(int argc, char **argv)
 		(void)data;
 	else if (1)
 	{
-		printf("x pos: %d y pos: %d\n", data.map.maps->spawn[0], data.map.maps->spawn[1]);
-		raycam = init_raycam(data.map.maps->spawn[0], data.map.maps->spawn[1]);
+		renderer.raycam = init_raycam(data.map.maps->spawn[0], \
+										data.map.maps->spawn[1]);
 		mlx = mlx_init(WIN_HEIGHT, WIN_WIDTH, "cub3d", 0);
-		buf = mlx_new_image(mlx, WIN_HEIGHT, WIN_WIDTH);
-		mlx_image_to_window(mlx, buf, 0, 0);
-		tex = mlx_load_png("./assets/wall.png");
-
-		renderer.image = buf;
+		renderer.image = mlx_new_image(mlx, WIN_HEIGHT, WIN_WIDTH);
+		mlx_image_to_window(mlx, renderer.image, 0, 0);
+		renderer.tex = mlx_load_png("./assets/wall.png");
 		renderer.map = &data.map;
-		renderer.raycam = raycam;
-		renderer.tex = tex;
 		renderer.has_moved = 1;
-
 		mlx_loop_hook(mlx, render_hook, &renderer);
 		mlx_key_hook(mlx, input_keyhook, &renderer);
 		mlx_loop(mlx);
-
 		mlx_terminate(mlx);
 	}
 	free_map(&data.map);
