@@ -67,8 +67,8 @@ void	init_renderer(mlx_t *mlx, t_renderer *renderer, t_data *data)
 	renderer->tex = mlx_load_png("./assets/wall.png");
 	renderer->map = &data->map;
 	renderer->has_moved = 1;
-	mlx_loop_hook(mlx, render_hook, &renderer);
-	mlx_key_hook(mlx, input_keyhook, &renderer);
+	mlx_loop_hook(mlx, render_hook, renderer);
+	mlx_key_hook(mlx, input_keyhook, renderer);
 }
 
 int	main(int argc, char **argv)
