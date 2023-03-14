@@ -87,6 +87,7 @@ void		input_keyhook(mlx_key_data_t keydata, void *data);
 void		render_hook(void *data);
 void		render_frame(t_raycam *raycam, mlx_image_t *image, t_map *map, mlx_texture_t *tex);
 t_vertline	cast_ray(t_raycam *raycam, t_map *map, int x);
+void		draw_vert(t_vertline line, mlx_image_t *image, mlx_texture_t *tex);
 void		handle_input(mlx_key_data_t key, t_raycam *raycam, char **map);
 int			get_texture_pixel_data(int x, int y, mlx_texture_t *tex);
 

@@ -45,16 +45,15 @@ void	render_hook(void *data)
 	}
 }
 
-void	render_frame(t_raycam *raycam, mlx_image_t *image, t_map *map, mlx_texture_t *tex)
+void	render_frame(t_raycam *rc, mlx_image_t *i, t_map *m, mlx_texture_t *t)
 {
 	int	iter;
 
 	iter = 0;
-	memset(image->pixels, \
-			0, image->height * image->width * 4); // TODO: Replace with ft_memset.
+	memset(i->pixels, 0, i->height * i->width * 4); // TODO: Replace with ft_memset.
 	while (iter <= WIN_WIDTH)
 	{
-		draw_vert(cast_ray(raycam, map, iter), image, tex);
+		draw_vert(cast_ray(rc, m, iter), i, t);
 		iter++;
 	}
 }
