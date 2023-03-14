@@ -185,31 +185,3 @@ void	handle_input(mlx_key_data_t key, t_raycam *raycam, char **map)
 		raycam->pv.y = old_plane_x * sin(rot_speed) + raycam->pv.y * cos(rot_speed);
 	}
 }
-
-void	input_keyhook(mlx_key_data_t keydata, void *data)
-{
-	t_renderer	*mapcam;
-
-	mapcam = data;
-	if (!mapcam)
-		return ;
-	mapcam->has_moved = 1;
-	handle_input(keydata, mapcam->raycam, mapcam->map->maps->map);
-}
-
-void	render_hook(void *data)
-{
-	t_renderer	*renderer;
-
-	renderer = data;
-	if (renderer->has_moved) {
-		clear(renderer->image);
-		render_frame(renderer->raycam, renderer->image, renderer->map, renderer->tex);
-		renderer->has_moved = 0;
-	}
-}
-
-void	clear(mlx_image_t *img)
-{
-	memset(img->pixels, 0, img->height * img->width * 4); // TODO: Replace with ft_memset.
-}
