@@ -2,8 +2,9 @@
 #include "../../includes/rendering.h"
 #include <stdlib.h>
 
-t_raycam *init_raycam(int x, int y) {
-	t_raycam *raycam;
+t_raycam	*init_raycam(int x, int y)
+{
+	t_raycam	*raycam;
 
 	raycam = malloc(sizeof(t_raycam));
 	if (!raycam)

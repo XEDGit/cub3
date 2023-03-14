@@ -5,26 +5,32 @@
 #include <stdio.h>
 #include <string.h>
 
-static void	setup_step_direction(t_rayvars *ray, t_raycam *rayCam) {
-	if (ray->raydir.x < 0) {
+static void	setup_step_direction(t_rayvars *ray, t_raycam *rayCam)
+{
+	if (ray->raydir.x < 0)
+	{
 		ray->stepdirection.x = -1;
 		ray->sidedistances.x = (rayCam->campos.x - ray->int_map_coords.x) * ray->deltadistances.x;
 	}
-	else {
+	else
+	{
 		ray->stepdirection.x = 1;
 		ray->sidedistances.x = (ray->int_map_coords.x + 1.0 - rayCam->campos.x) * ray->deltadistances.x;
 	}
-	if (ray->raydir.y < 0) {
+	if (ray->raydir.y < 0)
+	{
 		ray->stepdirection.y = -1;
 		ray->sidedistances.y = (rayCam->campos.y - ray->int_map_coords.y) * ray->deltadistances.y;
-	} else {
+	} else
+	{
 		ray->stepdirection.y = 1;
 		ray->sidedistances.y = (ray->int_map_coords.y + 1.0 - rayCam->campos.y) * ray->deltadistances.y;
 	}
 }
 
 // DDA Algorithm.
-static int cast_till_hit(t_rayvars *ray, char **map) {
+static int	cast_till_hit(t_rayvars *ray, char **map)
+{
 	int	hit;
 	int	side;
 
@@ -48,7 +54,8 @@ static int cast_till_hit(t_rayvars *ray, char **map) {
 	return (side);
 }
 
-static t_vertline generate_line(t_rayvars *ray, char **map, int x, int side) {
+static t_vertline	generate_line(t_rayvars *ray, char **map, int x, int side)
+{
 	t_vertline	result;
 	double		perpWallDist;
 	int			lineHeight;
@@ -92,7 +99,8 @@ static t_vertline generate_line(t_rayvars *ray, char **map, int x, int side) {
 	return (result);
 }
 
-t_vertline castRay(t_raycam *raycam, t_map *map, int x) {
+t_vertline	castRay(t_raycam *raycam, t_map *map, int x)
+{
 	t_rayvars	ray;
 	int			side;
 
@@ -106,7 +114,8 @@ t_vertline castRay(t_raycam *raycam, t_map *map, int x) {
 	return (generate_line(&ray, map->maps[0].map, x, side));
 }
 
-void	drawVert(t_vertline line, mlx_image_t *image, mlx_texture_t *tex) {
+void	drawVert(t_vertline line, mlx_image_t *image, mlx_texture_t *tex)
+{
 	static int shiftamount;
 	int	iter;
 	int	colour;
@@ -135,12 +144,14 @@ void	drawVert(t_vertline line, mlx_image_t *image, mlx_texture_t *tex) {
 	}
 }
 
-void render_frame(t_raycam *raycam, mlx_image_t *image, t_map *map, mlx_texture_t *tex) {
+void	render_frame(t_raycam *raycam, mlx_image_t *image, t_map *map, mlx_texture_t *tex)
+{
 	for (int x = 0; x <= WIN_WIDTH; x++)
 		drawVert(castRay(raycam, map, x), image, tex);
 }
 
-void handle_input(mlx_key_data_t key, t_raycam *raycam, char **map) {
+void	handle_input(mlx_key_data_t key, t_raycam *raycam, char **map)
+{
 	float moveSpeed = 0.05;
 	float rotSpeed = 0.05;
 
@@ -174,7 +185,8 @@ void handle_input(mlx_key_data_t key, t_raycam *raycam, char **map) {
 	}
 }
 
-void	input_keyhook(mlx_key_data_t keydata, void *data) {
+void	input_keyhook(mlx_key_data_t keydata, void *data)
+{
 	t_renderer	*mapcam;
 
 	mapcam = data;
@@ -184,7 +196,8 @@ void	input_keyhook(mlx_key_data_t keydata, void *data) {
 	handle_input(keydata, mapcam->raycam, mapcam->map->maps->map);
 }
 
-void	render_hook(void *data) {
+void	render_hook(void *data)
+{
 	t_renderer	*renderer;
 
 	renderer = data;
@@ -195,6 +208,7 @@ void	render_hook(void *data) {
 	}
 }
 
-void	clear(mlx_image_t *img) {
+void	clear(mlx_image_t *img)
+{
 	memset(img->pixels, 0, img->height * img->width * 4); // TODO: Replace with ft_memset.
 }
