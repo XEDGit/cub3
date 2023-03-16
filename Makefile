@@ -14,7 +14,7 @@ FLAGS := -Wall -Werror -Wextra -Wpedantic
 
 MLX_NAME := build/libmlx42.a
 
-MLX_FLAGS := -lglfw -framework Cocoa -framework OpenGL -framework IOKit
+MLX_FLAGS := -L "/Users/$(USER)/.brew/lib" -lglfw -framework Cocoa -framework OpenGL -framework IOKit
 
 INC := -I includes
 
