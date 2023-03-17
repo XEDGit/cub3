@@ -33,16 +33,16 @@ typedef struct s_IntVector2 {
 	int	y;
 }	t_ivec;
 
-// Contains variables used to render a single vertical line onto the screen
-// based on the distance from the ray to the player.
-//
-// xcoord:			X coordinate of the vertical line on the screen.
-// startpoint:		Y coordinate start point of the vertical line.
-// endpoint:		Y coordinate end point of the vertical line.
-// tex_x:			The X coordinate of the pixel to draw.
-// tex_y:			The Y coordinate of the pixel to draw.
-// step:			How many / few pixels to step upwards in the texture per pixel of the line.
-// tex_y_begin_pos:	Which pixel in the Y axis of the texture we should begin from when drawing the line.
+/* Contains variables used to render a single vertical line onto the screen */
+/* based on the distance from the ray to the player. */
+
+/* xcoord:			X coordinate of the vertical line on the screen. */
+/* startpoint:		Y coordinate start point of the vertical line. */
+/* endpoint:		Y coordinate end point of the vertical line. */
+/* tex_x:			The X coordinate of the pixel to draw. */
+/* tex_y:			The Y coordinate of the pixel to draw. */
+/* step:			How many / few pixels to step upwards in the texture per pixel of the line. */
+/* tex_y_begin_pos:	Which pixel in the Y axis of the texture we should begin from when drawing the line. */
 typedef struct s_vertline {
 	int		xcoord;
 	int		startpoint;
@@ -54,12 +54,12 @@ typedef struct s_vertline {
 	double	tex_y_begin_pos;
 }	t_vertline;
 
-/* cameraX:			Camera angle. */
+/* camera_x:			Camera angle. */
 /* rdir:			Direction of the ray. */
-/* IMapCoords:		Integer coordinates of ray. */
-/* sideDistances:	x & y distance to nearest side. */
-/* deltaDistances:	Length from one x or y side to following x or y side. */
-/* stepDirection:	The direction to "step" in as the algorithm continues. */
+/* imapcoords:		Integer coordinates of ray. */
+/* sidedistances:	x & y distance to nearest side. */
+/* deltads:	Length from one x or y side to following x or y side. */
+/* stepdirection:	The direction to "step" in as the algorithm continues. */
 typedef struct s_RayVariables {
 	float		camera_x;
 	t_vec2		rdir;
@@ -78,7 +78,8 @@ typedef struct s_raycam {
 	t_vec2	pv;
 }	t_raycam;
 
-/* Contains data required for rendering. */
+/* This is the dump everything struct where all clean code */
+/* goes to die. I apologise in advance. */
 typedef struct s_renderer {
 	int				has_moved;
 	t_raycam		*rc;
