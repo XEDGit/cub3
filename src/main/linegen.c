@@ -13,6 +13,11 @@
 #include "../../includes/rendering.h"
 #include <math.h>
 
+# define NORTH 0
+# define SOUTH 1
+# define WEST 2
+# define EAST 3
+
 static void	tex_coords(t_renderer *rn, int side, int x, t_vertline *r)
 {
 	double	wall_x;
@@ -59,5 +64,19 @@ t_vertline	generate_line(t_renderer *rn, char **map, int x, int side)
 		r.endpoint = H - 1;
 	r.xcoord = x;
 	tex_coords(rn, side, x, &r);
+	if (side == 1)
+	{
+		if (rn->rv->rdir.y < 0)
+			r.dir = NORTH;
+		else
+			r.dir = SOUTH;
+	}
+	else
+	{
+		if (rn->rv->rdir.x < 0)
+			r.dir = WEST;
+		else
+			r.dir = EAST;
+	}
 	return (r);
 }

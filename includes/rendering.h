@@ -20,8 +20,8 @@
 # define TH 256
 
 /* Window width and window height */
-# define W 1280
-# define H 720
+# define W 2048
+# define H 2048
 
 typedef struct s_vec2 {
 	float	x;
@@ -36,6 +36,7 @@ typedef struct s_IntVector2 {
 /* Contains variables used to render a single vertical line onto the screen */
 /* based on the distance from the ray to the player. */
 
+/* dir:				North, South, East or West */
 /* xcoord:			X coordinate of the vertical line on the screen. */
 /* startpoint:		Y coordinate start point of the vertical line. */
 /* endpoint:		Y coordinate end point of the vertical line. */
@@ -44,6 +45,7 @@ typedef struct s_IntVector2 {
 /* step:			How many / few pixels to step upwards in the texture per pixel of the line. */
 /* tex_y_begin_pos:	Which pixel in the Y axis of the texture we should begin from when drawing the line. */
 typedef struct s_vertline {
+	int		dir;
 	int		xcoord;
 	int		startpoint;
 	int		endpoint;

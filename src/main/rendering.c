@@ -118,10 +118,7 @@ void	draw_vert(t_vertline line, mlx_image_t *image, mlx_texture_t **tex)
 	{
 		line.tex_y = (int)line.tex_y_begin_pos & (TH - 1);
 		line.tex_y_begin_pos += line.step;
-		if (line.side == 1)
-			colour = get_texture_pixel_data(line.tex_x, line.tex_y, tex[2]);
-		else
-			colour = get_texture_pixel_data(line.tex_x, line.tex_y, tex[3]);
+		colour = get_texture_pixel_data(line.tex_x, line.tex_y, tex[line.dir]);
 		mlx_put_pixel(image, line.xcoord, iter, colour);
 		iter++;
 	}
