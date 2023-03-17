@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   rendering_utils.c                                  :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: wmaguire <wmaguire@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 1970/01/01 00:00:00 by wmaguire      #+#    #+#                 */
+/*   Updated: 1970/01/01 00:00:00 by wmaguire      ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/rendering.h"
 #include <stdio.h>
 #include <string.h>
@@ -45,12 +57,13 @@ void	render_hook(void *data)
 	}
 }
 
+/* TODO: Replace memset with ft_memset. */
 void	render_frame(t_raycam *rc, mlx_image_t *i, t_map *m, mlx_texture_t *t)
 {
 	int	iter;
 
 	iter = 0;
-	memset(i->pixels, 0, i->height * i->width * 4); // TODO: Replace with ft_memset.
+	memset(i->pixels, 0, i->height * i->width * 4);
 	while (iter <= W)
 	{
 		draw_vert(cast_ray(rc, m, iter), i, t);
