@@ -63,10 +63,10 @@ typedef struct s_vertline {
 typedef struct s_RayVariables {
 	float		camera_x;
 	t_vec2		rdir;
-	t_ivec	imapcoords;
+	t_ivec		imapcoords;
 	t_vec2		sidedistances;
 	t_vec2		deltads;
-	t_ivec	stepdirection;
+	t_ivec		stepdirection;
 }	t_rayvars;
 
 /* campos:	Camera position. */
@@ -81,6 +81,7 @@ typedef struct s_raycam {
 /* This is the dump everything struct where all clean code */
 /* goes to die. I apologise in advance. */
 typedef struct s_renderer {
+	unsigned int	curr_map;
 	int				has_moved;
 	t_raycam		*rc;
 	t_rayvars		*rv;
