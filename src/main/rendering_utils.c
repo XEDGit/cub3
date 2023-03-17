@@ -41,7 +41,7 @@ void	input_keyhook(mlx_key_data_t keydata, void *data)
 		return ;
 	mapcam->has_moved = 1;
 	handle_input(keydata, \
-			mapcam->raycam, mapcam->map->maps->map);
+			mapcam->rc, mapcam->map->maps->map);
 }
 
 void	render_hook(void *data)
@@ -51,14 +51,14 @@ void	render_hook(void *data)
 	renderer = data;
 	if (renderer->has_moved)
 	{
-		render_frame(renderer->raycam, \
+		render_frame(renderer, \
 							renderer->image, renderer->map, renderer->tex);
 		renderer->has_moved = 0;
 	}
 }
 
 /* TODO: Replace memset with ft_memset. */
-void	render_frame(t_raycam *rc, mlx_image_t *i, t_map *m, mlx_texture_t *t)
+void	render_frame(t_renderer *rn, mlx_image_t *i, t_map *m, mlx_texture_t *t)
 {
 	int	iter;
 
@@ -66,7 +66,7 @@ void	render_frame(t_raycam *rc, mlx_image_t *i, t_map *m, mlx_texture_t *t)
 	memset(i->pixels, 0, i->height * i->width * 4);
 	while (iter <= W)
 	{
-		draw_vert(cast_ray(rc, m, iter), i, t);
+		draw_vert(cast_ray(rn, iter), i, t);
 		iter++;
 	}
 }

@@ -72,7 +72,7 @@ static int	cast_till_hit(t_rayvars *ray, char **map)
 	return (side);
 }
 
-static t_vertline	generate_line(t_raycam *raycam, t_rayvars *ray, char **map, int x, int side)
+static t_vertline	generate_line(t_renderer *rn, char **map, int x, int side)
 {
 	t_vertline	r;
 	double		perpwalldist;
@@ -80,9 +80,9 @@ static t_vertline	generate_line(t_raycam *raycam, t_rayvars *ray, char **map, in
 	double		wall_x;
 
 	if (side == 0)
-		perpwalldist = (ray->sidedistances.x - ray->deltads.x);
+		perpwalldist = (rn->rv->sidedistances.x - rn->rv->deltads.x);
 	else
-		perpwalldist = (ray->sidedistances.y - ray->deltads.y);
+		perpwalldist = (rn->rv->sidedistances.y - rn->rv->deltads.y);
 	lineheight = ((H / perpwalldist));
 	r.startpoint = -lineheight / 2 + H / 2;
 	if (r.startpoint < 0)
@@ -92,14 +92,14 @@ static t_vertline	generate_line(t_raycam *raycam, t_rayvars *ray, char **map, in
 		r.endpoint = H - 1;
 	r.xcoord = x;
 	if (side == 0)
-		wall_x = raycam->campos.y + perpwalldist * ray->raydir.y;
+		wall_x = rn->rc->campos.y + perpwalldist * rn->rv->raydir.y;
 	else
-		wall_x = raycam->campos.x + perpwalldist * ray->raydir.x;
+		wall_x = rn->rc->campos.x + perpwalldist * rn->rv->raydir.x;
 	wall_x -= floor((wall_x));
 	r.tex_x = (int)(wall_x * (double)TW);
-	if (side == 0 && ray->raydir.x > 0)
+	if (side == 0 && rn->rv->raydir.x > 0)
 		r.tex_x = TW - r.tex_x - 1;
-	if (side == 1 && ray->raydir.y < 0)
+	if (side == 1 && rn->rv->raydir.y < 0)
 		r.tex_x = TW - r.tex_x - 1;
 	r.step = 1.0 * TH / lineheight;
 	r.tex_y_begin_pos = (r.startpoint - (H / 2) + (lineheight / 2)) * r.step;
@@ -107,19 +107,18 @@ static t_vertline	generate_line(t_raycam *raycam, t_rayvars *ray, char **map, in
 	return (r);
 }
 
-t_vertline	cast_ray(t_raycam *rc, t_map *map, int x)
+t_vertline	cast_ray(t_renderer *rn, int x)
 {
-	t_rayvars	ray;
 	int			side;
 
-	ray.camera_x = 2 * x / (double)W - 1;
-	ray.raydir.x = rc->dv.x + rc->pv.x * ray.camera_x;
-	ray.raydir.y = rc->dv.y + rc->pv.y * ray.camera_x;
-	ray.int_map_coords = (t_intvec2){(int)rc->campos.x, (int)rc->campos.y};
-	ray.deltads = (t_vec2){fabs(1 / ray.raydir.x), fabs(1 / ray.raydir.y)};
-	setup_step_direction(&ray, rc);
-	side = cast_till_hit(&ray, map->maps[0].map); // TODO: Replace 0 with current map.
-	return (generate_line(rc, &ray, map->maps[0].map, x, side));
+	rn->rv->camera_x = 2 * x / (double)W - 1;
+	rn->rv->raydir.x = rn->rc->dv.x + rn->rc->pv.x * rn->rv->camera_x;
+	rn->rv->raydir.y = rn->rc->dv.y + rn->rc->pv.y * rn->rv->camera_x;
+	rn->rv->int_map_coords = (t_intvec2){(int)rn->rc->campos.x, (int)rn->rc->campos.y};
+	rn->rv->deltads = (t_vec2){fabs(1 / rn->rv->raydir.x), fabs(1 / rn->rv->raydir.y)};
+	setup_step_direction(rn->rv, rn->rc);
+	side = cast_till_hit(rn->rv, rn->map->maps[0].map); // TODO: Replace 0 with current map.
+	return (generate_line(rn, rn->map->maps[0].map, x, side));
 }
 
 void	draw_vert(t_vertline line, mlx_image_t *image, mlx_texture_t *tex)

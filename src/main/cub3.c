@@ -60,8 +60,11 @@ void	free_map(t_map *map)
 
 void	init_renderer(mlx_t *mlx, t_renderer *renderer, t_data *data)
 {
-	renderer->raycam = init_raycam(data->map.maps->spawn[0], \
+	renderer->rc = init_raycam(data->map.maps->spawn[0], \
 									data->map.maps->spawn[1]);
+	renderer->rv = malloc(sizeof(t_rayvars));
+	if (!renderer->rv)
+		return ;
 	renderer->image = mlx_new_image(mlx, W, H);
 	mlx_image_to_window(mlx, renderer->image, 0, 0);
 	renderer->tex = mlx_load_png("./assets/wall.png");
