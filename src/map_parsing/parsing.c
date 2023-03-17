@@ -162,28 +162,29 @@ bool	parse_rgb(t_map *map, char *line)
 {
 	char				*content;
 	unsigned int		atoi_buff;
-	long				rgb;
+	unsigned int		rgb;
+	int					bytes[3];
 
 	content = skip_spaces(line + 2);
 	rgb = 0;
 	atoi_buff = ft_atoi(content);
 	if (atoi_buff > 255)
 		return (error("Red value negative or bigger than 255", 0, false));
-	rgb += atoi_buff << 6;
+	bytes[0] = atoi_buff;
 	content = ft_strchr(content, ',') + 1;
 	atoi_buff = ft_atoi(content);
 	if (atoi_buff > 255)
 		return (error("Green value negative or bigger than 255", 0, false));
-	rgb += atoi_buff << 3;
+	bytes[1] = atoi_buff;
 	content = ft_strchr(content, ',') + 1;
 	atoi_buff = ft_atoi(content);
 	if (atoi_buff > 255)
 		return (error("Blue value negative or bigger than 255", 0, false));
-	rgb += atoi_buff;
+	bytes[2] = atoi_buff;
 	if (*line == 'F' && *(line + 1) == ' ')
-		map->floor = rgb;
+		map->floor = (bytes[0] << 24 | bytes[1] << 16 | bytes[3] << 8 | 0xFF);
 	if (*line == 'C' && *(line + 1) == ' ')
-		map->ceiling = rgb;
+		map->ceiling = (bytes[0] << 24 | bytes[1] << 16 | bytes[3] << 8 | 0xFF);
 	return (false);
 }
 

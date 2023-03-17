@@ -1,12 +1,12 @@
-NO ../assets/wall.png
+NO ./assets/wallreal1.png
 
 
-SO ./path_to_the_south_texture
+SO ./assets/wallreal2.png
 
-WE ./path_to_the_west_texture
-EA ./path_to_the_east_texture
-F                     220,100,0
-     C 225,30,0
+WE ./assets/wallreal3.png
+EA ./assets/wallreal5.png
+C                     1,43,2
+     F 4,20,8
 
 
 

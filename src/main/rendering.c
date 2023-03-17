@@ -20,7 +20,7 @@
 /* A lot of the code found here is very difficult to read. */
 /* This is not intentional but a byproduct of having to keep everything */
 /* written here in accordance with the norm. Using C for this project is */
-/* frankly ridiculous. The code found here could be written far more cleanly */
+/* frankly ridiculous; the code found here could be written far more cleanly */
 /* if this project was allowed to be written in C++. C++ is also the premier */
 /* language for graphics programming. There is no point to writing this project */
 /* in C. The language here forces the student to write things in such a way that */
@@ -56,7 +56,7 @@ static void	setup_step_direction(t_rayvars *ray, t_raycam *rayCam)
 	}
 }
 
-// DDA Algorithm.
+/* DDA Algorithm. */
 static int	cast_till_hit(t_rayvars *ray, char **map)
 {
 	int	hit;
@@ -100,7 +100,7 @@ t_vertline	cast_ray(t_renderer *rn, int x)
 	return (generate_line(rn, rn->map->maps[0].map, x, side));
 }
 
-void	draw_vert(t_vertline line, mlx_image_t *image, mlx_texture_t *tex)
+void	draw_vert(t_vertline line, mlx_image_t *image, mlx_texture_t **tex)
 {
 	int			iter;
 	int			colour;
@@ -117,7 +117,10 @@ void	draw_vert(t_vertline line, mlx_image_t *image, mlx_texture_t *tex)
 	{
 		line.tex_y = (int)line.tex_y_begin_pos & (TH - 1);
 		line.tex_y_begin_pos += line.step;
-		colour = get_texture_pixel_data(line.tex_x, line.tex_y, tex);
+		if (line.side == 1)
+			colour = get_texture_pixel_data(line.tex_x, line.tex_y, tex[2]);
+		else
+			colour = get_texture_pixel_data(line.tex_x, line.tex_y, tex[3]);
 		mlx_put_pixel(image, line.xcoord, iter, colour);
 		iter++;
 	}

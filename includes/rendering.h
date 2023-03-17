@@ -16,8 +16,8 @@
 # include "shared.h"
 
 /* Texture width & texture height. */
-# define TW 64
-# define TH 64
+# define TW 256
+# define TH 256
 
 /* Window width and window height */
 # define W 2048
@@ -87,16 +87,16 @@ typedef struct s_renderer {
 	t_rayvars		*rv;
 	mlx_image_t		*image;
 	t_map			*map;
-	mlx_texture_t	*tex;
+	mlx_texture_t	*tex[4];
 } t_renderer;
 
 t_raycam	*init_raycam(int x, int y);
 void		input_keyhook(mlx_key_data_t keydata, void *data);
 void		render_hook(void *data);
-void		render_frame(t_renderer *rn, mlx_image_t *i, t_map *m, mlx_texture_t *t);
+void		render_frame(t_renderer *rn, mlx_image_t *i, t_map *m, mlx_texture_t **t);
 t_vertline	cast_ray(t_renderer *rn, int x);
 t_vertline	generate_line(t_renderer *rn, char **map, int x, int side);
-void		draw_vert(t_vertline line, mlx_image_t *image, mlx_texture_t *tex);
+void		draw_vert(t_vertline line, mlx_image_t *image, mlx_texture_t **tex);
 void		handle_input(mlx_key_data_t key, t_raycam *raycam, char **map);
 int			get_texture_pixel_data(int x, int y, mlx_texture_t *tex);
 

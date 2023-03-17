@@ -60,6 +60,9 @@ void	free_map(t_map *map)
 
 void	init_renderer(mlx_t *mlx, t_renderer *renderer, t_data *data)
 {
+	int	iter;
+
+	iter = 0;
 	renderer->rc = init_raycam(data->map.maps->spawn[0], \
 									data->map.maps->spawn[1]);
 	renderer->rv = malloc(sizeof(t_rayvars));
@@ -67,7 +70,11 @@ void	init_renderer(mlx_t *mlx, t_renderer *renderer, t_data *data)
 		return ;
 	renderer->image = mlx_new_image(mlx, W, H);
 	mlx_image_to_window(mlx, renderer->image, 0, 0);
-	renderer->tex = mlx_load_png("./assets/wall.png");
+	while (iter < 4)
+	{
+		renderer->tex[iter] = mlx_load_png(data->map.textures[iter]);
+		iter++;
+	}
 	renderer->map = &data->map;
 	renderer->has_moved = 1;
 	mlx_loop_hook(mlx, render_hook, renderer);
