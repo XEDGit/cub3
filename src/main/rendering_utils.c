@@ -37,11 +37,12 @@ void	render_hook(void *data)
 	t_renderer	*renderer;
 
 	renderer = data;
-	renderer->has_moved = handle_input(renderer->rc, renderer->map->maps->map, renderer->mlx);
+	renderer->has_moved = \
+		handle_input(renderer->rc, renderer->map->maps->map, renderer->mlx);
 	if (renderer->has_moved)
 	{
 		render_frame(renderer, \
-							renderer->image, renderer->map, renderer->tex);
+					renderer->image, renderer->map, renderer->tex);
 		renderer->has_moved = 0;
 	}
 }
@@ -67,7 +68,8 @@ static void	floor_ceiling(t_renderer *rn, mlx_image_t *buf, t_map *m)
 	}
 }
 
-void	render_frame(t_renderer *rn, mlx_image_t *i, t_map *m, mlx_texture_t **t)
+void	render_frame(t_renderer *rn, \
+				mlx_image_t *i, t_map *m, mlx_texture_t **t)
 {
 	int	iter;
 
