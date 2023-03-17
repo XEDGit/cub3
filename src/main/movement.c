@@ -11,63 +11,58 @@
 /* ************************************************************************** */
 
 #include <math.h>
+#include <stdio.h>
 #include "../../includes/rendering.h"
 
 /* Movement speed & rotation speed. */
 #define MOVS 0.05
 #define ROTS 0.05
 
-void	forward_backward(mlx_key_data_t k, t_raycam *rc, char **m)
+/* void	forward_backward(mlx_key_data_t k, t_raycam *rc, char **m, mlx_t *mlx) */
+/* { */
+/* } */
+
+/* void	left_right(mlx_key_data_t k, t_raycam *rc, char **m, mlx_t *mlx) */
+/* { */
+/* } */
+
+void	handle_input(t_raycam *rc, char **m, mlx_t *mlx)
 {
-	if (k.key == MLX_KEY_UP
-		&& (k.action == MLX_REPEAT || k.action == MLX_PRESS))
+	double	old_dir_x;
+	double	old_plane_x;
+
+	if (mlx_is_key_down(mlx, MLX_KEY_UP))
 	{
 		if (m[(int)rc->campos.y][(int)(rc->campos.x + rc->dv.x * MOVS)] != '1')
 			rc->campos.x += rc->dv.x * MOVS;
 		if (m[(int)(rc->campos.y + rc->dv.y * MOVS)][(int)rc->campos.x] != '1')
 			rc->campos.y += rc->dv.y * MOVS;
 	}
-	if (k.key == MLX_KEY_DOWN
-		&& (k.action == MLX_REPEAT || k.action == MLX_PRESS))
+	if (mlx_is_key_down(mlx, MLX_KEY_DOWN))
 	{
 		if (m[(int)rc->campos.y][(int)(rc->campos.x - rc->dv.x * MOVS)] != '1')
 			rc->campos.x -= rc->dv.x * MOVS;
 		if (m[(int)(rc->campos.y - rc->dv.y * MOVS)][(int)rc->campos.x] != '1')
 			rc->campos.y -= rc->dv.y * MOVS;
 	}
-}
-
-void	left_right(mlx_key_data_t k, t_raycam *rc, char **m)
-{
-	double	old_dir_x;
-	double	old_plane_x;
-
-	if (k.key == MLX_KEY_RIGHT
-		&& (k.action == MLX_REPEAT || k.action == MLX_PRESS))
+	if (mlx_is_key_down(mlx, MLX_KEY_RIGHT))
 	{
 		old_dir_x = rc->dv.x;
-		rc->dv.x = rc->dv.x * cos(-ROTS) - rc->dv.y * sin(-ROTS);
-		rc->dv.y = old_dir_x * sin(-ROTS) + rc->dv.y * cos(-ROTS);
+		rc->dv.x = rc->dv.x * cosf(-ROTS) - rc->dv.y * sinf(-ROTS);
+		rc->dv.y = old_dir_x * sinf(-ROTS) + rc->dv.y * cosf(-ROTS);
 		old_plane_x = rc->pv.x;
-		rc->pv.x = rc->pv.x * cos(-ROTS) - rc->pv.y * sin(-ROTS);
-		rc->pv.y = old_plane_x * sin(-ROTS) + rc->pv.y * cos(-ROTS);
+		rc->pv.x = rc->pv.x * cosf(-ROTS) - rc->pv.y * sinf(-ROTS);
+		rc->pv.y = old_plane_x * sinf(-ROTS) + rc->pv.y * cosf(-ROTS);
 	}
-	if (k.key == MLX_KEY_LEFT
-		&& (k.action == MLX_REPEAT || k.action == MLX_PRESS))
+	if (mlx_is_key_down(mlx, MLX_KEY_LEFT))
 	{
 		old_dir_x = rc->dv.x;
-		rc->dv.x = rc->dv.x * cos(ROTS) - rc->dv.y * sin(ROTS);
-		rc->dv.y = old_dir_x * sin(ROTS) + rc->dv.y * cos(ROTS);
+		rc->dv.x = rc->dv.x * cosf(ROTS) - rc->dv.y * sinf(ROTS);
+		rc->dv.y = old_dir_x * sinf(ROTS) + rc->dv.y * cosf(ROTS);
 		old_plane_x = rc->pv.x;
-		rc->pv.x = rc->pv.x * cos(ROTS) - rc->pv.y * sin(ROTS);
-		rc->pv.y = old_plane_x * sin(ROTS) + rc->pv.y * cos(ROTS);
+		rc->pv.x = rc->pv.x * cosf(ROTS) - rc->pv.y * sinf(ROTS);
+		rc->pv.y = old_plane_x * sinf(ROTS) + rc->pv.y * cosf(ROTS);
 	}
-}
-
-void	handle_input(mlx_key_data_t key, t_raycam *raycam, char **map)
-{
-	if (key.key == MLX_KEY_UP || key.key == MLX_KEY_DOWN)
-		forward_backward(key, raycam, map);
-	else if (key.key == MLX_KEY_LEFT || key.key == MLX_KEY_RIGHT)
-		left_right(key, raycam, map);
+	printf("dv.x: %f | dv.y %f\n", rc->dv.x, rc->dv.y);
+	printf("pv.x: %f | pv.y %f\n", rc->pv.x, rc->pv.y);
 }

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <parsing.h>
+#include "../../includes/parsing.h"
 
 int	parsing_map_loop(char **map, int fd, int *lines_count)
 {

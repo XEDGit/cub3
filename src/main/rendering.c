@@ -21,10 +21,11 @@
 /* This is not intentional but a byproduct of having to keep everything */
 /* written here in accordance with the norm. Using C for this project is */
 /* frankly ridiculous; the code found here could be written far more cleanly */
-/* if this project was allowed to be written in C++. C++ is also the premier */
-/* language for graphics programming. There is no point to writing this project */
-/* in C. The language here forces the student to write things in such a way that */
-/* the project becomes far more unreadable and inefficient. */
+/* if this project was allowed to be written in C++. */
+/* C++ is also the premier language for graphics programming. */
+/* There is no point to writing this project */
+/* in C. The language here forces the student to write things in such */
+/* a way that the project becomes far more unreadable and inefficient. */
 
 /* Consider this my protest. */
 

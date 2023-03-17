@@ -75,10 +75,11 @@ void	init_renderer(mlx_t *mlx, t_renderer *renderer, t_data *data)
 		renderer->tex[iter] = mlx_load_png(data->map.textures[iter]);
 		iter++;
 	}
+	renderer->mlx = mlx;
 	renderer->map = &data->map;
 	renderer->has_moved = 1;
 	mlx_loop_hook(mlx, render_hook, renderer);
-	mlx_key_hook(mlx, input_keyhook, renderer);
+	/* mlx_key_hook(mlx, input_keyhook, renderer); */
 }
 
 int	main(int argc, char **argv)

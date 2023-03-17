@@ -88,6 +88,7 @@ typedef struct s_renderer {
 	mlx_image_t		*image;
 	t_map			*map;
 	mlx_texture_t	*tex[4];
+	mlx_t			*mlx;
 } t_renderer;
 
 t_raycam	*init_raycam(int x, int y);
@@ -97,7 +98,7 @@ void		render_frame(t_renderer *rn, mlx_image_t *i, t_map *m, mlx_texture_t **t);
 t_vertline	cast_ray(t_renderer *rn, int x);
 t_vertline	generate_line(t_renderer *rn, char **map, int x, int side);
 void		draw_vert(t_vertline line, mlx_image_t *image, mlx_texture_t **tex);
-void		handle_input(mlx_key_data_t key, t_raycam *raycam, char **map);
+void		handle_input(t_raycam *rc, char **m, mlx_t *mlx);
 int			get_texture_pixel_data(int x, int y, mlx_texture_t *tex);
 
 #endif // RENDERING_H
