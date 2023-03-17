@@ -31,7 +31,7 @@ typedef struct s_vec2 {
 typedef struct s_IntVector2 {
 	int	x;
 	int	y;
-}	t_intvec2;
+}	t_ivec;
 
 // Contains variables used to render a single vertical line onto the screen
 // based on the distance from the ray to the player.
@@ -55,18 +55,18 @@ typedef struct s_vertline {
 }	t_vertline;
 
 /* cameraX:			Camera angle. */
-/* rayDir:			Direction of the ray. */
+/* rdir:			Direction of the ray. */
 /* IMapCoords:		Integer coordinates of ray. */
 /* sideDistances:	x & y distance to nearest side. */
 /* deltaDistances:	Length from one x or y side to following x or y side. */
 /* stepDirection:	The direction to "step" in as the algorithm continues. */
 typedef struct s_RayVariables {
 	float		camera_x;
-	t_vec2		raydir;
-	t_intvec2	int_map_coords;
+	t_vec2		rdir;
+	t_ivec	imapcoords;
 	t_vec2		sidedistances;
 	t_vec2		deltads;
-	t_intvec2	stepdirection;
+	t_ivec	stepdirection;
 }	t_rayvars;
 
 /* campos:	Camera position. */
