@@ -20,8 +20,8 @@
 # define TH 256
 
 /* Window width and window height */
-# define W 2048
-# define H 2048
+# define W 1280
+# define H 720
 
 typedef struct s_vec2 {
 	float	x;
