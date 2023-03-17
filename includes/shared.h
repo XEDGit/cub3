@@ -41,8 +41,8 @@ typedef struct s_single_map
 typedef struct s_map
 {
 	char			*textures[4];
-	long			floor;
-	long			ceiling;
+	int				floor;
+	int				ceiling;
 	t_single_map	*maps;
 	t_player		player;
 }	t_map;
