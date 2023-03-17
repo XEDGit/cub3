@@ -13,10 +13,10 @@
 #include "../../includes/rendering.h"
 #include <math.h>
 
-# define NORTH 0
-# define SOUTH 1
-# define WEST 2
-# define EAST 3
+#define NORTH 0
+#define SOUTH 1
+#define WEST 2
+#define EAST 3
 
 static void	tex_coords(t_renderer *rn, int side, int x, t_vertline *r)
 {

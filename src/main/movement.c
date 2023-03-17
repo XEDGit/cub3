@@ -69,7 +69,5 @@ int	handle_input(t_raycam *rc, char **m, mlx_t *mlx)
 		rc->pv.y = old_plane_x * sinf(rots) + rc->pv.y * cosf(rots);
 		has_moved = true;
 	}
-	printf("dv.x: %f | dv.y %f\n", rc->dv.x, rc->dv.y);
-	printf("pv.x: %f | pv.y %f\n", rc->pv.x, rc->pv.y);
 	return (has_moved);
 }
