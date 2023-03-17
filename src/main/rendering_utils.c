@@ -32,25 +32,12 @@ int	get_texture_pixel_data(int x, int y, mlx_texture_t *tex)
 	return (texdata_to_int(pixptr));
 }
 
-/* void	input_keyhook(mlx_key_data_t keydata, void *data) */
-/* { */
-/* 	t_renderer	*mapcam; */
-
-/* 	mapcam = data; */
-/* 	if (!mapcam) */
-/* 		return ; */
-/* 	mapcam->has_moved = 1; */
-/* 	handle_input(keydata, \ */
-/* 			mapcam->rc, mapcam->map->maps->map, mapcam->mlx); */
-/* } */
-
 void	render_hook(void *data)
 {
 	t_renderer	*renderer;
 
 	renderer = data;
-	handle_input(renderer->rc, renderer->map->maps->map, renderer->mlx);
-	renderer->has_moved = true;
+	renderer->has_moved = handle_input(renderer->rc, renderer->map->maps->map, renderer->mlx);
 	if (renderer->has_moved)
 	{
 		render_frame(renderer, \

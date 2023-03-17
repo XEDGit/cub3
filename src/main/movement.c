@@ -26,17 +26,20 @@
 /* { */
 /* } */
 
-void	handle_input(t_raycam *rc, char **m, mlx_t *mlx)
+int	handle_input(t_raycam *rc, char **m, mlx_t *mlx)
 {
+	int		has_moved;
 	double	old_dir_x;
 	double	old_plane_x;
 
+	has_moved = false;
 	if (mlx_is_key_down(mlx, MLX_KEY_UP))
 	{
 		if (m[(int)rc->campos.y][(int)(rc->campos.x + rc->dv.x * MOVS)] != '1')
 			rc->campos.x += rc->dv.x * MOVS;
 		if (m[(int)(rc->campos.y + rc->dv.y * MOVS)][(int)rc->campos.x] != '1')
 			rc->campos.y += rc->dv.y * MOVS;
+		has_moved = true;
 	}
 	if (mlx_is_key_down(mlx, MLX_KEY_DOWN))
 	{
@@ -44,6 +47,7 @@ void	handle_input(t_raycam *rc, char **m, mlx_t *mlx)
 			rc->campos.x -= rc->dv.x * MOVS;
 		if (m[(int)(rc->campos.y - rc->dv.y * MOVS)][(int)rc->campos.x] != '1')
 			rc->campos.y -= rc->dv.y * MOVS;
+		has_moved = true;
 	}
 	if (mlx_is_key_down(mlx, MLX_KEY_RIGHT))
 	{
@@ -53,6 +57,7 @@ void	handle_input(t_raycam *rc, char **m, mlx_t *mlx)
 		old_plane_x = rc->pv.x;
 		rc->pv.x = rc->pv.x * cosf(-ROTS) - rc->pv.y * sinf(-ROTS);
 		rc->pv.y = old_plane_x * sinf(-ROTS) + rc->pv.y * cosf(-ROTS);
+		has_moved = true;
 	}
 	if (mlx_is_key_down(mlx, MLX_KEY_LEFT))
 	{
@@ -62,7 +67,9 @@ void	handle_input(t_raycam *rc, char **m, mlx_t *mlx)
 		old_plane_x = rc->pv.x;
 		rc->pv.x = rc->pv.x * cosf(ROTS) - rc->pv.y * sinf(ROTS);
 		rc->pv.y = old_plane_x * sinf(ROTS) + rc->pv.y * cosf(ROTS);
+		has_moved = true;
 	}
 	printf("dv.x: %f | dv.y %f\n", rc->dv.x, rc->dv.y);
 	printf("pv.x: %f | pv.y %f\n", rc->pv.x, rc->pv.y);
+	return (has_moved);
 }
