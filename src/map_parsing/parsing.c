@@ -182,9 +182,9 @@ bool	parse_rgb(t_map *map, char *line)
 		return (error("Blue value negative or bigger than 255", 0, false));
 	bytes[2] = atoi_buff;
 	if (*line == 'F' && *(line + 1) == ' ')
-		map->floor = (bytes[0] << 24 | bytes[1] << 16 | bytes[3] << 8 | 0xFF);
+		map->floor = (bytes[0] << 24 | bytes[1] << 16 | bytes[2] << 8 | 0xFF);
 	if (*line == 'C' && *(line + 1) == ' ')
-		map->ceiling = (bytes[0] << 24 | bytes[1] << 16 | bytes[3] << 8 | 0xFF);
+		map->ceiling = (bytes[0] << 24 | bytes[1] << 16 | bytes[2] << 8 | 0xFF);
 	return (false);
 }
 
