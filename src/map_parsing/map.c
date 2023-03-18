@@ -6,11 +6,11 @@
 /*   By: lmuzio <lmuzio@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/17 14:54:47 by lmuzio            #+#    #+#             */
-/*   Updated: 2023/03/18 21:06:45 by lmuzio           ###   ########.fr       */
+/*   Updated: 2023/03/18 22:51:22 by lmuzio           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/checking.h"
+#include <checking.h>
 
 bool	check_neighbors(t_cell *to_check, t_cell **new, \
 char **map, t_vec borders)

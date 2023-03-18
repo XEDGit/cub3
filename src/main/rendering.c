@@ -6,12 +6,12 @@
 /*   By: lmuzio <lmuzio@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 1970/01/01 00:00:00 by wmaguire          #+#    #+#             */
-/*   Updated: 2023/03/18 22:34:12 by lmuzio           ###   ########.fr       */
+/*   Updated: 2023/03/18 22:51:55 by lmuzio           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/rendering.h"
-#include "../../includes/shared.h"
+#include <rendering.h>
+#include <shared.h>
 #include <stdlib.h>
 #include <math.h>
 #include <stdio.h>

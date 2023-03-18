@@ -21,8 +21,6 @@ INC := -I includes
 all: $(NAME)
 
 $(NAME): $(MLX_NAME) $(SRCS) | $(OBJ_DIR)
-	@echo $(SRC)
-	@echo $(SRCS)
 	@$(foreach var, $(SRC), echo "Making $(var)"; $(MAKE) $(DEBUG) -C $(var);)
 	@echo "Linking objects into $@"
 	@$(CC) $(FLAGS) $(INC) -o $@ $(OBJ) $(MLX_NAME) $(MLX_FLAGS) -lm

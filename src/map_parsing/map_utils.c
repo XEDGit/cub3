@@ -6,11 +6,11 @@
 /*   By: lmuzio <lmuzio@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 20:57:56 by lmuzio            #+#    #+#             */
-/*   Updated: 2023/03/18 21:07:25 by lmuzio           ###   ########.fr       */
+/*   Updated: 2023/03/18 22:51:22 by lmuzio           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/checking.h"
+#include <checking.h>
 
 int	len_longest_line(char **map)
 {

@@ -6,11 +6,11 @@
 /*   By: lmuzio <lmuzio@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/17 14:54:54 by lmuzio            #+#    #+#             */
-/*   Updated: 2022/12/17 15:10:52 by lmuzio           ###   ########.fr       */
+/*   Updated: 2023/03/18 22:51:55 by lmuzio           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/shared.h"
+#include <shared.h>
 
 bool	find_player(t_single_map *map_list)
 {

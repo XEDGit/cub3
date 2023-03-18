@@ -6,11 +6,11 @@
 /*   By: lmuzio <lmuzio@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 20:54:32 by lmuzio            #+#    #+#             */
-/*   Updated: 2023/03/18 21:07:01 by lmuzio           ###   ########.fr       */
+/*   Updated: 2023/03/18 22:51:22 by lmuzio           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/checking.h"
+#include <checking.h>
 
 t_cell	*cell_last(t_cell *cell)
 {

@@ -6,11 +6,11 @@
 /*   By: lmuzio <lmuzio@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 20:59:57 by lmuzio            #+#    #+#             */
-/*   Updated: 2023/03/18 22:36:19 by lmuzio           ###   ########.fr       */
+/*   Updated: 2023/03/18 22:52:38 by lmuzio           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/parsing.h"
+#include <parsing.h>
 
 bool	parse_rgb(t_map *map, char *line)
 {

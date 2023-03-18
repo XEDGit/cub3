@@ -6,11 +6,11 @@
 /*   By: lmuzio <lmuzio@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/17 14:54:51 by lmuzio            #+#    #+#             */
-/*   Updated: 2023/03/18 22:36:31 by lmuzio           ###   ########.fr       */
+/*   Updated: 2023/03/18 22:52:38 by lmuzio           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/parsing.h"
+#include <parsing.h>
 
 bool	is_space(char *ch)
 {
