@@ -16,8 +16,8 @@
 # include "shared.h"
 
 /* Texture width & texture height. */
-# define TW 256
-# define TH 256
+# define TW 512
+# define TH 512
 
 /* Window width and window height */
 # define W 2048
@@ -45,6 +45,7 @@ typedef struct s_IntVector2 {
 /* step:			How many / few pixels to step upwards in the texture per pixel of the line. */
 /* tex_y_begin_pos:	Which pixel in the Y axis of the texture we should begin from when drawing the line. */
 typedef struct s_vertline {
+	int		dist;
 	int		dir;
 	int		xcoord;
 	int		startpoint;
@@ -102,5 +103,6 @@ t_vertline	generate_line(t_renderer *rn, char **map, int x, int side);
 void		draw_vert(t_vertline line, mlx_image_t *image, mlx_texture_t **tex);
 int			handle_input(t_raycam *rc, char **m, mlx_t *mlx);
 int			get_texture_pixel_data(int x, int y, mlx_texture_t *tex);
+int			fog(double dist, int colour);
 
 #endif // RENDERING_H

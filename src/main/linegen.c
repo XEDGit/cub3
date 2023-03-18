@@ -28,6 +28,7 @@ static void	tex_coords(t_renderer *rn, int side, int x, t_vertline *r)
 		perpwalldist = (rn->rv->sidedistances.x - rn->rv->deltads.x);
 	else
 		perpwalldist = (rn->rv->sidedistances.y - rn->rv->deltads.y);
+	r->dist = perpwalldist;
 	lineheight = ((H / perpwalldist));
 	if (side == 0)
 		wall_x = rn->rc->campos.y + perpwalldist * rn->rv->rdir.y;
