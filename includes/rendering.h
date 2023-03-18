@@ -45,7 +45,7 @@ typedef struct s_IntVector2 {
 /* step:			How many / few pixels to step upwards in the texture per pixel of the line. */
 /* tex_y_begin_pos:	Which pixel in the Y axis of the texture we should begin from when drawing the line. */
 typedef struct s_vertline {
-	int		dist;
+	double	dist;
 	int		dir;
 	int		xcoord;
 	int		startpoint;
