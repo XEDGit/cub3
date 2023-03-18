@@ -6,74 +6,11 @@
 /*   By: lmuzio <lmuzio@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/17 14:54:47 by lmuzio            #+#    #+#             */
-/*   Updated: 2023/01/31 16:54:51 by lmuzio           ###   ########.fr       */
+/*   Updated: 2023/03/18 21:06:45 by lmuzio           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/checking.h"
-
-t_cell	*cell_last(t_cell *cell)
-{
-	while (cell->next)
-		cell = cell->next;
-	return (cell);
-}
-
-int	cell_add_to_back(t_cell **node, int newX, int newY)
-{
-	t_cell	*last;
-
-	if (!*node)
-	{
-		*node = malloc(sizeof(t_cell));
-		if (!node)
-			return (error("Malloc fail", 0, false));
-		(*node)->cellx = newX;
-		(*node)->celly = newY;
-		(*node)->next = 0;
-		return (false);
-	}
-	last = cell_last(*node);
-	last->next = malloc(sizeof(t_cell));
-	if (!last->next)
-		return (error("Malloc fail", 0, false));
-	last->next->cellx = newX;
-	last->next->celly = newY;
-	last->next->next = 0;
-	return (false);
-}
-
-void	free_cell(t_cell *node)
-{
-	t_cell	*next;
-
-	while (node)
-	{
-		next = node->next;
-		free(node);
-		node = next;
-	}
-}
-
-bool	is_valid_map(t_cell *to_check, t_vec borders, char **map)
-{
-	char		ch;
-
-	if (!to_check->cellx || to_check->cellx == borders[X] || \
-		!to_check->celly || to_check->celly == borders[Y] || \
-		map[to_check->celly][to_check->cellx] == ' ')
-		return (error("Map is not surrounded by walls", 0, false));
-	ch = map[to_check->celly][to_check->cellx];
-	if (ch != '0' && ch != '1' && ch != 'N' && ch != 'S' \
-	&& ch != 'E' && ch != 'W')
-		return (error("Map contains invalid charachter at '%s'", \
-		map[to_check->celly], false));
-	return (false);
-}
-
-// DEBUG
-#include <unistd.h>
-#include <stdio.h>
 
 bool	check_neighbors(t_cell *to_check, t_cell **new, \
 char **map, t_vec borders)
@@ -97,15 +34,6 @@ char **map, t_vec borders)
 			{
 				cell_add_to_back(new, target[X], target[Y]);
 				map[target[Y]][target[X]] = '1';
-				// DEBUG
-				// map[to_check->celly][to_check->cellx] = '#';
-				// int c = 0;
-				// system("clear");
-				// printf("Seed floodfill:\n");
-				// while (map[c])
-				//    printf("%s\n", map[c++]);
-				// map[to_check->celly][to_check->cellx] = '1';
-				// usleep(35000);
 			}
 			i++;
 		}

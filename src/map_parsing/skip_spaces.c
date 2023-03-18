@@ -6,7 +6,7 @@
 /*   By: lmuzio <lmuzio@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/17 15:11:10 by lmuzio            #+#    #+#             */
-/*   Updated: 2022/12/17 15:11:11 by lmuzio           ###   ########.fr       */
+/*   Updated: 2023/03/18 21:37:11 by lmuzio           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ char	*skip_spaces(char *in)
 		return (0);
 	while (*in)
 	{
-		if (*in == ' ')
+		if (*in == ' ' || *in == '\t')
 			in++;
 		else
 			break ;

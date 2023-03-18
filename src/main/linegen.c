@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   linegen.c                                          :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: wmaguire <wmaguire@student.codam.nl>         +#+                     */
-/*                                                   +#+                      */
-/*   Created: 1970/01/01 00:00:00 by wmaguire      #+#    #+#                 */
-/*   Updated: 1970/01/01 00:00:00 by wmaguire      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   linegen.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lmuzio <lmuzio@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 1970/01/01 00:00:00 by wmaguire          #+#    #+#             */
+/*   Updated: 2023/03/18 21:17:38 by lmuzio           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 #define WEST 2
 #define EAST 3
 
-static void	tex_coords(t_renderer *rn, int side, int x, t_vertline *r)
+static void	tex_coords(t_renderer *rn, int side, t_vertline *r)
 {
 	double	wall_x;
 	double	perpwalldist;
@@ -62,12 +62,11 @@ static void	get_tex_dir(t_renderer *rn, int side, t_vertline *r)
 	}
 }
 
-t_vertline	generate_line(t_renderer *rn, char **map, int x, int side)
+t_vertline	generate_line(t_renderer *rn, int x, int side)
 {
 	t_vertline	r;
 	double		perpwalldist;
 	int			lineheight;
-	double		wall_x;
 
 	if (side == 0)
 		perpwalldist = (rn->rv->sidedistances.x - rn->rv->deltads.x);
@@ -82,6 +81,6 @@ t_vertline	generate_line(t_renderer *rn, char **map, int x, int side)
 		r.endpoint = H - 1;
 	r.xcoord = x;
 	get_tex_dir(rn, side, &r);
-	tex_coords(rn, side, x, &r);
+	tex_coords(rn, side, &r);
 	return (r);
 }
