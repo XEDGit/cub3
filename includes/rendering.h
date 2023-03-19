@@ -20,8 +20,8 @@
 # define TH 512
 
 /* Window width and window height */
-# define W 2048
-# define H 2048
+# define W 640
+# define H 640
 
 typedef struct s_vec2 {
 	float	x;
@@ -103,10 +103,9 @@ void		render_frame(t_renderer *rn, mlx_image_t *i, \
 			t_map *m, mlx_texture_t **t);
 t_vertline	cast_ray(t_renderer *rn, int x);
 t_vertline	generate_line(t_renderer *rn, int x, int side);
-void		draw_vert(t_vertline line, mlx_image_t *image, \
-			mlx_texture_t **tex, t_map *m);
 int			handle_input(t_raycam *rc, char **m, mlx_t *mlx);
 int			get_texture_pixel_data(int x, int y, mlx_texture_t *tex);
 int			fog(double dist, int colour);
+void		draw_vert(t_vertline line, mlx_image_t *image, mlx_texture_t **tex);
 
 #endif // RENDERING_H

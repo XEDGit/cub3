@@ -101,8 +101,7 @@ t_vertline	cast_ray(t_renderer *rn, int x)
 	return (generate_line(rn, x, side));
 }
 
-void	draw_vert(t_vertline line, mlx_image_t *image, \
-		mlx_texture_t **tex, t_map *m)
+void	draw_vert(t_vertline line, mlx_image_t *image, mlx_texture_t **tex)
 {
 	int			iter;
 	int			colour;
@@ -114,17 +113,14 @@ void	draw_vert(t_vertline line, mlx_image_t *image, \
 		line.startpoint = 0;
 	if (line.endpoint >= H)
 		line.endpoint = H - 1;
-	iter = 0;
-	while (iter < line.startpoint)
-		mlx_put_pixel(image, line.xcoord, iter++, m->ceiling);
+	iter = line.startpoint;
 	while (iter <= line.endpoint)
 	{
 		line.tex_y = (int)line.tex_y_begin_pos & (TH - 1);
 		line.tex_y_begin_pos += line.step;
 		colour = get_texture_pixel_data(line.tex_x, line.tex_y, tex[line.dir]);
 		colour = fog(line.dist, colour);
-		mlx_put_pixel(image, line.xcoord, iter++, colour);
+		mlx_put_pixel(image, line.xcoord, iter, colour);
+		iter++;
 	}
-	while (iter < H)
-		mlx_put_pixel(image, line.xcoord, iter++, m->floor);
 }

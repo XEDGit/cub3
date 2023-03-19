@@ -47,15 +47,38 @@ void	render_hook(void *data)
 	}
 }
 
+static void	floor_ceiling(t_renderer *rn, mlx_image_t *buf, t_map *m)
+{
+	int	iter_y;
+	int	iter_x;
+
+	iter_y = 0;
+	while (iter_y < rn->image->height)
+	{
+		iter_x = 0;
+		while (iter_x < rn->image->width)
+		{
+			if (iter_y < rn->image->height / 2)
+				mlx_put_pixel(rn->image, iter_x, iter_y, m->ceiling);
+			else
+				mlx_put_pixel(rn->image, iter_x, iter_y, m->floor);
+			iter_x++;
+		}
+		iter_y++;
+	}
+}
+
 void	render_frame(t_renderer *rn, \
 				mlx_image_t *i, t_map *m, mlx_texture_t **t)
 {
 	int	iter;
 
 	iter = 0;
+	floor_ceiling(rn, i, m);
 	while (iter <= W)
 	{
-		draw_vert(cast_ray(rn, iter), i, t, m);
+		/* draw_vert(cast_ray(rn, iter), i, t, m); */
+		draw_vert(cast_ray(rn, iter), i, t);
 		iter++;
 	}
 }
