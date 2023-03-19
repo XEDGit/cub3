@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   movement.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmuzio <lmuzio@student.42.fr>              +#+  +:+       +#+        */
+/*   By: wmaguire <wmaguire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 1970/01/01 00:00:00 by wmaguire          #+#    #+#             */
-/*   Updated: 2023/03/18 22:51:01 by lmuzio           ###   ########.fr       */
+/*   Updated: 2023/03/18 22:51:01 by wmaguire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <math.h>
 #include <stdio.h>
-#include <rendering.h>
+#include "../../includes/rendering.h"
 
 int	forward_backward(t_raycam *rc, char **m, mlx_t *mlx, int dir)
 {

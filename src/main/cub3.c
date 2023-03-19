@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   cub3.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmuzio <lmuzio@student.42.fr>              +#+  +:+       +#+        */
+/*   By: wmaguire <wmaguire@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/17 14:54:14 by lmuzio            #+#    #+#             */
-/*   Updated: 2023/03/18 22:51:01 by lmuzio           ###   ########.fr       */
+/*   Created: 2022/12/17 14:54:14 by wmaguire            #+#    #+#             */
+/*   Updated: 2023/03/18 22:51:01 by wmaguire           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <cub3.h>
-#include <rendering.h>
+#include "../../includes/cub3.h"
+#include "../../includes/rendering.h"
 #include <string.h>
 
 bool	error(char *msg, void *msg_arg, bool perr)
