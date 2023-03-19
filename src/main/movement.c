@@ -1,37 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   movement.c                                         :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: wmaguire <wmaguire@student.codam.nl>         +#+                     */
-/*                                                   +#+                      */
-/*   Created: 1970/01/01 00:00:00 by wmaguire      #+#    #+#                 */
-/*   Updated: 1970/01/01 00:00:00 by wmaguire      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   movement.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lmuzio <lmuzio@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 1970/01/01 00:00:00 by wmaguire          #+#    #+#             */
+/*   Updated: 2023/03/18 22:51:01 by lmuzio           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <math.h>
 #include <stdio.h>
-#include "../../includes/rendering.h"
+#include <rendering.h>
 
 int	forward_backward(t_raycam *rc, char **m, mlx_t *mlx, int dir)
 {
 	double	movs;
+	t_vec2	nextpos;
 
 	movs = mlx->delta_time * 4.0;
 	if (dir == 1)
 	{
-		if (m[(int)rc->campos.y][(int)(rc->campos.x + rc->dv.x * movs)] != '1')
-			rc->campos.x += rc->dv.x * movs;
-		if (m[(int)(rc->campos.y + rc->dv.y * movs)][(int)rc->campos.x] != '1')
-			rc->campos.y += rc->dv.y * movs;
+		nextpos.x = rc->campos.x + (rc->dv.x * movs);
+		nextpos.y = rc->campos.y + (rc->dv.y * movs);
+		if (m[(int)rc->campos.y][(int)(nextpos.x)] != '1')
+			rc->campos.x = nextpos.x;
+		if (m[(int)(nextpos.y)][(int)rc->campos.x] != '1')
+			rc->campos.y = nextpos.y;
 	}
 	if (dir == 0)
 	{
-		if (m[(int)rc->campos.y][(int)(rc->campos.x - rc->dv.x * movs)] != '1')
-			rc->campos.x -= rc->dv.x * movs;
-		if (m[(int)(rc->campos.y - rc->dv.y * movs)][(int)rc->campos.x] != '1')
-			rc->campos.y -= rc->dv.y * movs;
+		nextpos.x = rc->campos.x - (rc->dv.x * movs);
+		nextpos.y = rc->campos.y - (rc->dv.y * movs);
+		if (m[(int)rc->campos.y][(int)(nextpos.x)] != '1')
+			rc->campos.x = nextpos.x;
+		if (m[(int)(nextpos.y)][(int)rc->campos.x] != '1')
+			rc->campos.y = nextpos.y;
 	}
 	return (1);
 }

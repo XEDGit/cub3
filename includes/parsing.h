@@ -6,7 +6,7 @@
 /*   By: lmuzio <lmuzio@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/17 16:27:23 by lmuzio            #+#    #+#             */
-/*   Updated: 2022/12/17 16:27:24 by lmuzio           ###   ########.fr       */
+/*   Updated: 2023/03/18 22:37:09 by lmuzio           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,18 @@
 //	internal
 # include <shared.h>
 
-char	*get_next_line(int fd);
-int		free_fd_gnl(int fd);
-char	*skip_spaces(char *in);
-bool	find_player(t_single_map *map_list);
+char			*get_next_line(int fd);
+int				free_fd_gnl(int fd);
+char			*skip_spaces(char *in);
+bool			find_player(t_single_map *map_list);
+bool			parse_textures(t_map *map, char *line);
+bool			parse_rgb(t_map *map, char *line);
+bool			map_add_to_back(t_single_map **node, char **map);
+t_single_map	*map_last(t_single_map *map);
+char			**square_map(char **map);
+int				parsing_map_loop(char **map, int fd, int *lines_count);
+int				parse_one_map(t_map *maps, int fd, int num);
+bool			parse_maps(t_map *map, int fd);
+bool			is_space(char *ch);
 
 #endif

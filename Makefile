@@ -2,9 +2,9 @@ NAME := cub3
 
 SRC_DIR := src
 
-SRC := $(wildcard $(SRC_DIR)/*)
+SRC := src/ft_libc src/get_next_line src/main src/map_parsing
 
-SRCS := $(wildcard src/*/*.c)
+SRCS := src/ft_libc/ft_atoi.c src/ft_libc/ft_realloc.c src/ft_libc/ft_strchr.c src/ft_libc/ft_strcmp.c src/ft_libc/ft_strdup.c src/ft_libc/ft_strlen.c src/get_next_line/get_next_line.c src/get_next_line/get_next_line_utils.c src/main/cub3.c src/main/linegen.c src/main/movement.c src/main/raycam.c src/main/rendering.c src/main/rendering_utils.c src/map_parsing/2d_char_utils.c src/map_parsing/cell_utils.c src/map_parsing/map.c src/map_parsing/map_utils.c src/map_parsing/parsing.c src/map_parsing/parsing_settings.c src/map_parsing/player.c src/map_parsing/skip_spaces.c
 
 OBJ_DIR := obj
 
@@ -21,7 +21,7 @@ INC := -I includes
 all: $(NAME)
 
 $(NAME): $(MLX_NAME) $(SRCS) | $(OBJ_DIR)
-	@$(foreach var, $(SRC), echo "Making $(var)"; $(MAKE) $(DEBUG) -C $(var) --quiet;)
+	@$(foreach var, $(SRC), echo "Making $(var)"; $(MAKE) $(DEBUG) -C $(var);)
 	@echo "Linking objects into $@"
 	@$(CC) $(FLAGS) $(INC) -o $@ $(OBJ) $(MLX_NAME) $(MLX_FLAGS) -lm
 	@echo "Done"
@@ -53,7 +53,8 @@ debug: fclean $(NAME)
 linux: MLX_FLAGS = -ldl -pthread -lglfw -pthread -lm
 linux: all
 
-sym: FLAGS = -g
+sym: FLAGS = -g3
+sym: DEBUG = debug
 sym: fclean $(NAME)
 
 nf: FLAGS = 

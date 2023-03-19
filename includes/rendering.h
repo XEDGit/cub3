@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   CODAM C FILE                                       :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: wmaguire <wmaguire@student.codam.nl>         +#+                     */
-/*                                                   +#+                      */
-/*   Created: 1970/01/01 00:00:00 by wmaguire      #+#    #+#                 */
-/*   Updated: 1970/01/01 00:00:00 by wmaguire     ########   codam.nl         */
+/*                                                        :::      ::::::::   */
+/*   rendering.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lmuzio <lmuzio@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 1970/01/01 00:00:00 by wmaguire          #+#    #+#             */
+/*   Updated: 2023/03/18 21:19:28 by lmuzio           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 
 /* Window width and window height */
 # define W 2048
-# define H 2048
+# define H 1024
 
 typedef struct s_vec2 {
 	float	x;
@@ -42,8 +42,10 @@ typedef struct s_IntVector2 {
 /* endpoint:		Y coordinate end point of the vertical line. */
 /* tex_x:			The X coordinate of the pixel to draw. */
 /* tex_y:			The Y coordinate of the pixel to draw. */
-/* step:			How many / few pixels to step upwards in the texture per pixel of the line. */
-/* tex_y_begin_pos:	Which pixel in the Y axis of the texture we should begin from when drawing the line. */
+/* step:			How many / few pixels to step upwards in 
+the texture per pixel of the line. */
+/* tex_y_begin_pos:	Which pixel in the Y axis of the texture we should begin 
+from when drawing the line. */
 typedef struct s_vertline {
 	double	dist;
 	int		dir;
@@ -92,15 +94,17 @@ typedef struct s_renderer {
 	t_map			*map;
 	mlx_texture_t	*tex[4];
 	mlx_t			*mlx;
-} t_renderer;
+}	t_renderer;
 
 t_raycam	*init_raycam(int x, int y);
 void		input_keyhook(mlx_key_data_t keydata, void *data);
 void		render_hook(void *data);
-void		render_frame(t_renderer *rn, mlx_image_t *i, t_map *m, mlx_texture_t **t);
+void		render_frame(t_renderer *rn, mlx_image_t *i, \
+			t_map *m, mlx_texture_t **t);
 t_vertline	cast_ray(t_renderer *rn, int x);
-t_vertline	generate_line(t_renderer *rn, char **map, int x, int side);
-void		draw_vert(t_vertline line, mlx_image_t *image, mlx_texture_t **tex);
+t_vertline	generate_line(t_renderer *rn, int x, int side);
+void		draw_vert(t_vertline line, mlx_image_t *image, \
+			mlx_texture_t **tex, t_map *m);
 int			handle_input(t_raycam *rc, char **m, mlx_t *mlx);
 int			get_texture_pixel_data(int x, int y, mlx_texture_t *tex);
 int			fog(double dist, int colour);
