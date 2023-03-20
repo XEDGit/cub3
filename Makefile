@@ -60,6 +60,10 @@ sym: fclean $(NAME)
 nf: FLAGS = 
 nf: fclean $(NAME)
 
+nfl: FLAGS = 
+nfl: MLX_FLAGS = -ldl -pthread -lglfw -pthread -lm
+nfl: fclean $(NAME)
+
 r: all
 	./$(NAME)
 
