@@ -86,15 +86,15 @@ typedef struct s_renderer {
 	int				tw;
 	unsigned int	curr_map;
 	int				has_moved;
-	t_raycam		*rc;
-	t_rayvars		*rv;
+	t_raycam		rc;
+	t_rayvars		rv;
 	mlx_image_t		*image;
 	t_map			*map;
 	mlx_texture_t	*tex[4];
 	mlx_t			*mlx;
 }	t_renderer;
 
-t_raycam		*init_raycam(int x, int y, char dir);
+t_raycam		*init_raycam(t_raycam *raycam, int x, int y, char dir);
 void			input_keyhook(mlx_key_data_t keydata, void *data);
 void			render_hook(void *data);
 void			render_frame(t_renderer *rn);

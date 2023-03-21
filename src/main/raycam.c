@@ -14,13 +14,8 @@
 #include "../../includes/rendering.h"
 #include <stdlib.h>
 
-t_raycam	*init_raycam(int x, int y, char dir)
+t_raycam	*init_raycam(t_raycam *raycam, int x, int y, char dir)
 {
-	t_raycam	*raycam;
-
-	raycam = malloc(sizeof(t_raycam));
-	if (!raycam)
-		return (NULL);
 	if (dir == 'N')
 	{
 		raycam->dv = (t_vec2){0, -1};

@@ -69,10 +69,6 @@ void	dealloc_renderer(t_renderer *rn)
 		mlx_delete_texture(rn->tex[iter]);
 		iter++;
 	}
-	if (rn->rc)
-		free(rn->rc);
-	if (rn->rv)
-		free(rn->rv);
 	mlx_terminate(rn->mlx);
 	free_map(rn->map);
 }
@@ -84,13 +80,8 @@ void	init_renderer(mlx_t *mlx, t_renderer *rn, t_data *data)
 
 	iter = 0;
 	dir = data->map.maps->map[data->map.maps->spawn[1]][data->map.maps->spawn[0]];
-	rn->rc = init_raycam(data->map.maps->spawn[0], \
+	init_raycam(&rn->rc, data->map.maps->spawn[0], \
 						data->map.maps->spawn[1], dir);
-	if (!rn->rc)
-		return ;
-	rn->rv = malloc(sizeof(t_rayvars));
-	if (!rn->rv)
-		return ;
 	rn->image = mlx_new_image(mlx, W, H);
 	mlx_image_to_window(mlx, rn->image, 0, 0);
 	while (iter < 4)

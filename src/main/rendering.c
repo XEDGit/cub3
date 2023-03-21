@@ -90,13 +90,13 @@ t_vertline	cast_ray(t_renderer *rn, int x)
 	int			side;
 	t_rayvars	*rv;
 
-	rv = rn->rv;
+	rv = &rn->rv;
 	rv->camera_x = 2 * x / (double)W - 1;
-	rv->rdir.x = rn->rc->dv.x + rn->rc->pv.x * rv->camera_x;
-	rv->rdir.y = rn->rc->dv.y + rn->rc->pv.y * rv->camera_x;
-	rv->imapcoords = (t_ivec){(int)rn->rc->campos.x, (int)rn->rc->campos.y};
+	rv->rdir.x = rn->rc.dv.x + rn->rc.pv.x * rv->camera_x;
+	rv->rdir.y = rn->rc.dv.y + rn->rc.pv.y * rv->camera_x;
+	rv->imapcoords = (t_ivec){(int)rn->rc.campos.x, (int)rn->rc.campos.y};
 	rv->deltads = (t_vec2){fabs(1 / rv->rdir.x), fabs(1 / rv->rdir.y)};
-	setup_step_direction(rv, rn->rc);
+	setup_step_direction(rv, &rn->rc);
 	side = cast_till_hit(rv, rn->map->maps[0].map);
 	return (generate_line(rn, x, side));
 }
