@@ -35,12 +35,12 @@ static void	tex_coords(t_renderer *rn, int side, t_vertline *r)
 	else
 		wall_x = rn->rc->campos.x + perpwalldist * rn->rv->rdir.x;
 	wall_x -= floor((wall_x));
-	r->tex_x = (int)(wall_x * (double)TW);
+	r->tex_x = (int)(wall_x * (double)rn->tw);
 	if (side == 0 && rn->rv->rdir.x > 0)
-		r->tex_x = TW - r->tex_x - 1;
+		r->tex_x = rn->tw - r->tex_x - 1;
 	if (side == 1 && rn->rv->rdir.y < 0)
-		r->tex_x = TW - r->tex_x - 1;
-	r->step = 1.0 * TH / lineheight;
+		r->tex_x = rn->tw - r->tex_x - 1;
+	r->step = 1.0 * rn->th / lineheight;
 	r->tex_y_begin_pos = (r->startpoint - (H / 2) + (lineheight / 2)) * r->step;
 	r->side = side;
 }

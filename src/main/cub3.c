@@ -94,6 +94,8 @@ void	init_renderer(mlx_t *mlx, t_renderer *renderer, t_data *data)
 		renderer->tex[iter] = mlx_load_png(data->map.textures[iter]);
 		iter++;
 	}
+	renderer->th = renderer->tex[0]->height;
+	renderer->tw = renderer->tex[0]->width;
 	renderer->mlx = mlx;
 	renderer->map = &data->map;
 	renderer->has_moved = 1;
@@ -113,6 +115,9 @@ int	main(int argc, char **argv)
 		mlx = mlx_init(W, H, "cub3d", 0);
 		init_renderer(mlx, &renderer, &data);
 		mlx_loop(mlx);
+		dealloc_renderer(&renderer);
+		return (0);
 	}
+	free_map(&data.map);
 	return (0);
 }

@@ -15,10 +15,6 @@
 # include "../MLX42/include/MLX42/MLX42.h"
 # include "shared.h"
 
-/* Texture width & texture height. */
-# define TW 512
-# define TH 512
-
 /* Window width and window height */
 # define W 2048
 # define H 2048
@@ -86,6 +82,8 @@ typedef struct s_raycam {
 /* This is the dump everything struct where all clean code */
 /* goes to die. I apologise in advance. */
 typedef struct s_renderer {
+	int				th;
+	int				tw;
 	unsigned int	curr_map;
 	int				has_moved;
 	t_raycam		*rc;

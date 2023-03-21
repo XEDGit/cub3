@@ -116,7 +116,7 @@ void	draw_vert(t_vertline line, mlx_image_t *image, mlx_texture_t **tex)
 	iter = line.startpoint;
 	while (iter <= line.endpoint)
 	{
-		line.tex_y = (int)line.tex_y_begin_pos & (TH - 1);
+		line.tex_y = (int)line.tex_y_begin_pos & (tex[line.dir]->height - 1);
 		line.tex_y_begin_pos += line.step;
 		colour = get_texture_pixel_data(line.tex_x, line.tex_y, tex[line.dir]);
 		colour = fog(line.dist, colour);
