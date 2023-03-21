@@ -16,8 +16,8 @@
 # include "shared.h"
 
 /* Window width and window height */
-# define W 2048
-# define H 2048
+# define W 1152
+# define H 1152
 
 typedef struct s_vec2 {
 	float	x;

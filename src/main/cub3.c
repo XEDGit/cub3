@@ -79,7 +79,8 @@ void	init_renderer(mlx_t *mlx, t_renderer *rn, t_data *data)
 	char	dir;
 
 	iter = 0;
-	dir = data->map.maps->map[data->map.maps->spawn[1]][data->map.maps->spawn[0]];
+	dir = \
+		data->map.maps->map[data->map.maps->spawn[1]][data->map.maps->spawn[0]];
 	init_raycam(&rn->rc, data->map.maps->spawn[0], \
 						data->map.maps->spawn[1], dir);
 	rn->image = mlx_new_image(mlx, W, H);
@@ -115,6 +116,7 @@ int	main(int argc, char **argv)
 		check_map(&data.map)))
 	{
 		mlx = mlx_init(W, H, "cub3d", 0);
+		renderer.mlx = mlx;
 		init_renderer(mlx, &renderer, &data);
 		mlx_loop(mlx);
 		dealloc_renderer(&renderer);
