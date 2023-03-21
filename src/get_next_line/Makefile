@@ -1,5 +1,7 @@
 SRCS := get_next_line.c get_next_line_utils.c
 
+CC = clang
+
 OBJ_DIR := ../../obj
 
 OBJS := $(addprefix $(OBJ_DIR)/, $(SRCS:.c=.o))

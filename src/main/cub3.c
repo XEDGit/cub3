@@ -88,6 +88,7 @@ int	main(int argc, char **argv)
 	t_renderer		renderer;
 
 	data = (t_data){{{0}, 0, 0, 0, {0}}, 0};
+
 	if (parse_args(&data.map, argc, argv))
 		(void)data;
 	else if (check_map(&data.map))

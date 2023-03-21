@@ -41,16 +41,15 @@ void	render_hook(void *data)
 		handle_input(renderer->rc, renderer->map->maps->map, renderer->mlx);
 	if (renderer->has_moved)
 	{
-		render_frame(renderer, \
-					renderer->image, renderer->map, renderer->tex);
+		render_frame(renderer);
 		renderer->has_moved = 0;
 	}
 }
 
-static void	floor_ceiling(t_renderer *rn, mlx_image_t *buf, t_map *m)
+static void	floor_ceiling(t_renderer *rn, t_map *m)
 {
-	int	iter_y;
-	int	iter_x;
+	unsigned int	iter_y;
+	unsigned int	iter_x;
 
 	iter_y = 0;
 	while (iter_y < rn->image->height)
@@ -68,17 +67,15 @@ static void	floor_ceiling(t_renderer *rn, mlx_image_t *buf, t_map *m)
 	}
 }
 
-void	render_frame(t_renderer *rn, \
-				mlx_image_t *i, t_map *m, mlx_texture_t **t)
+void	render_frame(t_renderer *rn)
 {
 	int	iter;
 
 	iter = 0;
-	floor_ceiling(rn, i, m);
+	floor_ceiling(rn, rn->map);
 	while (iter <= W)
 	{
-		/* draw_vert(cast_ray(rn, iter), i, t, m); */
-		draw_vert(cast_ray(rn, iter), i, t);
+		draw_vert(cast_ray(rn, iter), rn->image, rn->tex);
 		iter++;
 	}
 }

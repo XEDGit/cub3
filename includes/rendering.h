@@ -20,8 +20,8 @@
 # define TH 512
 
 /* Window width and window height */
-# define W 640
-# define H 640
+# define W 800
+# define H 800
 
 typedef struct s_vec2 {
 	float	x;
@@ -99,8 +99,7 @@ typedef struct s_renderer {
 t_raycam	*init_raycam(int x, int y);
 void		input_keyhook(mlx_key_data_t keydata, void *data);
 void		render_hook(void *data);
-void		render_frame(t_renderer *rn, mlx_image_t *i, \
-			t_map *m, mlx_texture_t **t);
+void		render_frame(t_renderer *rn);
 t_vertline	cast_ray(t_renderer *rn, int x);
 t_vertline	generate_line(t_renderer *rn, int x, int side);
 int			handle_input(t_raycam *rc, char **m, mlx_t *mlx);
