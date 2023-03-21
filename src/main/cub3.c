@@ -79,11 +79,13 @@ void	dealloc_renderer(t_renderer *rn)
 
 void	init_renderer(mlx_t *mlx, t_renderer *rn, t_data *data)
 {
-	int	iter;
+	int		iter;
+	char	dir;
 
 	iter = 0;
+	dir = data->map.maps->map[data->map.maps->spawn[1]][data->map.maps->spawn[0]];
 	rn->rc = init_raycam(data->map.maps->spawn[0], \
-						data->map.maps->spawn[1]);
+						data->map.maps->spawn[1], dir);
 	if (!rn->rc)
 		return ;
 	rn->rv = malloc(sizeof(t_rayvars));

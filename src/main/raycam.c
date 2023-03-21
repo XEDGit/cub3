@@ -10,19 +10,37 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <shared.h>
+#include "../../includes/shared.h"
 #include "../../includes/rendering.h"
 #include <stdlib.h>
 
-t_raycam	*init_raycam(int x, int y)
+t_raycam	*init_raycam(int x, int y, char dir)
 {
 	t_raycam	*raycam;
 
 	raycam = malloc(sizeof(t_raycam));
 	if (!raycam)
 		return (NULL);
-	raycam->dv = (t_vec2){0, -1};
-	raycam->pv = (t_vec2){-0.66, 0};
+	if (dir == 'N')
+	{
+		raycam->dv = (t_vec2){0, -1};
+		raycam->pv = (t_vec2){-0.66, 0};
+	}
+	if (dir == 'S')
+	{
+		raycam->dv = (t_vec2){0, 1};
+		raycam->pv = (t_vec2){0.66, 0};
+	}
+	else if (dir == 'W')
+	{
+		raycam->dv = (t_vec2){-1, 0};
+		raycam->pv = (t_vec2){0, 0.66};
+	}
+	else if (dir == 'E')
+	{
+		raycam->dv = (t_vec2){1, 0};
+		raycam->pv = (t_vec2){0, -0.66};
+	}
 	raycam->campos = (t_vec2){x, y};
 	return (raycam);
 }
