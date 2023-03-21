@@ -20,8 +20,8 @@
 # define TH 512
 
 /* Window width and window height */
-# define W 800
-# define H 800
+# define W 2048
+# define H 2048
 
 typedef struct s_vec2 {
 	float	x;
@@ -96,15 +96,15 @@ typedef struct s_renderer {
 	mlx_t			*mlx;
 }	t_renderer;
 
-t_raycam	*init_raycam(int x, int y);
-void		input_keyhook(mlx_key_data_t keydata, void *data);
-void		render_hook(void *data);
-void		render_frame(t_renderer *rn);
-t_vertline	cast_ray(t_renderer *rn, int x);
-t_vertline	generate_line(t_renderer *rn, int x, int side);
-int			handle_input(t_raycam *rc, char **m, mlx_t *mlx);
-int			get_texture_pixel_data(int x, int y, mlx_texture_t *tex);
-int			fog(double dist, int colour);
-void		draw_vert(t_vertline line, mlx_image_t *image, mlx_texture_t **tex);
+t_raycam		*init_raycam(int x, int y);
+void			input_keyhook(mlx_key_data_t keydata, void *data);
+void			render_hook(void *data);
+void			render_frame(t_renderer *rn);
+t_vertline		cast_ray(t_renderer *rn, int x);
+t_vertline		generate_line(t_renderer *rn, int x, int side);
+int				handle_input(t_raycam *rc, char **m, mlx_t *mlx);
+int				get_texture_pixel_data(int x, int y, mlx_texture_t *tex);
+unsigned int	fog(double dist, unsigned int colour);
+void			draw_vert(t_vertline line, mlx_image_t *image, mlx_texture_t **tex);
 
 #endif // RENDERING_H
