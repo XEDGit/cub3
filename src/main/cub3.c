@@ -58,6 +58,23 @@ void	free_map(t_map *map)
 	}
 }
 
+void	dealloc_renderer(t_renderer *rn)
+{
+	int	iter;
+
+	iter = 0;
+	mlx_delete_image(rn->mlx, rn->image);
+	while (iter < 4)
+	{
+		mlx_delete_texture(rn->tex[iter]);
+		iter++;
+	}
+	if (rn->rc)
+		free(rn->rc);
+	if (rn->rv)
+		free(rn->rv);
+}
+
 void	init_renderer(mlx_t *mlx, t_renderer *renderer, t_data *data)
 {
 	int	iter;
@@ -88,16 +105,13 @@ int	main(int argc, char **argv)
 	t_renderer		renderer;
 
 	data = (t_data){{{0}, 0, 0, 0, {0}}, 0};
-
-	if (parse_args(&data.map, argc, argv))
-		(void)data;
-	else if (check_map(&data.map))
-		(void)data;
-	else if (1)
+	if (!(parse_args(&data.map, argc, argv) && \
+		check_map(&data.map)))
 	{
 		mlx = mlx_init(W, H, "cub3d", 0);
 		init_renderer(mlx, &renderer, &data);
 		mlx_loop(mlx);
+		dealloc_renderer(&renderer);
 		mlx_terminate(mlx);
 	}
 	free_map(&data.map);

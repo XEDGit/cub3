@@ -1,21 +1,17 @@
 #include "../../includes/rendering.h"
-#include <stdio.h>
 
 unsigned int	fog(double dist, unsigned int colour)
 {
-	unsigned int	r;
-	unsigned int	g;
-	unsigned int	b;
+	unsigned int	bytes[3];
 
-	r = ((colour >> 24) & 0xFF) / (1 * dist / 2);
-	g = ((colour >> 16) & 0xFF) / (1 * dist / 2) + (dist);
-	b = ((colour >> 8) & 0xFF) / (1 * dist / 2);
-	if (r > ((colour >> 24) & 0xFF))
-		r = ((colour >> 24) & 0xFF);
-	if (g > ((colour >> 16) & 0xFF))
-		g = ((colour >> 16) & 0xFF);
-	if (b > ((colour >> 8) & 0xFF))
-		b = ((colour >> 8) & 0xFF);
-	colour = (r << 24 | g << 16 | b << 8 | 0xFF - (unsigned int)dist * 2);
-	return (colour);
+	bytes[0] = ((colour >> 24) & 0xFF) / (1 * dist / 2);
+	bytes[1] = ((colour >> 16) & 0xFF) / (1 * dist / 2) + (dist);
+	bytes[2] = ((colour >> 8) & 0xFF) / (1 * dist / 2);
+	if (bytes[0] > ((colour >> 24) & 0xFF))
+		bytes[0] = ((colour >> 24) & 0xFF);
+	if (bytes[1] > ((colour >> 16) & 0xFF))
+		bytes[1] = ((colour >> 16) & 0xFF);
+	if (bytes[2] > ((colour >> 8) & 0xFF))
+		bytes[2] = ((colour >> 8) & 0xFF);
+	return ((bytes[0] << 24 | bytes[1] << 16 | bytes[2] << 8 | 0xFF));
 }
