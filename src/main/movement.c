@@ -14,6 +14,33 @@
 #include <stdio.h>
 #include "../../includes/rendering.h"
 
+int	strafe(t_raycam *rc, char **m, mlx_t *mlx, int dir)
+{
+	double	movs;
+	t_vec2	nextpos;
+
+	movs = mlx->delta_time * 4.0;
+	if (dir == 1)
+	{
+		nextpos.x = rc->campos.x + (rc->pv.x * movs);
+		nextpos.y = rc->campos.y + (rc->pv.y * movs);
+		if (m[(int)rc->campos.y][(int)(nextpos.x)] != '1')
+			rc->campos.x = nextpos.x;
+		if (m[(int)(nextpos.y)][(int)rc->campos.x] != '1')
+			rc->campos.y = nextpos.y;
+	}
+	if (dir == 0)
+	{
+		nextpos.x = rc->campos.x - (rc->pv.x * movs);
+		nextpos.y = rc->campos.y - (rc->pv.y * movs);
+		if (m[(int)rc->campos.y][(int)(nextpos.x)] != '1')
+			rc->campos.x = nextpos.x;
+		if (m[(int)(nextpos.y)][(int)rc->campos.x] != '1')
+			rc->campos.y = nextpos.y;
+	}
+	return (1);
+}
+
 int	forward_backward(t_raycam *rc, char **m, mlx_t *mlx, int dir)
 {
 	double	movs;
@@ -79,9 +106,13 @@ int	handle_input(t_raycam *rc, char **m, mlx_t *mlx)
 	if (mlx_is_key_down(mlx, MLX_KEY_S))
 		has_moved = forward_backward(rc, m, mlx, 0);
 	if (mlx_is_key_down(mlx, MLX_KEY_D))
-		has_moved = left_right(rc, 1, mlx);
+		has_moved = strafe(rc, m, mlx, 1);
 	if (mlx_is_key_down(mlx, MLX_KEY_A))
+		has_moved = strafe(rc, m, mlx, 0);
+	if (mlx_is_key_down(mlx, MLX_KEY_LEFT))
 		has_moved = left_right(rc, 0, mlx);
+	if (mlx_is_key_down(mlx, MLX_KEY_RIGHT))
+		has_moved = left_right(rc, 1, mlx);
 	if (mlx_is_key_down(mlx, MLX_KEY_ESCAPE))
 		return (-1);
 	return (has_moved);
