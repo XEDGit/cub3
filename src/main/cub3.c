@@ -73,6 +73,8 @@ void	dealloc_renderer(t_renderer *rn)
 		free(rn->rc);
 	if (rn->rv)
 		free(rn->rv);
+	mlx_terminate(rn->mlx);
+	free_map(rn->map);
 }
 
 void	init_renderer(mlx_t *mlx, t_renderer *renderer, t_data *data)
@@ -111,9 +113,6 @@ int	main(int argc, char **argv)
 		mlx = mlx_init(W, H, "cub3d", 0);
 		init_renderer(mlx, &renderer, &data);
 		mlx_loop(mlx);
-		dealloc_renderer(&renderer);
-		mlx_terminate(mlx);
 	}
-	free_map(&data.map);
 	return (0);
 }

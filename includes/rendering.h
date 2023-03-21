@@ -100,6 +100,7 @@ t_raycam		*init_raycam(int x, int y);
 void			input_keyhook(mlx_key_data_t keydata, void *data);
 void			render_hook(void *data);
 void			render_frame(t_renderer *rn);
+void			dealloc_renderer(t_renderer *rn);
 t_vertline		cast_ray(t_renderer *rn, int x);
 t_vertline		generate_line(t_renderer *rn, int x, int side);
 int				handle_input(t_raycam *rc, char **m, mlx_t *mlx);

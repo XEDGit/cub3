@@ -39,7 +39,12 @@ void	render_hook(void *data)
 	renderer = data;
 	renderer->has_moved = \
 		handle_input(renderer->rc, renderer->map->maps->map, renderer->mlx);
-	if (renderer->has_moved)
+	if (renderer->has_moved == -1)
+	{
+		dealloc_renderer(renderer);
+		exit(0);
+	}
+	else if (renderer->has_moved)
 	{
 		render_frame(renderer);
 		renderer->has_moved = 0;
