@@ -77,29 +77,38 @@ void	dealloc_renderer(t_renderer *rn)
 	free_map(rn->map);
 }
 
-void	init_renderer(mlx_t *mlx, t_renderer *renderer, t_data *data)
+void	init_renderer(mlx_t *mlx, t_renderer *rn, t_data *data)
 {
 	int	iter;
 
 	iter = 0;
-	renderer->rc = init_raycam(data->map.maps->spawn[0], \
-									data->map.maps->spawn[1]);
-	renderer->rv = malloc(sizeof(t_rayvars));
-	if (!renderer->rv)
+	rn->rc = init_raycam(data->map.maps->spawn[0], \
+						data->map.maps->spawn[1]);
+	if (!rn->rc)
 		return ;
-	renderer->image = mlx_new_image(mlx, W, H);
-	mlx_image_to_window(mlx, renderer->image, 0, 0);
+	rn->rv = malloc(sizeof(t_rayvars));
+	if (!rn->rv)
+		return ;
+	rn->image = mlx_new_image(mlx, W, H);
+	mlx_image_to_window(mlx, rn->image, 0, 0);
 	while (iter < 4)
 	{
-		renderer->tex[iter] = mlx_load_png(data->map.textures[iter]);
+		rn->tex[iter] = mlx_load_png(data->map.textures[iter]);
+		if (iter > 0 && (rn->tex[iter]->height != rn->tex[0]->height || \
+		rn->tex[iter]->width != rn->tex[0]->width))
+		{
+			printf("[%s] is invalid.\n", data->map.textures[iter]);
+			return ;
+		}
 		iter++;
 	}
-	renderer->th = renderer->tex[0]->height;
-	renderer->tw = renderer->tex[0]->width;
-	renderer->mlx = mlx;
-	renderer->map = &data->map;
-	renderer->has_moved = 1;
-	mlx_loop_hook(mlx, render_hook, renderer);
+	rn->th = rn->tex[0]->height;
+	rn->tw = rn->tex[0]->width;
+	iter = 0;
+	rn->mlx = mlx;
+	rn->map = &data->map;
+	rn->has_moved = 1;
+	mlx_loop_hook(mlx, render_hook, rn);
 }
 
 int	main(int argc, char **argv)
