@@ -98,10 +98,7 @@ void	init_renderer(mlx_t *mlx, t_renderer *rn, t_data *data)
 	}
 	rn->th = rn->tex[0]->height;
 	rn->tw = rn->tex[0]->width;
-	iter = 0;
-	rn->mlx = mlx;
 	rn->map = &data->map;
-	rn->has_moved = 1;
 	mlx_loop_hook(mlx, render_hook, rn);
 }
 
@@ -116,6 +113,7 @@ int	main(int argc, char **argv)
 		check_map(&data.map)))
 	{
 		mlx = mlx_init(W, H, "cub3d", 0);
+		renderer.has_moved = 1;
 		renderer.mlx = mlx;
 		init_renderer(mlx, &renderer, &data);
 		mlx_loop(mlx);
