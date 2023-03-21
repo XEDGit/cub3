@@ -74,13 +74,13 @@ int	handle_input(t_raycam *rc, char **m, mlx_t *mlx)
 	int		has_moved;
 
 	has_moved = false;
-	if (mlx_is_key_down(mlx, MLX_KEY_UP))
+	if (mlx_is_key_down(mlx, MLX_KEY_W))
 		has_moved = forward_backward(rc, m, mlx, 1);
-	if (mlx_is_key_down(mlx, MLX_KEY_DOWN))
+	if (mlx_is_key_down(mlx, MLX_KEY_S))
 		has_moved = forward_backward(rc, m, mlx, 0);
-	if (mlx_is_key_down(mlx, MLX_KEY_RIGHT))
+	if (mlx_is_key_down(mlx, MLX_KEY_D))
 		has_moved = left_right(rc, 1, mlx);
-	if (mlx_is_key_down(mlx, MLX_KEY_LEFT))
+	if (mlx_is_key_down(mlx, MLX_KEY_A))
 		has_moved = left_right(rc, 0, mlx);
 	return (has_moved);
 }
