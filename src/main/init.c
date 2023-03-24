@@ -24,8 +24,8 @@ static char	get_dir(t_single_map *map)
 
 static int	check_tex_dims(mlx_texture_t **textures)
 {
-	int	width;
-	int	height;
+	unsigned int	width;
+	unsigned int	height;
 	int	iter;
 
 	iter = 0;
