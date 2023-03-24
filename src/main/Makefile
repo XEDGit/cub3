@@ -1,4 +1,4 @@
-SRCS := cub3.c linegen.c movement.c raycam.c rendering.c rendering_utils.c fog.c
+SRCS := cub3.c linegen.c movement.c raycam.c rendering.c rendering_utils.c fog.c init.c
 
 CC = clang
 

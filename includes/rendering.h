@@ -95,6 +95,7 @@ typedef struct s_renderer {
 }	t_renderer;
 
 t_raycam		*init_raycam(t_raycam *raycam, int x, int y, char dir);
+void			init_renderer(mlx_t *mlx, t_renderer *rn, t_data *data);
 void			input_keyhook(mlx_key_data_t keydata, void *data);
 void			render_hook(void *data);
 void			render_frame(t_renderer *rn);

@@ -6,7 +6,7 @@ CC = clang
 
 SRC := src/ft_libc src/get_next_line src/main src/map_parsing
 
-SRCS := src/ft_libc/ft_atoi.c src/ft_libc/ft_realloc.c src/ft_libc/ft_strchr.c src/ft_libc/ft_strcmp.c src/ft_libc/ft_strdup.c src/ft_libc/ft_strlen.c src/get_next_line/get_next_line.c src/get_next_line/get_next_line_utils.c src/main/cub3.c src/main/linegen.c src/main/movement.c src/main/raycam.c src/main/rendering.c src/main/rendering_utils.c src/map_parsing/2d_char_utils.c src/map_parsing/cell_utils.c src/map_parsing/map.c src/map_parsing/map_utils.c src/map_parsing/parsing.c src/map_parsing/parsing_settings.c src/map_parsing/player.c src/map_parsing/skip_spaces.c src/main/fog.c
+SRCS := src/ft_libc/ft_atoi.c src/ft_libc/ft_realloc.c src/ft_libc/ft_strchr.c src/ft_libc/ft_strcmp.c src/ft_libc/ft_strdup.c src/ft_libc/ft_strlen.c src/get_next_line/get_next_line.c src/get_next_line/get_next_line_utils.c src/main/cub3.c src/main/linegen.c src/main/movement.c src/main/raycam.c src/main/rendering.c src/main/rendering_utils.c src/map_parsing/2d_char_utils.c src/map_parsing/cell_utils.c src/map_parsing/map.c src/map_parsing/map_utils.c src/map_parsing/parsing.c src/map_parsing/parsing_settings.c src/map_parsing/player.c src/map_parsing/skip_spaces.c src/main/fog.c src/main/init.c
 
 OBJ_DIR := obj
 
