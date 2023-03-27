@@ -37,8 +37,6 @@ void	render_hook(void *data)
 	t_renderer	*renderer;
 
 	renderer = data;
-	renderer->has_moved = \
-		handle_input(&renderer->rc, renderer->map->maps->map, renderer->mlx);
 	if (renderer->has_moved == -1)
 	{
 		dealloc_renderer(renderer);
@@ -49,6 +47,8 @@ void	render_hook(void *data)
 		render_frame(renderer);
 		renderer->has_moved = 0;
 	}
+	renderer->has_moved = \
+		handle_input(&renderer->rc, renderer->map->maps->map, renderer->mlx);
 }
 
 static void	floor_ceiling(t_renderer *rn, t_map *m)
