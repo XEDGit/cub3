@@ -6,7 +6,7 @@
 /*   By: lmuzio <lmuzio@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 20:59:57 by lmuzio            #+#    #+#             */
-/*   Updated: 2023/03/18 22:52:38 by lmuzio           ###   ########.fr       */
+/*   Updated: 2023/04/09 00:26:47 by lmuzio           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,16 +21,18 @@ bool	parse_rgb(t_map *map, char *line)
 	line = skip_spaces(line);
 	content = skip_spaces(line + 1);
 	rgb = 0;
-	bytes[2] = -1;
 	while (rgb < 3)
 	{
 		if (rgb != 0)
 			content = ft_strchr(content, ',') + 1;
 		if (content == (char *)0x1 || !*content)
-			return (error("Color not written in right format", 0, false));
+			return (error("Color not in the right format: '%s'", line, false));
+		content = skip_spaces(content);
+		if (*content < '0' || *content > '9')
+			return (error("Color not in the right format: '%s'", line, false));
 		bytes[rgb] = ft_atoi(content);
 		if (bytes[rgb++] > 255)
-			return (error("Color value negative or bigger than 255", 0, false));
+			return (error("Color value out of bounds: '%s'", line, false));
 	}
 	if (*line == 'F' && is_space(line + 1))
 		map->floor = (bytes[0] << 24 | bytes[1] << 16 | bytes[2] << 8 | 0xFF);
@@ -42,25 +44,47 @@ bool	parse_rgb(t_map *map, char *line)
 bool	parse_textures(t_map *map, char *line)
 {
 	char	*content;
+	char	**target;
 
+	if (*line == 'N' && *(line + 1) == 'O' && is_space(line + 2))
+		target = &map->textures[NO];
+	else if (*line == 'W' && *(line + 1) == 'E' && is_space(line + 2))
+		target = &map->textures[WE];
+	else if (*line == 'S' && *(line + 1) == 'O' && is_space(line + 2))
+		target = &map->textures[SO];
+	else if (*line == 'E' && *(line + 1) == 'A' && is_space(line + 2))
+		target = &map->textures[EA];
 	line = skip_spaces(line);
 	content = skip_spaces(line + 2);
 	content = ft_strdup(content);
 	if (!content)
 		return (error("Malloc error", 0, true));
 	content[ft_strlen(content) - 1] = 0;
-	if (*line == 'N' && *(line + 1) == 'O' && is_space(line + 2))
-		map->textures[NO] = content;
-	else if (*line == 'W' && *(line + 1) == 'E' && is_space(line + 2))
-		map->textures[WE] = content;
-	else if (*line == 'S' && *(line + 1) == 'O' && is_space(line + 2))
-		map->textures[SO] = content;
-	else if (*line == 'E' && *(line + 1) == 'A' && is_space(line + 2))
-		map->textures[EA] = content;
+	if (*target)
+		free(*target);
+	*target = content;
 	return (false);
 }
 
-int	parsing_map_loop(char **map, int fd, int *lines_count)
+int	parse_one_line(t_map *map, char *line)
+{
+	int	err;
+
+	err = 0;
+	if ((*line == 'N' && *(line + 1) == 'O' && is_space(line + 2)) || \
+	(*line == 'W' && *(line + 1) == 'E' && is_space(line + 2)) || \
+	(*line == 'S' && *(line + 1) == 'O' && is_space(line + 2)) || \
+	(*line == 'E' && *(line + 1) == 'A' && is_space(line + 2)))
+		err = parse_textures(map, line);
+	else if ((*line == 'F' && is_space(line + 1)) || \
+	(*line == 'C' && is_space(line + 1)))
+		err = parse_rgb(map, line);
+	else
+		err = 1;
+	return (err);
+}
+
+int	parsing_map_loop(char **map, int fd, int *lines_count, t_map *maps)
 {
 	char	*line;
 	char	*content;
@@ -70,12 +94,16 @@ int	parsing_map_loop(char **map, int fd, int *lines_count)
 		return (-2);
 	content = skip_spaces(line);
 	if (*lines_count && *content == '\n')
-	{
-		free(line);
-		return (-1);
-	}
+		return (free(line), -1);
 	if (*content != '\n' && *content)
 	{
+		if (!*lines_count && *content != '1')
+		{
+			if (!parse_one_line(maps, content))
+				return (free(line), false);
+			else
+				return (free(line), -3);
+		}
 		if (line[ft_strlen(line) - 1] == '\n')
 			line[ft_strlen(line) - 1] = 0;
 		map[(*lines_count)++] = line;
@@ -97,7 +125,7 @@ int	parse_one_map(t_map *maps, int fd, int num)
 	map = malloc(sizeof(char *) * size);
 	while (map)
 	{
-		end = parsing_map_loop(map, fd, &lines_count);
+		end = parsing_map_loop(map, fd, &lines_count, maps);
 		if (end)
 			break ;
 		if (lines_count == size)
@@ -112,29 +140,4 @@ int	parse_one_map(t_map *maps, int fd, int num)
 	if (map_add_to_back(&maps->maps, map))
 		return (error("Adding map number %d to list failed", &num, true));
 	return (end);
-}
-
-bool	parse_maps(t_map *map, int fd)
-{
-	int				end;
-	int				i;
-	t_single_map	*last_map_parsed;
-
-	i = 0;
-	while (true)
-	{
-		i++;
-		end = parse_one_map(map, fd, i);
-		if (end == true)
-			return (true);
-		last_map_parsed = map_last(map->maps);
-		last_map_parsed->map = square_map(last_map_parsed->map);
-		if (!last_map_parsed->map)
-			return (error("Map number %d squaring failed", &i, true));
-		if (find_player(last_map_parsed))
-			return (error("Player not found in map number %d", &i, false));
-		if (end == -2)
-			break ;
-	}
-	return (false);
 }

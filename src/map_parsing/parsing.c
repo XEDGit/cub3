@@ -6,7 +6,7 @@
 /*   By: lmuzio <lmuzio@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/17 14:54:51 by lmuzio            #+#    #+#             */
-/*   Updated: 2023/03/18 22:52:38 by lmuzio           ###   ########.fr       */
+/*   Updated: 2023/04/09 00:10:09 by lmuzio           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,34 @@ bool	parse_lines(t_map *map, int fd)
 			return (1);
 		if (map->ceiling && map->floor && map->textures[0] && \
 		map->textures[1] && map->textures[2] && map->textures[3])
+			break ;
+	}
+	return (false);
+}
+
+bool	parse_maps(t_map *map, int fd)
+{
+	int				end;
+	int				i;
+	t_single_map	*last_map_parsed;
+
+	i = 0;
+	while (true)
+	{
+		i++;
+		end = parse_one_map(map, fd, i);
+		if (end == -3)
+			return (error("Wrong format found before \
+map number %d", &i, 0));
+		if (end == true)
+			return (true);
+		last_map_parsed = map_last(map->maps);
+		last_map_parsed->map = square_map(last_map_parsed->map);
+		if (!last_map_parsed->map)
+			return (error("Map number %d squaring failed", &i, true));
+		if (find_player(last_map_parsed))
+			return (error("Player not found in map number %d", &i, false));
+		if (end == -2)
 			break ;
 	}
 	return (false);

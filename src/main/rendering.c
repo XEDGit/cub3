@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   A C file... Shocker!                               :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: wmaguire <wmaguire@student.codam.nl>         +#+                     */
-/*                                                   +#+                      */
-/*   Created: 1970/01/01 00:00:00 by wmaguire      #+#    #+#                 */
-/*   Updated: 1970/01/01 00:00:00 by wmaguire      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   rendering.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lmuzio <lmuzio@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 1970/01/01 00:00:00 by wmaguire          #+#    #+#             */
+/*   Updated: 2023/04/08 18:30:06 by lmuzio           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ t_vertline	cast_ray(t_renderer *rn, int x)
 	rv->imapcoords = (t_ivec){(int)rn->rc.campos.x, (int)rn->rc.campos.y};
 	rv->deltads = (t_vec2){fabs(1 / rv->rdir.x), fabs(1 / rv->rdir.y)};
 	setup_step_direction(rv, &rn->rc);
-	side = cast_till_hit(rv, rn->map->maps[0].map);
+	side = cast_till_hit(rv, rn->map->maps->map);
 	return (generate_line(rn, x, side));
 }
 

@@ -6,7 +6,7 @@
 /*   By: lmuzio <lmuzio@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 1970/01/01 00:00:00 by wmaguire          #+#    #+#             */
-/*   Updated: 2023/03/18 21:19:28 by lmuzio           ###   ########.fr       */
+/*   Updated: 2023/04/08 19:10:15 by lmuzio           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ typedef struct s_renderer {
 }	t_renderer;
 
 t_raycam		*init_raycam(t_raycam *raycam, int x, int y, char dir);
-void			init_renderer(mlx_t *mlx, t_renderer *rn, t_data *data);
+int				init_renderer(mlx_t *mlx, t_renderer *rn, t_data *data);
 void			input_keyhook(mlx_key_data_t keydata, void *data);
 void			render_hook(void *data);
 void			render_frame(t_renderer *rn);

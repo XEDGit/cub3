@@ -6,7 +6,7 @@
 /*   By: lmuzio <lmuzio@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/17 16:28:25 by lmuzio            #+#    #+#             */
-/*   Updated: 2022/12/17 16:28:28 by lmuzio           ###   ########.fr       */
+/*   Updated: 2023/03/28 21:15:43 by lmuzio           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # include <fcntl.h>
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 100
+#  define BUFFER_SIZE 10000
 # endif
 # define MAX_DESCRIPTORS 1024
 

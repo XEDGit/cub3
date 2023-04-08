@@ -15,11 +15,21 @@ the map must be closed		V
 
 the name must end in ".cub"		V
 
-the map must be at the end of the file		X
+the map must be at the end of the file		V
 
 any other content than the map must ignore multiple newlines or spaces		V
 
 spaces are valid part of the map, they can be handled as I want		V
+
+LAST PROBLEMS:
+	colors format, Fixed	V
+	double specification for textures or color, Fixed	V
+	trasparency of textures - should be fine, gotta discuss it
+	to choose if we want to use 4 or 8 neighbours floodfill (map.c)
+	map 1x1 makes segmentation fault when turning
+	corners have very wonky collisions if you press two direction (not a real issue)
+	the map left-to-right is inverted, any idea for an easy fix?
+	variable size of textures (init.c)
 
 Extra content:
 	- NO path: path to texture facing north
