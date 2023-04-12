@@ -36,6 +36,6 @@ t_raycam	*init_raycam(t_raycam *raycam, int x, int y, char dir)
 		raycam->dv = (t_vec2){1, 0};
 		raycam->pv = (t_vec2){0, -0.66};
 	}
-	raycam->campos = (t_vec2){x - 0.5, y + 0.5};
+	raycam->campos = (t_vec2){x + 0.5, y + 0.5};
 	return (raycam);
 }
