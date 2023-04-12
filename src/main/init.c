@@ -22,24 +22,6 @@ static char	get_dir(t_single_map *map)
 	return (map->map[spawn.y][spawn.x]);
 }
 
-// static int	check_tex_dims(mlx_texture_t **textures)
-// {
-// 	unsigned int	width;
-// 	unsigned int	height;
-// 	int	iter;
-
-// 	iter = 0;
-// 	width = textures[0]->width;
-// 	height = textures[0]->height;
-// 	while (iter < 4)
-// 	{
-// 		if (textures[iter]->width != width || textures[iter]->height != height)
-// 			return (false);
-// 		iter++;
-// 	}
-// 	return (true);
-// }
-
 int	init_renderer(mlx_t *mlx, t_renderer *rn, t_data *data)
 {
 	int		iter;
@@ -58,11 +40,6 @@ int	init_renderer(mlx_t *mlx, t_renderer *rn, t_data *data)
 		rn->tex[iter] = mlx_load_png(data->map.textures[iter]);
 		iter++;
 	}
-	// if (!check_tex_dims(rn->tex))
-	// {
-	// 	dealloc_renderer(rn);
-	// 	return (1);
-	// }
 	rn->th = rn->tex[0]->height;
 	rn->tw = rn->tex[0]->width;
 	rn->map = &data->map;
