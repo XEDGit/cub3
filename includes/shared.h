@@ -6,7 +6,7 @@
 /*   By: lmuzio <lmuzio@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/17 16:25:27 by lmuzio            #+#    #+#             */
-/*   Updated: 2023/04/12 18:39:49 by lmuzio           ###   ########.fr       */
+/*   Updated: 2023/04/13 01:08:27 by lmuzio           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ long	ft_atoi(const char *str);
 void	*ft_realloc(void *ptr, unsigned int old_size, unsigned int size);
 char	*ft_strchr(char *s, int c);
 char	**copy_2d(char **old);
-void	free_2d(char **array);
+void	free_2d(char **array, int len);
 int		len_2d(char **array);
 
 #endif

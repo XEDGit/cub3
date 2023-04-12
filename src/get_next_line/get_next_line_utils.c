@@ -6,7 +6,7 @@
 /*   By: lmuzio <lmuzio@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/17 14:54:41 by lmuzio            #+#    #+#             */
-/*   Updated: 2022/12/17 14:54:43 by lmuzio           ###   ########.fr       */
+/*   Updated: 2023/04/13 00:39:27 by lmuzio           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ char	*gnl_strjoin(char *s1, char const *s2, size_t len)
 	temp = s1;
 	res = malloc(c + len + 1);
 	if (!res)
-		return (0);
+		return (free(s1), (char *)0);
 	cur = res;
 	while (*s1)
 		*cur++ = *s1++;

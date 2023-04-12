@@ -6,7 +6,7 @@
 /*   By: lmuzio <lmuzio@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 20:59:57 by lmuzio            #+#    #+#             */
-/*   Updated: 2023/04/12 19:42:50 by lmuzio           ###   ########.fr       */
+/*   Updated: 2023/04/13 01:02:21 by lmuzio           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,6 +138,6 @@ int	parse_one_map(t_map *maps, int fd, int num)
 		return (error("Map allocation failed in map number %d", &num, true));
 	map[lines_count] = 0;
 	if (map_add_to_back(&maps->maps, map))
-		return (error("Adding map number %d to list failed", &num, true));
+		return (free(map), error("Map %d node allocation failed", &num, 1));
 	return (end);
 }

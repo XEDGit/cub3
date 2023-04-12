@@ -6,7 +6,7 @@
 /*   By: lmuzio <lmuzio@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/17 14:54:22 by lmuzio            #+#    #+#             */
-/*   Updated: 2023/01/31 17:25:14 by lmuzio           ###   ########.fr       */
+/*   Updated: 2023/04/13 01:03:43 by lmuzio           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	*ft_realloc(void *ptr, unsigned int old_size, unsigned int size)
 
 	new = malloc(size);
 	if (!new)
-		return (0);
+		return (free(ptr), (void *)0);
 	if (!ptr)
 		return (new);
 	i = 0;

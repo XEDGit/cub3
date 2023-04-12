@@ -6,7 +6,7 @@
 /*   By: lmuzio <lmuzio@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 22:51:44 by lmuzio            #+#    #+#             */
-/*   Updated: 2023/04/12 19:47:10 by lmuzio           ###   ########.fr       */
+/*   Updated: 2023/04/13 01:18:40 by lmuzio           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ char	*ft_reverse_str(char *s1)
 		len++;
 	dup = malloc(len + 1);
 	if (!dup)
-		return (0);
+		return (free(s1), (char *)0);
 	cur = dup;
 	while (len--)
 		*cur++ = *(s1 + len);

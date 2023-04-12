@@ -6,7 +6,7 @@
 /*   By: lmuzio <lmuzio@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/17 14:54:47 by lmuzio            #+#    #+#             */
-/*   Updated: 2023/04/12 20:08:47 by lmuzio           ###   ########.fr       */
+/*   Updated: 2023/04/13 01:11:00 by lmuzio           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	check_map_loop(t_cell_list *cells, bool *end)
 		cells->to_check = cells->neighbors;
 		cells->neighbors = 0;
 	}
-	free_2d(cells->map_copy);
+	free_2d(cells->map_copy, -1);
 }
 
 bool	check_map(t_data *data)

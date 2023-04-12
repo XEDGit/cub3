@@ -6,19 +6,23 @@
 /*   By: lmuzio <lmuzio@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/17 14:54:12 by lmuzio            #+#    #+#             */
-/*   Updated: 2023/01/31 17:12:21 by lmuzio           ###   ########.fr       */
+/*   Updated: 2023/04/13 01:09:23 by lmuzio           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <shared.h>
 
-void	free_2d(char **array)
+void	free_2d(char **array, int len)
 {
 	char	**copy;
 
 	copy = array;
-	while (*copy)
-		free(*copy++);
+	if (len < 0)
+		while (*copy)
+			free(*copy++);
+	else
+		while (len--)
+			free(*copy++);
 	free(array);
 }
 
@@ -47,7 +51,7 @@ char	**copy_2d(char **old)
 		new[i] = malloc(ft_strlen(old[i]) + 1);
 		if (!new[i])
 		{
-			free_2d(new);
+			free_2d(new, -1);
 			return (0);
 		}
 		j = -1;

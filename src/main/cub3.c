@@ -6,7 +6,7 @@
 /*   By: lmuzio <lmuzio@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 1970/01/01 00:00:00 by wmaguire          #+#    #+#             */
-/*   Updated: 2023/04/09 00:12:33 by lmuzio           ###   ########.fr       */
+/*   Updated: 2023/04/13 01:17:51 by lmuzio           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ bool	error(char *msg, void *msg_arg, bool perr)
 
 	printf("Error\n");
 	arg_ptr = ft_strchr(msg, '%');
-	if (perr && msg)
+	if (!arg_ptr && perr && msg)
 		perror(msg);
 	else if (msg && arg_ptr)
 	{
@@ -33,6 +33,7 @@ bool	error(char *msg, void *msg_arg, bool perr)
 		else if (*(arg_ptr + 1) == 'd')
 			printf(msg, *(int *)msg_arg);
 		printf("\n");
+		perror("errno");
 	}
 	else if (msg)
 		printf("%s\n", msg);
@@ -50,12 +51,16 @@ void	free_map(t_map *map)
 	free(map->textures[3]);
 	if (!map->maps)
 		return ;
+	free(0);
 	while (map->maps)
 	{
-		c = 0;
-		while (map->maps->map[c])
-			free(map->maps->map[c++]);
-		free(map->maps->map);
+		if (map->maps->map)
+		{
+			c = 0;
+			while (map->maps->map[c])
+				free(map->maps->map[c++]);
+			free(map->maps->map);
+		}
 		next = map->maps->next;
 		free(map->maps);
 		map->maps = next;
@@ -67,6 +72,7 @@ void	dealloc_renderer(t_renderer *rn)
 	int	iter;
 
 	iter = 0;
+	mlx_close_window(rn->mlx);
 	mlx_delete_image(rn->mlx, rn->image);
 	while (iter < 4)
 	{
