@@ -6,7 +6,7 @@
 /*   By: lmuzio <lmuzio@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/17 16:27:23 by lmuzio            #+#    #+#             */
-/*   Updated: 2023/04/08 23:08:08 by lmuzio           ###   ########.fr       */
+/*   Updated: 2023/04/12 19:38:24 by lmuzio           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,5 +34,6 @@ char			**square_map(char **map);
 int				parse_one_map(t_map *maps, int fd, int num);
 bool			parse_maps(t_map *map, int fd);
 bool			is_space(char *ch);
+int				parse_one_line(t_map *map, char *line);
 
 #endif

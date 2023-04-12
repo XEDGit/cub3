@@ -6,7 +6,7 @@
 /*   By: lmuzio <lmuzio@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 1970/01/01 00:00:00 by wmaguire          #+#    #+#             */
-/*   Updated: 2023/04/08 18:30:06 by lmuzio           ###   ########.fr       */
+/*   Updated: 2023/04/12 20:12:54 by lmuzio           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 #include "../../includes/shared.h"
 #include <stdlib.h>
 #include <math.h>
-#include <stdio.h>
 #include <string.h>
 
 /* A lot of the code found here is very difficult to read. */
@@ -84,7 +83,6 @@ static int	cast_till_hit(t_rayvars *ray, char **map)
 	return (side);
 }
 
-// TODO: Replace 0 with current map.
 t_vertline	cast_ray(t_renderer *rn, int x)
 {
 	int			side;

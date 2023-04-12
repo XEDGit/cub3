@@ -6,7 +6,7 @@
 /*   By: lmuzio <lmuzio@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 20:57:56 by lmuzio            #+#    #+#             */
-/*   Updated: 2023/03/18 22:51:22 by lmuzio           ###   ########.fr       */
+/*   Updated: 2023/04/12 19:55:35 by lmuzio           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,9 @@ char	**square_map(char **map)
 			return (0);
 		while (oldlen < len)
 			map[i][oldlen++] = ' ';
+		map[i] = ft_reverse_str(map[i]);
+		if (!map[i])
+			return (0);
 		map[i++][len] = 0;
 	}
 	return (map);

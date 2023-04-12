@@ -6,18 +6,11 @@
 /*   By: lmuzio <lmuzio@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/17 14:54:51 by lmuzio            #+#    #+#             */
-/*   Updated: 2023/04/09 00:10:09 by lmuzio           ###   ########.fr       */
+/*   Updated: 2023/04/12 20:12:01 by lmuzio           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <parsing.h>
-
-bool	is_space(char *ch)
-{
-	if (*ch == ' ' || *ch == '\t')
-		return (true);
-	return (false);
-}
 
 static bool	test_fds(t_map *map)
 {
@@ -90,7 +83,7 @@ map number %d", &i, 0));
 		if (!last_map_parsed->map)
 			return (error("Map number %d squaring failed", &i, true));
 		if (find_player(last_map_parsed))
-			return (error("Player not found in map number %d", &i, false));
+			return (error("Zero or multiple players found in map %d", &i, 0));
 		if (end == -2)
 			break ;
 	}

@@ -6,20 +6,17 @@
 /*   By: lmuzio <lmuzio@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/17 14:54:47 by lmuzio            #+#    #+#             */
-/*   Updated: 2023/04/08 23:14:16 by lmuzio           ###   ########.fr       */
+/*   Updated: 2023/04/12 20:08:47 by lmuzio           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <checking.h>
-#define NEIGHBORS 4
 
 bool	check_neighbors(t_cell *to_check, t_cell **new, \
 char **map, t_vec borders)
 {
-	// static int	nborsy[NEIGHBORS] = {1, 1, 1, 0, 0, -1, -1, -1};
-	// static int	nborsx[NEIGHBORS] = {-1, 0, 1, -1, 1, -1, 0, 1};
-	static int	nborsy[NEIGHBORS] = {1, 0, 0, -1};
-	static int	nborsx[NEIGHBORS] = {0, -1, 1, 0};
+	static int	nborsy[8] = {1, 1, 1, 0, 0, -1, -1, -1};
+	static int	nborsx[8] = {-1, 0, 1, -1, 1, -1, 0, 1};
 	int			i;
 	t_vec		target;
 
@@ -28,7 +25,7 @@ char **map, t_vec borders)
 		if (is_valid_map(to_check, borders, map))
 			return (true);
 		i = 0;
-		while (i < NEIGHBORS)
+		while (i < 8)
 		{
 			target[X] = to_check->cellx - nborsx[i];
 			target[Y] = to_check->celly - nborsy[i];

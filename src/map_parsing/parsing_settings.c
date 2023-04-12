@@ -6,7 +6,7 @@
 /*   By: lmuzio <lmuzio@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 20:59:57 by lmuzio            #+#    #+#             */
-/*   Updated: 2023/04/09 00:26:47 by lmuzio           ###   ########.fr       */
+/*   Updated: 2023/04/12 19:42:50 by lmuzio           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,10 +97,10 @@ int	parsing_map_loop(char **map, int fd, int *lines_count, t_map *maps)
 		return (free(line), -1);
 	if (*content != '\n' && *content)
 	{
-		if (!*lines_count && *content != '1')
+		if (*content != '1' && *content != '0')
 		{
-			if (!parse_one_line(maps, content))
-				return (free(line), false);
+			if (!*lines_count && !parse_one_line(maps, content))
+				return (free(line), 0);
 			else
 				return (free(line), -3);
 		}
