@@ -6,35 +6,32 @@
 /*   By: lmuzio <lmuzio@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/17 14:54:47 by lmuzio            #+#    #+#             */
-/*   Updated: 2023/04/08 23:14:16 by lmuzio           ###   ########.fr       */
+/*   Updated: 2023/04/13 02:02:17 by lmuzio           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <checking.h>
-#define NEIGHBORS 4
 
 bool	check_neighbors(t_cell *to_check, t_cell **new, \
 char **map, t_vec borders)
 {
-	// static int	nborsy[NEIGHBORS] = {1, 1, 1, 0, 0, -1, -1, -1};
-	// static int	nborsx[NEIGHBORS] = {-1, 0, 1, -1, 1, -1, 0, 1};
-	static int	nborsy[NEIGHBORS] = {1, 0, 0, -1};
-	static int	nborsx[NEIGHBORS] = {0, -1, 1, 0};
+	static int	nborsy[8] = {1, 1, 1, 0, 0, -1, -1, -1};
+	static int	nborsx[8] = {-1, 0, 1, -1, 1, -1, 0, 1};
 	int			i;
 	t_vec		target;
 
 	while (to_check)
 	{
-		if (is_valid_map(to_check, borders, map))
-			return (true);
 		i = 0;
-		while (i < NEIGHBORS)
+		while (i < 8)
 		{
 			target[X] = to_check->cellx - nborsx[i];
 			target[Y] = to_check->celly - nborsy[i];
-			if (map[target[Y]][target[X]] == '0' || \
-			map[target[Y]][target[X]] == ' ')
+			if (map[target[Y]][target[X]] != '1')
 			{
+				if (is_valid_map(&(t_cell){target[X], target[Y], 0}, \
+								borders, map))
+					return (true);
 				cell_add_to_back(new, target[X], target[Y]);
 				map[target[Y]][target[X]] = '1';
 			}
@@ -59,11 +56,13 @@ void	check_map_loop(t_cell_list *cells, bool *end)
 		cells->check_copy = cells->to_check;
 		*end = check_neighbors(cells->to_check, &cells->neighbors, \
 			cells->map_copy, borders);
+		if (*end)
+			return ;
 		free_cell(cells->check_copy);
 		cells->to_check = cells->neighbors;
 		cells->neighbors = 0;
 	}
-	free_2d(cells->map_copy);
+	free_2d(cells->map_copy, -1);
 }
 
 bool	check_map(t_data *data)

@@ -6,7 +6,7 @@
 /*   By: lmuzio <lmuzio@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/17 16:25:27 by lmuzio            #+#    #+#             */
-/*   Updated: 2023/01/23 17:31:12 by lmuzio           ###   ########.fr       */
+/*   Updated: 2023/04/13 01:43:45 by lmuzio           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ typedef struct s_data
 
 bool	error(char *msg, void *msg_arg, bool perr);
 
+char	*ft_reverse_str(char *s1);
 char	*ft_strdup(const char *s1);
 int		ft_strlen(char *ptr);
 int		ft_strcmp(const char *s1, const char *s2);
@@ -67,7 +68,8 @@ long	ft_atoi(const char *str);
 void	*ft_realloc(void *ptr, unsigned int old_size, unsigned int size);
 char	*ft_strchr(char *s, int c);
 char	**copy_2d(char **old);
-void	free_2d(char **array);
+void	free_2d(char **array, int len);
 int		len_2d(char **array);
+char	*skip_spaces(char *in);
 
 #endif

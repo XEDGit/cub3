@@ -1,4 +1,4 @@
-SRCS := ft_atoi.c ft_realloc.c ft_strchr.c ft_strcmp.c ft_strdup.c ft_strlen.c
+SRCS := is_space.c ft_atoi.c ft_realloc.c ft_strchr.c ft_strcmp.c ft_strdup.c ft_strlen.c
 
 CC = clang
 

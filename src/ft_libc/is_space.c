@@ -1,35 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_realloc.c                                       :+:      :+:    :+:   */
+/*   is_space.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lmuzio <lmuzio@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/17 14:54:22 by lmuzio            #+#    #+#             */
-/*   Updated: 2023/04/13 01:03:43 by lmuzio           ###   ########.fr       */
+/*   Created: 2023/04/12 19:10:20 by lmuzio            #+#    #+#             */
+/*   Updated: 2023/04/12 19:10:33 by lmuzio           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <shared.h>
 
-void	*ft_realloc(void *ptr, unsigned int old_size, unsigned int size)
+bool	is_space(char *ch)
 {
-	char			*new;
-	unsigned int	i;
-
-	new = malloc(size);
-	if (!new)
-		return (free(ptr), (void *)0);
-	if (!ptr)
-		return (new);
-	i = 0;
-	while (i < old_size)
-	{
-		new[i] = ((char *)ptr)[i];
-		i++;
-	}
-	while (i < size)
-		new[i++] = 0;
-	free(ptr);
-	return ((void *)new);
+	if (*ch == ' ' || *ch == '\t')
+		return (true);
+	return (false);
 }
