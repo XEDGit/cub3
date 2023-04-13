@@ -6,7 +6,7 @@
 /*   By: lmuzio <lmuzio@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 20:57:56 by lmuzio            #+#    #+#             */
-/*   Updated: 2023/04/13 01:20:40 by lmuzio           ###   ########.fr       */
+/*   Updated: 2023/04/13 02:04:35 by lmuzio           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,9 @@ char	**square_map(char **map)
 		if (!map[i])
 			return (free_2d(map, -1), (char **)0);
 		map[i++][len] = 0;
+		if (*skip_spaces(map[i - 1]) != '1')
+			return (error("Wrong format found", 0, 0), \
+					free_2d(map, ylen), (char **)1);
 	}
 	return (map);
 }

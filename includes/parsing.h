@@ -6,7 +6,7 @@
 /*   By: lmuzio <lmuzio@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/17 16:27:23 by lmuzio            #+#    #+#             */
-/*   Updated: 2023/04/12 19:38:24 by lmuzio           ###   ########.fr       */
+/*   Updated: 2023/04/13 01:43:36 by lmuzio           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@
 
 char			*get_next_line(int fd);
 int				free_fd_gnl(int fd);
-char			*skip_spaces(char *in);
 bool			find_player(t_single_map *map_list);
 bool			parse_textures(t_map *map, char *line);
 bool			parse_rgb(t_map *map, char *line);

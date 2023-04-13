@@ -6,7 +6,7 @@
 /*   By: lmuzio <lmuzio@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 1970/01/01 00:00:00 by wmaguire          #+#    #+#             */
-/*   Updated: 2023/04/13 01:17:51 by lmuzio           ###   ########.fr       */
+/*   Updated: 2023/04/13 01:40:41 by lmuzio           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,8 @@ bool	error(char *msg, void *msg_arg, bool perr)
 		else if (*(arg_ptr + 1) == 'd')
 			printf(msg, *(int *)msg_arg);
 		printf("\n");
-		perror("errno");
+		if (perr)
+			perror("errno");
 	}
 	else if (msg)
 		printf("%s\n", msg);

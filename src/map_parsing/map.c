@@ -6,7 +6,7 @@
 /*   By: lmuzio <lmuzio@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/17 14:54:47 by lmuzio            #+#    #+#             */
-/*   Updated: 2023/04/13 01:11:00 by lmuzio           ###   ########.fr       */
+/*   Updated: 2023/04/13 02:02:17 by lmuzio           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,16 +22,16 @@ char **map, t_vec borders)
 
 	while (to_check)
 	{
-		if (is_valid_map(to_check, borders, map))
-			return (true);
 		i = 0;
 		while (i < 8)
 		{
 			target[X] = to_check->cellx - nborsx[i];
 			target[Y] = to_check->celly - nborsy[i];
-			if (map[target[Y]][target[X]] == '0' || \
-			map[target[Y]][target[X]] == ' ')
+			if (map[target[Y]][target[X]] != '1')
 			{
+				if (is_valid_map(&(t_cell){target[X], target[Y], 0}, \
+								borders, map))
+					return (true);
 				cell_add_to_back(new, target[X], target[Y]);
 				map[target[Y]][target[X]] = '1';
 			}
@@ -56,6 +56,8 @@ void	check_map_loop(t_cell_list *cells, bool *end)
 		cells->check_copy = cells->to_check;
 		*end = check_neighbors(cells->to_check, &cells->neighbors, \
 			cells->map_copy, borders);
+		if (*end)
+			return ;
 		free_cell(cells->check_copy);
 		cells->to_check = cells->neighbors;
 		cells->neighbors = 0;

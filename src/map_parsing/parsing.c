@@ -6,7 +6,7 @@
 /*   By: lmuzio <lmuzio@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/17 14:54:51 by lmuzio            #+#    #+#             */
-/*   Updated: 2023/04/12 20:12:01 by lmuzio           ###   ########.fr       */
+/*   Updated: 2023/04/13 02:05:41 by lmuzio           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,12 +74,13 @@ bool	parse_maps(t_map *map, int fd)
 		i++;
 		end = parse_one_map(map, fd, i);
 		if (end == -3)
-			return (error("Wrong format found before \
-map number %d", &i, 0));
+			return (error("Wrong format onmap number %d", &i, 0));
 		if (end == true)
 			return (true);
 		last_map_parsed = map_last(map->maps);
 		last_map_parsed->map = square_map(last_map_parsed->map);
+		if (last_map_parsed->map == (char **)1)
+			return (last_map_parsed->map = 0, true);
 		if (!last_map_parsed->map)
 			return (error("Map number %d squaring failed", &i, true));
 		if (find_player(last_map_parsed))

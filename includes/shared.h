@@ -6,7 +6,7 @@
 /*   By: lmuzio <lmuzio@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/17 16:25:27 by lmuzio            #+#    #+#             */
-/*   Updated: 2023/04/13 01:08:27 by lmuzio           ###   ########.fr       */
+/*   Updated: 2023/04/13 01:43:45 by lmuzio           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,5 +70,6 @@ char	*ft_strchr(char *s, int c);
 char	**copy_2d(char **old);
 void	free_2d(char **array, int len);
 int		len_2d(char **array);
+char	*skip_spaces(char *in);
 
 #endif
