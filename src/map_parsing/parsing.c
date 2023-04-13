@@ -6,7 +6,7 @@
 /*   By: lmuzio <lmuzio@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/17 14:54:51 by lmuzio            #+#    #+#             */
-/*   Updated: 2023/04/13 02:05:41 by lmuzio           ###   ########.fr       */
+/*   Updated: 2023/04/13 02:08:00 by lmuzio           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ bool	parse_maps(t_map *map, int fd)
 		i++;
 		end = parse_one_map(map, fd, i);
 		if (end == -3)
-			return (error("Wrong format onmap number %d", &i, 0));
+			return (error("Wrong format on map number %d", &i, 0));
 		if (end == true)
 			return (true);
 		last_map_parsed = map_last(map->maps);
