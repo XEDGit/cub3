@@ -6,15 +6,11 @@
 /*   By: lmuzio <lmuzio@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 1970/01/01 00:00:00 by wmaguire          #+#    #+#             */
-/*   Updated: 2023/04/12 20:12:54 by lmuzio           ###   ########.fr       */
+/*   Updated: 2023/04/13 15:10:44 by lmuzio           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/rendering.h"
-#include "../../includes/shared.h"
-#include <stdlib.h>
-#include <math.h>
-#include <string.h>
 
 /* A lot of the code found here is very difficult to read. */
 /* This is not intentional but a byproduct of having to keep everything */

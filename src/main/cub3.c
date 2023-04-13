@@ -6,13 +6,12 @@
 /*   By: lmuzio <lmuzio@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 1970/01/01 00:00:00 by wmaguire          #+#    #+#             */
-/*   Updated: 2023/04/13 01:40:41 by lmuzio           ###   ########.fr       */
+/*   Updated: 2023/04/13 15:11:17 by lmuzio           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3.h"
 #include "../../includes/rendering.h"
-#include <string.h>
 
 bool	error(char *msg, void *msg_arg, bool perr)
 {

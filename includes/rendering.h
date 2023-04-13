@@ -6,7 +6,7 @@
 /*   By: lmuzio <lmuzio@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 1970/01/01 00:00:00 by wmaguire          #+#    #+#             */
-/*   Updated: 2023/04/08 19:10:15 by lmuzio           ###   ########.fr       */
+/*   Updated: 2023/04/13 15:11:46 by lmuzio           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 # define RENDERING_H
 # include "../MLX42/include/MLX42/MLX42.h"
 # include "shared.h"
+# include <math.h>
+# include <string.h>
 
 /* Window width and window height */
 # define W 1152
@@ -105,6 +107,7 @@ t_vertline		generate_line(t_renderer *rn, int x, int side);
 int				handle_input(t_raycam *rc, char **m, mlx_t *mlx);
 int				get_texture_pixel_data(int x, int y, mlx_texture_t *tex);
 unsigned int	fog(double dist, unsigned int colour);
-void			draw_vert(t_vertline line, mlx_image_t *image, mlx_texture_t **tex);
+void			draw_vert(t_vertline line, mlx_image_t *image, \
+							mlx_texture_t **tex);
 
 #endif // RENDERING_H

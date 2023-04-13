@@ -6,12 +6,11 @@
 /*   By: lmuzio <lmuzio@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 1970/01/01 00:00:00 by wmaguire          #+#    #+#             */
-/*   Updated: 2023/04/12 20:13:16 by lmuzio           ###   ########.fr       */
+/*   Updated: 2023/04/13 15:10:46 by lmuzio           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/rendering.h"
-#include <string.h>
 
 int	texdata_to_int(uint8_t *texdata)
 {

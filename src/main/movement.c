@@ -6,11 +6,10 @@
 /*   By: lmuzio <lmuzio@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 1970/01/01 00:00:00 by wmaguire          #+#    #+#             */
-/*   Updated: 2023/04/12 20:13:09 by lmuzio           ###   ########.fr       */
+/*   Updated: 2023/04/13 15:10:53 by lmuzio           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <math.h>
 #include "../../includes/rendering.h"
 
 int	strafe(t_raycam *rc, char **m, mlx_t *mlx, int dir)
