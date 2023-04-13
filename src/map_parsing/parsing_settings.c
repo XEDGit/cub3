@@ -6,7 +6,7 @@
 /*   By: lmuzio <lmuzio@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 20:59:57 by lmuzio            #+#    #+#             */
-/*   Updated: 2023/04/13 01:02:21 by lmuzio           ###   ########.fr       */
+/*   Updated: 2023/04/13 02:14:44 by lmuzio           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ bool	parse_rgb(t_map *map, char *line)
 	}
 	if (*line == 'F' && is_space(line + 1))
 		map->floor = (bytes[0] << 24 | bytes[1] << 16 | bytes[2] << 8 | 0xFF);
-	if (*line == 'C' && is_space(line + 1))
+	else if (*line == 'C' && is_space(line + 1))
 		map->ceiling = (bytes[0] << 24 | bytes[1] << 16 | bytes[2] << 8 | 0xFF);
 	return (false);
 }

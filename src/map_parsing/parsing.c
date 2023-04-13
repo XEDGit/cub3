@@ -6,7 +6,7 @@
 /*   By: lmuzio <lmuzio@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/17 14:54:51 by lmuzio            #+#    #+#             */
-/*   Updated: 2023/04/13 02:08:00 by lmuzio           ###   ########.fr       */
+/*   Updated: 2023/04/13 02:31:29 by lmuzio           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,26 @@ static bool	test_fds(t_map *map)
 	return (false);
 }
 
+int	dispatch_lines(char *line, t_map *map)
+{
+	char	*cur;
+
+	cur = skip_spaces(line);
+	if (!*cur)
+		return (true);
+	else if (*cur == 'C' || *cur == 'F')
+		return (parse_rgb(map, cur));
+	else if (*cur == 'N' || *cur == 'W' || *cur == 'S' || *cur == 'E')
+		return (parse_textures(map, cur));
+	else if (*cur == '\n')
+		return (false);
+	else
+		return (error("Wrong format found at line '%s'", cur, 0));
+}
+
 bool	parse_lines(t_map *map, int fd)
 {
 	char	*line;
-	char	*cur;
 	bool	err;
 
 	err = false;
@@ -45,13 +61,7 @@ bool	parse_lines(t_map *map, int fd)
 		line = get_next_line(fd);
 		if (!line)
 			return (error("Failed to parse textures or colors", 0, false));
-		cur = skip_spaces(line);
-		if (!*cur)
-			err = true;
-		else if (*cur == 'C' || *cur == 'F')
-			err = parse_rgb(map, cur);
-		else if (*cur == 'N' || *cur == 'W' || *cur == 'S' || *cur == 'E')
-			err = parse_textures(map, cur);
+		err = dispatch_lines(line, map);
 		free(line);
 		if (err)
 			return (1);
